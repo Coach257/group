@@ -17,6 +17,18 @@ public class Admin {
         return Code;
     }
 
+    public void setAnum(int anum) {
+        Anum = anum;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setCode(String code) {
+        Code = code;
+    }
+
     public Admin(int anum, String name, String code) {
         Anum = anum;
         Name = name;
