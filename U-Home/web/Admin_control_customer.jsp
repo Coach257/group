@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: shizh
-  Date: 2020/5/23
-  Time: 19:18
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,13 +6,14 @@
     <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="css/admin.css">
     <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/axios.min.js"></script>
     <title>客服管理中心-管理租客</title>
 </head>
 <body>
 <div id="app">
     <el-header style="font-size: 12px;height: 50px; line-height: 50px;">
         <span style="color: white;font-size: 24px;line-height: 50px; float: left;">优家，有你就有家</span>
-        <el-button plain style="float: right; position:relative;top:5.2px;">退出</el-button>
+        <el-button plain style="float: right; position:relative;top:5.2px;" @click="quit">退出</el-button>
     </el-header>
     <el-container style="position:absolute; height: 100%; width: 100%; border: 1px solid #eee">
         <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
@@ -45,7 +39,29 @@
         </el-aside>
         <el-container>
             <el-main>
-                <h1>这里是管理租客主要内容</h1>
+                <%--查询用户--%>
+                <el-form :inline="true" :model="formInline" class="demo-form-inline">
+                    <el-form-item>
+                        <el-input prefix-icon="el-icon-search" v-model="formInline.user" placeholder="请输入关键词"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit">查询</el-button>
+                    </el-form-item>
+                </el-form>
+                <%--查询结果--%>
+                <el-table :data="tableData">
+                    <el-table-column prop="cnum" label="编号">
+                    </el-table-column>
+                    <el-table-column prop="username" label="用户名">
+                    </el-table-column>
+                    <el-table-column prop="email" label="邮箱">
+                    </el-table-column>
+                    <el-table-column prop="phone" label="手机号">
+                    </el-table-column>
+                    <el-table-column>
+                        <el-button type="primary" @click="open">修改</el-button>
+                    </el-table-column>
+                </el-table>
             </el-main>
         </el-container>
     </el-container>
@@ -58,6 +74,52 @@
 <script>
     new Vue({
         el: '#app',
+        data() {
+            const item = {
+                cnum: '用户编号',
+                username: '用户名',
+                email: '邮箱地址',
+                phone:'手机号'
+            };
+            return{
+                tableData:Array(20).fill(item),
+                formInline: {
+                    keywords: '',
+                }
+            }
+        },
+        methods: {
+            onSubmit() {
+                console.log('submit!');
+            },
+            open(){
+                this.$prompt('请输入邮箱', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+                    inputErrorMessage: '邮箱格式不正确'
+                }).then(({ value }) => {
+                    this.$message({
+                        type: 'success',
+                        message: '你的邮箱是: ' + value
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '取消输入'
+                    });
+                });
+            },
+            quit(){
+                axios.post('/logout', {
+                }).then(function (response) {
+                    console.log(response);
+                    window.location.href = 'index.jsp'
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
     })
 </script>
 </html>

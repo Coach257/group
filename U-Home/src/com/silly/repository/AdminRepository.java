@@ -1,18 +1,7 @@
 package com.silly.repository;
 
-import com.silly.entity.*;
-
-import java.util.List;
+import com.silly.entity.Admin;
 
 public interface AdminRepository {
     public Admin login(String username, String password);
-    public void alterLodgerInfo(Customer a);
-    public void deleteOneInfo(String table,Object a);
-    public void addOneInfo(String table,Object a);
-    public List<Complaint> checkUndoneComplaint();
-    public void havenChecked(Complaint a);
-    public void alterOrdersInfo(Order a);
-    public void alterRoom(Room a);
-    public List<Fix> checkUndoneFix();
-    public void alterFix(Fix a);
 }

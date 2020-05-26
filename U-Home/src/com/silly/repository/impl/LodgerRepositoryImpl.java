@@ -1,17 +1,14 @@
 package com.silly.repository.impl;
 
 import com.silly.entity.Customer;
-import com.silly.entity.Fix;
 import com.silly.repository.LodgerRepository;
 import com.silly.utils.JDBCtools;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class LodgerRepositoryImpl implements LodgerRepository {
     @Override
@@ -43,7 +40,7 @@ public class LodgerRepositoryImpl implements LodgerRepository {
         Connection connection=null;
         try {
              connection = JDBCtools.getConnection();
-            String sql = "insert into Customer values(?,?,?,?,?)";
+            String sql = "insert into Customer(Cnum,Name,Email,Phone,Code) values(?,?,?,?,?)";
             QueryRunner qR = new QueryRunner();
             qR.update(connection,sql,Cnum,Name,Email,Phone,Code);
         } catch (SQLException throwables) {
@@ -78,28 +75,5 @@ public class LodgerRepositoryImpl implements LodgerRepository {
             JDBCtools.release(connection,statement,resultSet);
         }
         return res;
-    }
-
-    @Override
-    public List<Customer> GetLodger() {
-        String sql;
-        Connection connection = null;
-        List<Customer> list=null;
-        try {
-            connection = JDBCtools.getConnection();
-            QueryRunner qR = new QueryRunner();
-            sql = "select * from Customer ";
-            list = qR.query(connection, sql, new BeanListHandler<Customer>(Customer.class));
-            return list;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return list;
     }
 }

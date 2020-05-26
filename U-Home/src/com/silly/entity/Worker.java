@@ -5,18 +5,6 @@ public class Worker {
     private String Name;
     private String Code;
 
-    public void setWnum(int wnum) {
-        Wnum = wnum;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public void setCode(String code) {
-        Code = code;
-    }
-
     public int getWnum() {
         return Wnum;
     }

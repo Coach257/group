@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/admin.css">
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/axios.min.js"></script>
-    <title>客服管理中心-待处理申请</title>
+    <title>客服管理中心</title>
 </head>
 <body>
 <div id="app">
@@ -20,7 +20,7 @@
             <el-menu :default-openeds="['1','2','3']">
                 <el-submenu index="1">
                     <template slot="title"><i class="el-icon-message"></i>待处理</template>
-                    <el-menu-item index="1-1" class="is-active"><a href="Admin_todo_apply.jsp">待处理申请</a></el-menu-item>
+                    <el-menu-item index="1-1"><a href="Admin_todo_apply.jsp">待处理申请</a></el-menu-item>
                     <el-menu-item index="1-2"><a href="Admin_todo_complaint.jsp">待处理投诉</a></el-menu-item>
                     <el-menu-item index="1-3"><a href="Admin_todo_repair.jsp">待处理报修</a></el-menu-item>
                 </el-submenu>
@@ -33,21 +33,19 @@
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title"><i class="el-icon-reading"></i>其他</template>
-                    <el-menu-item index="3-1"><a href="Admin_offline_rent.jsp">线下租房</a></el-menu-item>
+                    <el-menu-item index="3-1" class="is-active"><a href="Admin_offline_rent.jsp">线下租房</a></el-menu-item>
                 </el-submenu>
             </el-menu>
         </el-aside>
         <el-container>
             <el-main>
-                <h1>这是处理申请页面</h1>
+                <h1>这是线下租房页面</h1>
             </el-main>
         </el-container>
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="/element-ui/lib/index.js"></script>
 <script>
     new Vue({
