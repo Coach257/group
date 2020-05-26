@@ -1,14 +1,18 @@
 package com.silly.repository.impl;
 
 
+import com.silly.entity.Order;
 import com.silly.entity.Worker;
 import com.silly.repository.WorkerRepository;
 import com.silly.utils.JDBCtools;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class WorkerRepositoryImpl implements WorkerRepository {
     @Override
@@ -32,5 +36,28 @@ public class WorkerRepositoryImpl implements WorkerRepository {
             JDBCtools.release(connection,statement,resultSet);
         }
         return worker;
+    }
+
+    @Override
+    public List<Worker> getWorker() {
+        String sql;
+        Connection connection = null;
+        List<Worker> list=null;
+        try {
+            connection = JDBCtools.getConnection();
+            QueryRunner qR = new QueryRunner();
+            sql = "select * from Worker";
+            list = qR.query(connection, sql, new BeanListHandler<Worker>(Worker.class));
+            return list;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
     }
 }
