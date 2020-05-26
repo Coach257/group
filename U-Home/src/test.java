@@ -8,6 +8,7 @@ import com.silly.service.impl.AdminServiceImpl;
 
 import java.util.List;
 
+
 public class test {
     public static void main(String[] args) {
         List<Customer> list;
