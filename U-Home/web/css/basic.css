@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html{
+  width: 100%;
+  min-width: 1510px;
+}
+body {
+    width: 100%;
+    background:#ededed;
+}
+input, button{
+    border:0;
+    vertical-align:middle;
+}
+a {
+    background-color: transparent;
+    text-decoration: none
+}
+/* 超链接hover效果 */
+a:active, a:hover, a:link, a:visited {
+    color: inherit;
+    font-size: inherit;
+    cursor: pointer
+}
+li{
+  list-style: none;
+  float: left;
+}
+a.linktyle{
+    position: relative;
+}
+a.linktyle:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #aacecf;
+    border-radius: 1px;
+    -webkit-transition: width .3s;
+    transition: width .3s;
+    will-change: width
+}
+
+a.linktyle:hover:after {
+    width: 120%
+}
+/* nav 自适应+吸顶*/
+#main_head{
+    width: 100%;
+    min-width: 1510px;
+    height: 50px;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    color: #333333;
+}
+.main_head_notfixed{
+    background: rgba(0,0,0,0);
+}
+.main_head_fixed{
+    background-color: white;
+}
+/* 登陆注册 */
+.main_head_right{
+    width: 20%;
+    height: 100%;
+    line-height: 50px;
+    text-align: center;
+    float:right;
+}
+.main_head_right a{
+  padding: 5px;
+}
+/* 登陆注册 */
+/* 左logo */
+.main_head_left{
+    float: left;
+    height: 100%;
+    width: 40%;
+    float: left;
+    text-align: center;
+    line-height: 50px;
+    font-size: x-large;
+}
+/* 左logo */
+/* nav大框架 */
+footer{
+  background-color: #333333;
+  color:white;
+  float: left;
+  width: 100%;
+  text-align: center;
+  height: 80px;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+}
+footer .bottom_nav{
+  width: 207px;
+  height: 30px;
+  margin: auto;
+  bottom: 0;
+}
+footer .bottom_nav li{
+  margin-right: 5px;
+}
+footer h3{
+  clear: both;
+}
+.copyright{
+  font-size: 12px;
+}

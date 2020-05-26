@@ -1,0 +1,89 @@
+/* 头部浮动置顶，图片做背景 */
+header{
+  width: 100%;
+  height: 400px;
+  float: left;
+  clear: both;
+  background-image: url(../images/banner.jpg);
+  background-size: 100% 100%;
+}
+/* 大标题 */
+.title{
+    width: 500px;
+    float:left;
+    padding-left: 8%;
+    padding-top: 100px;
+    overflow: auto;
+    color: #00E6B8;
+    z-index: 100;
+    text-align: left;
+    font-family: 楷体;
+}
+.title .bigtitle{
+    font-size: 70px;
+    font-weight: bold;
+}
+.title .smalltitle{
+    font-size: 30px;
+}
+/* 大标题 */
+
+/* 搜索模块 */
+.Search_box{
+    width: 600px;
+    float: right;
+    z-index: 100;
+    text-align: left;
+    padding-top: 200px;
+    padding-right: 100px;
+}
+.Search_box .Search_nav {
+    color: #fff;
+    height: 45px;
+    line-height: 45px;
+    left: 0;
+}
+.Search_box .Search_nav li{
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: larger;
+}
+.Search_box .Search_main{
+    height: 50px;
+    line-height: 50px;
+}
+.Search_box .Search_main .Search_input{
+    width: 400px;
+    line-height: 20px !important;
+    outline: none;
+    float: left;
+    height: 50px;
+    font-size: 15px;
+    padding: 15px 0 15px 20px;
+}
+.Search_box .Search_main #Search_submit{
+    display: block;
+    width: 130px;
+    height: 100%;
+    background: #00E6B8;
+    color: #fff;
+    border-radius: 0 2px 2px 0;
+    float: left;
+    text-align: center;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+.Search_box .Search_main .Search_submit_out{
+    opacity: 0.7;
+}
+.Search_box .Search_main .Search_submit_over{
+}
+/* 搜索模块 */

@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding:0;
+}
+a {
+     background-color: transparent;
+     text-decoration: none
+ }
+/* 超链接hover效果 */
+a:active, a:hover, a:link, a:visited {
+    color: inherit;
+    font-size: inherit;
+    cursor: pointer
+}
+
+.el-header {
+    background-color: #B3C0D1;
+    color: #333;
+    line-height: 60px;
+}
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+.bg-purple-dark {
+    background: #99a9bf;
+}
+.el-aside {
+    color: #333;
+}

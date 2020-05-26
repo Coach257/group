@@ -1,0 +1,142 @@
+
+/*检索结果栏*/
+/*行框*/
+hr{
+	color: #00E6B8
+}
+#main_body{
+	float: left;
+}
+.container{
+	width: 80%;
+	margin: 0px auto;
+	padding: 20px;
+}
+/*盒子*/
+.box{
+	width: 30%;
+	height: 380px;
+	margin: 18px;
+	box-sizing: border-box;
+	display: inline-block;
+	background: #00E6B8;
+	position: relative;
+	cursor: pointer;
+	overflow: hidden;
+}
+/*盒子图片块*/
+.box .icon-cont{
+	width: 100%;
+	height: 100px;
+	display: block;
+	text-align: center;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 5;
+		transition: .5s;
+	box-shadow: 0 0 0 0 rgba(255,255,255,0.5),
+				0 0 0 0 rgba(3,108,129,0.5);
+}
+/*盒子主标题*/
+.box h3{
+	color: white;
+	font-family: tahoma;
+	font-weight: 900;
+	font-size: 28px;
+	text-align: center;
+	letter-spacing: 2px;
+	padding: 15px;
+	border-bottom: 1px solid rgba(255,255,255,0);
+	position: absolute;
+	bottom: 35px;
+	width: 80%;
+	left: 5%;
+	z-index: 6;
+		transition: .5s;
+}
+/*盒子列表块*/
+.box ul{
+	font-family: tahoma;
+	color: white;
+	font-size: 20px;
+	line-height: 28px;
+	margin: 400px 30px 30px 30px;
+	list-style: none;
+		transition: .5s;
+}
+/*盒子列表样式*/
+.box li{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.box.selected{
+	transition: .5s;
+}
+.box.selected li a{
+	margin: 10px;
+	background-color: black;
+	padding: 2px 5px;
+}
+/*选中后盒图片*/
+.box.selected .icon-cont{
+	transform: scale(1.8,1.8);
+	opacity: 0.3;
+	position: absolute;
+}
+/*选中后盒标题*/
+.box.selected h3{
+	top: 17px;
+}
+/*选中后列表块位置*/
+.box.selected ul{
+	margin-top: 120px;
+}
+/*检索结果栏*/
+/* 搜索模块 */
+.SSearch_box{
+    width: 70%;
+		padding: 20px;
+		margin: auto;
+    z-index: 100;
+    text-align: left;
+		margin-top: 50px;
+}
+.SSearch_box .SSearch_main{
+    height: 50px;
+    line-height: 50px;
+}
+.SSearch_box .SSearch_main .SSearch_input{
+    width: 400px;
+    line-height: 20px !important;
+    outline: none;
+    float: left;
+    height: 50px;
+    font-size: 15px;
+    padding: 15px 0 15px 20px;
+		border: 1px solid;
+		border-color: grey;
+}
+.SSearch_box .SSearch_main #Search_submit{
+    display: block;
+    width: 130px;
+    height: 100%;
+    background: #00E6B8;
+    color: #fff;
+    border-radius: 0 2px 2px 0;
+    float: left;
+    text-align: center;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+.SSearch_box .SSearch_main .SSearch_submit_out{
+    opacity: 0.7;
+}
+/* 搜索模块 */
