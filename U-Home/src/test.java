@@ -1,5 +1,12 @@
 import com.silly.repository.LodgerRepository;
 import com.silly.repository.impl.LodgerRepositoryImpl;
+<<<<<<< HEAD
+=======
+import com.silly.service.AdminService;
+import com.silly.service.impl.AdminServiceImpl;
+
+import java.util.List;
+>>>>>>> parent of 8018558... Merge branch 'master' of https://github.com/Coach257/group
 
 public class test {
     public static void main(String[] args) {
