@@ -16,14 +16,14 @@
 %>
 <script type="text/javascript">
     function signin() {
+        alert("start");
         $.ajax({
             url: '/signin',
             type: 'post',
             dataType: 'text',
             data: $('#1').serialize(),
             success: function (data) {//回调成功执行
-                $("#result").html("<label><span style=\"color: #ff0000; \">" + data + "</span></label>");
-
+                $("#result").html("<label><span style=\"color: #ff0000; \">" + data + "</span></label>")
             }
         });
     }
