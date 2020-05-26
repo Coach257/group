@@ -1,6 +1,8 @@
 import com.silly.repository.LodgerRepository;
 import com.silly.repository.impl.LodgerRepositoryImpl;
 
+//du 添加test
+
 public class test {
     public static void main(String[] args) {
         LodgerRepository a=new LodgerRepositoryImpl();
