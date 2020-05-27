@@ -1,4 +1,31 @@
+<%@ page import="com.silly.entity.Customer" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.silly.service.AdminService" %>
+<%@ page import="com.silly.service.impl.AdminServiceImpl" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%!
+    public String CtoString(Customer c){
+        return "{\"cnum\":\""+c.getCnum() + "\"," +
+                "\"name\":\""+c.getName() +"\"," +
+                "\"email\":\""+c.getEmail() + "\"," +
+                "\"phone\":\""+c.getPhone() + "\""+
+                "}";
+    }
+%>
+<%
+    List<Customer> list;
+    AdminService adminService=new AdminServiceImpl();
+    list=adminService.AllCustomer();
+    String tableData = "[";
+    for(int i = 0;i<list.size();i++){
+        Customer c = list.get(i);
+        tableData += CtoString(c);
+        if(i != list.size() - 1){
+            tableData += ",";
+        }
+    }
+    tableData += "]";
+%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -40,19 +67,19 @@
         <el-container>
             <el-main>
                 <%--查询用户--%>
-                <el-form :inline="true" :model="formInline" class="demo-form-inline">
+                <el-form :inline="true" :model="formInline" class="demo-form-inline" >
                     <el-form-item>
-                        <el-input prefix-icon="el-icon-search" v-model="formInline.user" placeholder="请输入关键词"></el-input>
+                        <el-input prefix-icon="el-icon-search" v-model="formInline.user" placeholder="请输入关键词" ></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="onSubmit">查询</el-button>
+                        <el-button type="submit" @click="findCustomerByKeyword">查询</el-button>
                     </el-form-item>
                 </el-form>
                 <%--查询结果--%>
-                <el-table :data="tableData">
+                <el-table :data="showCustomers">
                     <el-table-column prop="cnum" label="编号">
                     </el-table-column>
-                    <el-table-column prop="username" label="用户名">
+                    <el-table-column prop="name" label="用户名">
                     </el-table-column>
                     <el-table-column prop="email" label="邮箱">
                     </el-table-column>
@@ -62,6 +89,7 @@
                         <el-button type="primary" @click="open">修改</el-button>
                     </el-table-column>
                 </el-table>
+
             </el-main>
         </el-container>
     </el-container>
@@ -75,22 +103,22 @@
     new Vue({
         el: '#app',
         data() {
-            const item = {
-                cnum: '用户编号',
-                username: '用户名',
-                email: '邮箱地址',
-                phone:'手机号'
-            };
             return{
-                tableData:Array(20).fill(item),
+                allCustomers:[],
+                showCustomers:[],
                 formInline: {
-                    keywords: '',
+                    user:""
                 }
             }
         },
+        mounted:function() {
+            this.allCustomers = JSON.parse('<%=tableData%>')
+            this.showCustomers = this.allCustomers
+        },
         methods: {
-            onSubmit() {
-                console.log('submit!');
+            findCustomerByKeyword() {//查询用户
+                let keyWord = this.formInline.user
+                this.showCustomers = this.allCustomers.filter((c)=>(c.name.indexOf(keyWord)!=-1))
             },
             open(){
                 this.$prompt('请输入邮箱', '提示', {
