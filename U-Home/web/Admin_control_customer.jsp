@@ -89,9 +89,6 @@
             }
         },
         methods: {
-            onSubmit() {
-                console.log('submit!');
-            },
             open(){
                 this.$prompt('请输入邮箱', '提示', {
                     confirmButtonText: '确定',

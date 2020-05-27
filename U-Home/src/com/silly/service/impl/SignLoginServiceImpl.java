@@ -30,10 +30,7 @@ public class SignLoginServiceImpl implements SignLoginService {
     }
 
     @Override
-    public void signin(int Cnum, String Name, String Email, String Phone, String Code) {
-        lodgerRepository.signin(Cnum, Name, Email, Phone, Code);
-    }
-    public boolean getbyname(String name ){
-        return lodgerRepository.getbyname(name);
+    public String signin(int Cnum, String Name, String Email, String Phone, String Code) {
+        return lodgerRepository.signin(Cnum, Name, Email, Phone, Code);
     }
 }

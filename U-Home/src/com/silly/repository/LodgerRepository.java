@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface LodgerRepository {
     public Customer login(String username, String password);
-    public void signin(int Cnum,String Name,String Email,String Phone,String Code) ;
-    public boolean getbyname(String name);
+    public String signin(int Cnum,String Name,String Email,String Phone,String Code) ;
+    public Customer getbyName(String username);
+    public Customer getbyEmail(String email);
+    public Customer getbyPhone(String phone);
     public List<Customer> GetLodger();
 }
