@@ -86,10 +86,34 @@
                     <el-table-column prop="phone" label="手机号">
                     </el-table-column>
                     <el-table-column>
-                        <el-button type="primary" @click="open">修改</el-button>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="handleModify(scope.row)">修改</el-button>
+                        </template>
                     </el-table-column>
                 </el-table>
 
+                <el-dialog title="修改信息" :visible.sync="dialogVisible" :before-close="handleClose">
+                    <div style="width:100%;text-align:center">
+                        <el-form :inline="true"  class="center" >
+                            <el-form-item label="编 号" prop="cnum">
+                                <el-input v-model="addForm.cnum" ></el-input>
+                            </el-form-item>
+                            <el-form-item label="姓 名" prop="name">
+                                <el-input v-model="addForm.name" ></el-input>
+                            </el-form-item>
+                            <el-form-item label="邮 箱" prop="email">
+                                <el-input v-model="addForm.email" ></el-input>
+                            </el-form-item>
+                            <el-form-item label="手机号" prop="phone">
+                                <el-input v-model="addForm.phone" ></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button @click="dialogVisible = false">取 消</el-button>
+                                <el-button type="submit" @click="dialogVisible = false">提 交</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </div>
+                </el-dialog>
             </el-main>
         </el-container>
     </el-container>
@@ -104,10 +128,17 @@
         el: '#app',
         data() {
             return{
+                dialogVisible: false,
                 allCustomers:[],
                 showCustomers:[],
                 formInline: {
                     user:""
+                },
+                addForm:{
+                    cnum:"",
+                    name:"",
+                    email:"",
+                    phone:""
                 }
             }
         },
@@ -116,6 +147,21 @@
             this.showCustomers = this.allCustomers
         },
         methods: {
+            handleModify(row){
+                this.dialogVisible = true;
+                this.addForm = row;
+            },
+            handleClose(done){
+                this.$confirm('确定关闭吗').then(() => {
+                    // function(done)，done 用于关闭 Dialog
+                    done();
+
+                    console.info("点击右上角 'X' ，取消按钮或遮罩层时触发");
+                }).catch(() => {
+
+                    console.log("点击确定时触发");
+                });
+            },
             findCustomerByKeyword() {//查询用户
                 let keyWord = this.formInline.user
                 this.showCustomers = this.allCustomers.filter((c)=>(c.name.indexOf(keyWord)!=-1))
