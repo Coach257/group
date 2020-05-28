@@ -9,6 +9,11 @@
     <script src="js/axios.min.js"></script>
     <title>客服管理中心</title>
 </head>
+<style>
+    .el-row{
+        margin-top: 20px;
+    }
+</style>
 <body>
 <div id="app">
     <el-header style="font-size: 12px;height: 50px; line-height: 50px;">
@@ -39,7 +44,82 @@
         </el-aside>
         <el-container>
             <el-main>
-                <h1>这是管理房源页面</h1>
+                <el-row>
+                <el-button type="primary" plain @click="handleModify">添加房源</el-button>
+                </el-row>
+                <el-row>
+                <el-form :inline="true" :model="formInline" class="demo-form-inline" >
+                    <el-form-item>
+                        <el-input prefix-icon="el-icon-search" v-model="formInline.user" placeholder="请输入关键词" ></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="submit">查询</el-button>
+                    </el-form-item>
+                </el-form>
+                </el-row>
+                <el-table :data="rent">
+                    <el-table-column prop="rnum" label="编号">
+                    </el-table-column>
+                    <el-table-column prop="rname" label="房间名称">
+                    </el-table-column>
+                    <el-table-column prop="raddress" label="房间地址">
+                    </el-table-column>
+                    <el-table-column prop="rtype" label="房间类型">
+                    </el-table-column>
+                    <el-table-column prop="rcostperday" label="日租金">
+                    </el-table-column>
+                    <el-table-column>
+                            <el-button type="primary" @click="changestatus">暂停出租</el-button>
+                    </el-table-column>
+                </el-table>
+                <el-dialog title="添加房源" :visible.sync="dialogVisible" :before-close="handleClose">
+                    <div style="width:100%;text-align:center">
+                        <el-form :model="addForm" ref="addForm" :inline="true"  class="center" >
+                                <el-upload
+                                        action="https://jsonplaceholder.typicode.com/posts/"
+                                        list-type="picture-card"
+                                        :on-preview="handlePictureCardPreview"
+                                        :on-remove="handleRemove">
+                                    <i class="el-icon-plus"></i>
+                                </el-upload>
+                                <el-dialog :visible.sync="dialogimgVisible">
+                                    <img width="100%" :src="dialogImageUrl" alt="">
+                                </el-dialog>
+                            <el-row>
+                            <el-form-item label="房间名称" prop="rname">
+                                <el-input v-model="addForm.rname" ></el-input>
+                            </el-form-item>
+                            </el-row>
+                            <el-row>
+                            <el-form-item label="房间地址" prop="raddress">
+                                <el-input v-model="addForm.raddress" ></el-input>
+                            </el-form-item>
+                            </el-row>
+                            <el-row>
+                            <el-form-item label="日租金" prop="rcostperday">
+                                <el-input v-model="addForm.rcostperday" ></el-input>
+                            </el-form-item>
+                            </el-row>
+                            <el-row>
+                                <el-select v-model="value" placeholder="房间类型">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-row>
+                            <el-row>
+                            <el-form-item>
+                                <el-button @click="closeForm('addForm')">取 消</el-button>
+                                <el-button type="submit" @click="submitForm('addForm')">提 交</el-button>
+                            </el-form-item>
+                            </el-row>
+                        </el-form>
+                    </div>
+                </el-dialog>
+
             </el-main>
         </el-container>
     </el-container>
@@ -50,6 +130,38 @@
 <script>
     new Vue({
         el: '#app',
+        data:{
+            formInline: {
+                user:'',
+            },
+            rent:{
+                rnum:'1',
+                rname:'a',
+                raddress:'aa',
+                rtype:'2',
+                rcostperday:'150',
+            },
+            dialogVisible: false,
+            options: [{
+                value: '选项1',
+                label: '单人房'
+            }, {
+                value: '选项2',
+                label: '双人房'
+            }, {
+                value: '选项3',
+                label: '四人房'
+            },],
+            dialogImageUrl: '',
+            dialogimgVisible: false,
+            addForm:{
+                rnum:'',
+                rname:'',
+                raddress: '',
+                rtype: '',
+                rcostperday: '',
+            }
+        },
         methods: {
             quit(){
                 axios.post('/logout', {
@@ -59,7 +171,26 @@
                 }).catch(function (error) {
                     console.log(error);
                 });
-            }
+            },
+            handleModify(){
+                this.dialogVisible = true;
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+            submitForm(formName) {
+                this.dialogVisible=false;
+            },
+            closeForm(formName){
+                this.dialogVisible=false;
+            },
+            handleClose(done){
+                this.closeForm('addForm');
+            },
         }
     })
 </script>
