@@ -94,10 +94,7 @@
 
                 <el-dialog title="修改信息" :visible.sync="dialogVisible" :before-close="handleClose">
                     <div style="width:100%;text-align:center">
-                        <el-form :inline="true"  class="center" >
-                            <el-form-item label="编 号" prop="cnum">
-                                <el-input v-model="addForm.cnum" ></el-input>
-                            </el-form-item>
+                        <el-form :model="addForm" :rules="rules" ref="addForm" :inline="true"  class="center" >
                             <el-form-item label="姓 名" prop="name">
                                 <el-input v-model="addForm.name" ></el-input>
                             </el-form-item>
@@ -108,8 +105,8 @@
                                 <el-input v-model="addForm.phone" ></el-input>
                             </el-form-item>
                             <el-form-item>
-                                <el-button @click="dialogVisible = false">取 消</el-button>
-                                <el-button type="submit" @click="dialogVisible = false">提 交</el-button>
+                                <el-button @click="closeForm('addForm')">取 消</el-button>
+                                <el-button type="submit" @click="submitForm('addForm')">提 交</el-button>
                             </el-form-item>
                         </el-form>
                     </div>
@@ -127,6 +124,39 @@
     new Vue({
         el: '#app',
         data() {
+            var validateEmail = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入邮箱'));
+                } else {
+                    if (value !== '') {
+                        var reg=/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+                        if(!reg.test(value)){
+                            callback(new Error('邮箱不合法'));
+                        }
+                    }
+                    callback();
+                }
+            };
+            var validateMobilePhone = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入手机号'));
+                } else {
+                    if (value !== '') {
+                        var reg=/^1[3456789]\d{9}$/;
+                        if(!reg.test(value)){
+                            callback(new Error('手机号不合法'));
+                        }
+                    }
+                    callback();
+                }
+            };
+            var validateUsername = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入用户名'));
+                } else {
+                    callback();
+                }
+            };
             return{
                 dialogVisible: false,
                 allCustomers:[],
@@ -135,10 +165,21 @@
                     user:""
                 },
                 addForm:{
-                    cnum:"",
                     name:"",
                     email:"",
                     phone:""
+                },
+                rules: {
+                    name: [
+                        { validator: validateUsername,trigger: 'blur' }
+                    ],
+                    email: [
+                        { validator:validateEmail, trigger: 'blur' },
+                    ],
+                    phone: [
+                        {validator:validateMobilePhone,trigger:'blur'}
+                    ]
+
                 }
             }
         },
@@ -152,15 +193,7 @@
                 this.addForm = row;
             },
             handleClose(done){
-                this.$confirm('确定关闭吗').then(() => {
-                    // function(done)，done 用于关闭 Dialog
-                    done();
-
-                    console.info("点击右上角 'X' ，取消按钮或遮罩层时触发");
-                }).catch(() => {
-
-                    console.log("点击确定时触发");
-                });
+                this.closeForm('addForm');
             },
             findCustomerByKeyword() {//查询用户
                 let keyWord = this.formInline.user
@@ -191,6 +224,41 @@
                     window.location.href = 'index.jsp'
                 }).catch(function (error) {
                     console.log(error);
+                });
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        let formData = new FormData();
+                        formData.append('username', this.addForm.name);
+                        formData.append('email', this.addForm.email);
+                        formData.append('phone',this.addForm.phone);
+                        let config = {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        };
+                        axios.post('/signin',formData,config)
+                            .then(function (response) {
+                                this.dialogVisible=false;
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            closeForm(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.dialogVisible=false;
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
                 });
             }
         }
