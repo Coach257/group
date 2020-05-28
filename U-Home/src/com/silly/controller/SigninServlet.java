@@ -31,7 +31,7 @@ public class SigninServlet extends HttpServlet {
         String phone=impfileMap.get("phone").toString();
         String password=impfileMap.get("password").toString();
         int cum= (int) (System.currentTimeMillis()/1000);
-        String result= signLoginService.signin(cum,username,email,phone,password);
+        String result= signLoginService.signup(cum,username,email,phone,password);
         resp.getWriter().print(result);
         return;
 
