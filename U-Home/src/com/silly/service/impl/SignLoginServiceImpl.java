@@ -30,7 +30,7 @@ public class SignLoginServiceImpl implements SignLoginService {
     }
 
     @Override
-    public String signin(int Cnum, String Name, String Email, String Phone, String Code) {
-        return lodgerRepository.signin(Cnum, Name, Email, Phone, Code);
+    public String signup(int Cnum, String Name, String Email, String Phone, String Code) {
+        return lodgerRepository.signup(Cnum, Name, Email, Phone, Code);
     }
 }

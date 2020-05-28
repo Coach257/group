@@ -38,7 +38,7 @@ public class LodgerRepositoryImpl implements LodgerRepository {
     }
 
     @Override
-    public String signin(int Cnum, String Name, String Email, String Phone, String Code)  {
+    public String signup(int Cnum, String Name, String Email, String Phone, String Code)  {
       //  Customer lodger=new Customer(Cnum,Name,Email,Phone,Code);
         if(getbyName(Name)!=null)return "用户名已被注册";
         if (getbyEmail(Email)!=null)return "邮箱已被注册";

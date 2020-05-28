@@ -7,6 +7,8 @@ public class Room {
     private boolean EmptyOrNot;
     private String url;
     private int CostPerDay;
+    private String Place;
+    private String RName;
 
     public int getRnum() {
         return Rnum;
@@ -56,12 +58,31 @@ public class Room {
         return url;
     }
 
-    public Room(int rnum, int capacity,  boolean emptyOrNot, String url,boolean canUse,int Cost) {
+    public String getPlace() {
+        return Place;
+    }
+
+    public void setPlace(String place) {
+        Place = place;
+    }
+
+    public String getRName() {
+        return RName;
+    }
+
+    public void setRName(String RName) {
+        this.RName = RName;
+    }
+
+    public Room(int rnum, int capacity, boolean emptyOrNot, String url, boolean canUse, int Cost,
+                String place, String rName) {
         Rnum = rnum;
         Capacity = capacity;
         CanUse=canUse;
         EmptyOrNot = emptyOrNot;
         this.url = url;
         CostPerDay=Cost;
+        Place=place;
+        RName=rName;
     }
 }

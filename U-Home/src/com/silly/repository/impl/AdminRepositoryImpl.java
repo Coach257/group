@@ -103,10 +103,10 @@ public class AdminRepositoryImpl implements AdminRepository {
             QueryRunner qR = new QueryRunner();
             sql="insert into "+table+" values";
             if(table.equals("Room")){
-                sql+="(?,?,true,?,true,?)";
+                sql+="(?,?,true,?,true,?,?,?)";
                 Room b=(Room)a;
                 qR.update(connection,sql,b.getRnum(),b.getCapacity(),b.getUrl(),
-                        b.getCostPerDay());
+                        b.getCostPerDay(),b.getPlace(),b.getRName());
             }
             else if(table.equals("Orders")){
                 sql+="(?,?,?,?,?,?,?,?)";
@@ -216,10 +216,10 @@ public class AdminRepositoryImpl implements AdminRepository {
         try {
             connection = JDBCtools.getConnection();
             String sql = "update Room set Capacity = ?, EmptyOrNot =?, url = ?, CanUse= ?," +
-                    "CostPerDay= ? where Rnum= ?";
+                    "CostPerDay= ? ,Place= ? ,RName= ? where Rnum= ?";
             QueryRunner qR = new QueryRunner();
             qR.update(connection,sql,a.getCapacity(),a.isEmptyOrNot(),a.getUrl(),a.isCanUse()
-            ,a.getCostPerDay(),a.getRnum());
+            ,a.getCostPerDay(),a.getPlace(),a.getRName(),a.getRnum());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
