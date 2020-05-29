@@ -74,18 +74,6 @@ public class Room {
         this.RName = RName;
     }
 
-    public String toString(){
-        return "{\"Rnum\":\""+ Rnum + "\"," +
-                "\"Capacity\":\""+ Capacity +"\"," +
-                "\"CanUse\":\""+ CanUse + "\"," +
-                "\"EmptyOrNot\":\""+ EmptyOrNot + "\"," +
-                "\"url\":\""+ url + "\"," +
-                "\"CostPerDay\":\""+ CostPerDay + "\"," +
-                "\"Place\":\""+ Place + "\"," +
-                "\"RName\":\""+ RName + "\""+
-                "}";
-    }
-
     public Room(int rnum, int capacity, boolean emptyOrNot, String url, boolean canUse, int Cost,
                 String place, String rName) {
         Rnum = rnum;
@@ -96,5 +84,21 @@ public class Room {
         CostPerDay=Cost;
         Place=place;
         RName=rName;
+    }
+
+    public Room(){
+
+    }
+
+    public String toString(){
+        return "{\"Rnum\":\""+ Rnum + "\"," +
+                "\"Capacity\":\""+ Capacity +"\"," +
+                "\"CanUse\":\""+ CanUse + "\"," +
+                "\"EmptyOrNot\":\""+ EmptyOrNot + "\"," +
+                "\"url\":\""+ url + "\"," +
+                "\"CostPerDay\":\""+ CostPerDay + "\"," +
+                "\"Place\":\""+ Place + "\"," +
+                "\"RName\":\""+ RName + "\""+
+                "}";
     }
 }

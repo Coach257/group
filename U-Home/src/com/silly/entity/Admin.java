@@ -34,5 +34,8 @@ public class Admin {
         Name = name;
         Code = code;
     }
-    
+
+    public Admin(){
+
+    }
 }

@@ -62,4 +62,8 @@ public class Fix {
         Rnum = rnum;
         Wnum = wnum;
     }
+
+    public Fix(){
+
+    }
 }

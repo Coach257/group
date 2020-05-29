@@ -55,4 +55,8 @@ public class Complaint {
         ComplaintContnet = complaintContnet;
         HaveDone=haveDone;
     }
+
+    public Complaint(){
+
+    }
 }

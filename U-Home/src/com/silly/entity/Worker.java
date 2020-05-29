@@ -34,4 +34,8 @@ public class Worker {
         this.Name=b;
         this.Wnum=a;
     }
+
+    public Worker(){
+
+    }
 }

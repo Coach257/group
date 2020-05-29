@@ -87,4 +87,8 @@ public class Order {
         Time=time;
         EndDate=endDate;
     }
+
+    public Order(){
+
+    }
 }
