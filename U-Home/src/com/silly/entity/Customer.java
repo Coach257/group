@@ -58,6 +58,15 @@ public class Customer {
         Code = code;
     }
 
+    public String toString(){
+        return "{\"cnum\":\""+Cnum+ "\"," +
+                "\"name\":\""+ Name +"\"," +
+                "\"email\":\""+ Email + "\"," +
+                "\"code\":\""+ Code + "\"," +
+                "\"phone\":\""+ Phone + "\""+
+                "}";
+    }
+
     public Customer(){
 
     }
