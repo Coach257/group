@@ -57,16 +57,16 @@
                     </el-form-item>
                 </el-form>
                 </el-row>
-                <el-table :data="rent">
-                    <el-table-column prop="rnum" label="编号">
+                <el-table :data="showRooms">
+                    <el-table-column prop="Rnum" label="编号">
                     </el-table-column>
-                    <el-table-column prop="rname" label="房间名称">
+                    <el-table-column prop="Rname" label="房间名称">
                     </el-table-column>
-                    <el-table-column prop="raddress" label="房间地址">
+                    <el-table-column prop="Place" label="房间地址">
                     </el-table-column>
-                    <el-table-column prop="rtype" label="房间类型">
+                    <el-table-column prop="Capacity" label="房间类型">
                     </el-table-column>
-                    <el-table-column prop="rcostperday" label="日租金">
+                    <el-table-column prop="CostPerDay" label="日租金">
                     </el-table-column>
                     <el-table-column>
                             <el-button type="primary" @click="changestatus">暂停出租</el-button>
@@ -127,71 +127,5 @@
 </body>
 <script src="js/vue.js"></script>
 <script src="/element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        data:{
-            formInline: {
-                user:'',
-            },
-            rent:{
-                rnum:'1',
-                rname:'a',
-                raddress:'aa',
-                rtype:'2',
-                rcostperday:'150',
-            },
-            dialogVisible: false,
-            options: [{
-                value: '选项1',
-                label: '单人房'
-            }, {
-                value: '选项2',
-                label: '双人房'
-            }, {
-                value: '选项3',
-                label: '四人房'
-            },],
-            dialogImageUrl: '',
-            dialogimgVisible: false,
-            addForm:{
-                rnum:'',
-                rname:'',
-                raddress: '',
-                rtype: '',
-                rcostperday: '',
-            }
-        },
-        methods: {
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            handleModify(){
-                this.dialogVisible = true;
-            },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
-            handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url;
-                this.dialogVisible = true;
-            },
-            submitForm(formName) {
-                this.dialogVisible=false;
-            },
-            closeForm(formName){
-                this.dialogVisible=false;
-            },
-            handleClose(done){
-                this.closeForm('addForm');
-            },
-        }
-    })
-</script>
+<script src="js/Admin_control_home_script.js"></script>
 </html>

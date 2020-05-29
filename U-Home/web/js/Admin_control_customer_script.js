@@ -73,13 +73,12 @@ let vue = new Vue({
         }
     },
     mounted:function() {
-        let formData = new FormData();
         let config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         };
-        axios.post('/AllCustomer',formData,config)
+        axios.post('/AllCustomer',new FormData,config)
             .then(function (response) {
                 vue.allCustomers = response.data;
                 vue.showCustomers = vue.allCustomers
