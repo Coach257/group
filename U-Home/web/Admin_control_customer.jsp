@@ -206,8 +206,38 @@
             this.showCustomers = this.allCustomers
         },
         methods: {
-            handleDelete(row){
-                
+            handleDelete(row){//只传cnum
+                let formData = new FormData();
+                formData.append('cnum',row.cnum);
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                };
+                axios.post('/DeleteCustomer',formData,config)
+                    .then(function (response) {
+                        console.log(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                //更新页面
+                for(let i in this.allCustomers){
+                    let c = this.allCustomers[i];
+                    if(c.cnum == row.cnum){
+                        this.allCustomers.splice(i,1);
+                        break;
+                    }
+                }
+                for(let i in this.showCustomers){
+                    let c = this.showCustomers[i];
+                    if(c.cnum == row.cnum){
+                        this.showCustomers.splice(i,1);
+                        break;
+                    }
+                }
+
             },
             handleModify(row){
                 this.modifyDialogVisible = true;
