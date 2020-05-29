@@ -1,4 +1,4 @@
-package com.silly.controller;
+package com.silly.controller.admin;
 
 import com.silly.entity.Admin;
 import com.silly.entity.Customer;
@@ -23,19 +23,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/AdminControlCustomer")
+@WebServlet("/ModifyCustomer")
 
-public class Admin_control_customer extends HttpServlet {
-    private final SignLoginService signLoginService=new SignLoginServiceImpl();
+public class ModifyCustomer extends HttpServlet {
+    private final AdminService adminService= new AdminServiceImpl();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map impfileMap = getFilePath(req);
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        String username=impfileMap.get("key").toString();
+
+
+        String cnum = impfileMap.get("cnum").toString();
+        String username=impfileMap.get("name").toString();
+        String email=impfileMap.get("email").toString();
+        String phone=impfileMap.get("phone").toString();
+        String password=impfileMap.get("code").toString();
+
+        Customer customer = new Customer(Integer.valueOf(cnum),username,email,phone,password);
+
+        customer = new Customer(123,"xxx","xxx@xxx","13301230123","a123");
+
+        adminService.ChangeCustomer(customer);
 
         return;
-
     }
     private static Map getFilePath(HttpServletRequest request) {
         String upload_directory = "upload";

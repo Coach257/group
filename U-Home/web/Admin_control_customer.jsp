@@ -8,6 +8,7 @@
         return "{\"cnum\":\""+c.getCnum() + "\"," +
                 "\"name\":\""+c.getName() +"\"," +
                 "\"email\":\""+c.getEmail() + "\"," +
+                "\"code\":\""+c.getCode() + "\"," +
                 "\"phone\":\""+c.getPhone() + "\""+
                 "}";
     }
@@ -90,9 +91,14 @@
                             <el-button type="primary" @click="handleModify(scope.row)">修改</el-button>
                         </template>
                     </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="handleDelete(scope.row)">删除</el-button>
+                        </template>
+                    </el-table-column>
                 </el-table>
 
-                <el-dialog title="修改信息" :visible.sync="dialogVisible" :before-close="handleClose">
+                <el-dialog title="修改信息" :visible.sync="modifyDialogVisible" :before-close="handleClose">
                     <div style="width:100%;text-align:center">
                         <el-form :model="addForm" :rules="rules" ref="addForm" :inline="true"  class="center" >
                             <el-form-item label="姓 名" prop="name">
@@ -121,7 +127,7 @@
 <!-- import JavaScript -->
 <script src="/element-ui/lib/index.js"></script>
 <script>
-    new Vue({
+    let vue = new Vue({
         el: '#app',
         data() {
             var validateEmail = (rule, value, callback) => {
@@ -132,6 +138,11 @@
                         var reg=/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
                         if(!reg.test(value)){
                             callback(new Error('邮箱不合法'));
+                        }
+                        for(let customer of vue.allCustomers){
+                            if(customer.cnum != vue.addForm.cnum && customer.email == vue.addForm.email){
+                                callback(new Error('邮箱已被使用'))
+                            }
                         }
                     }
                     callback();
@@ -146,6 +157,11 @@
                         if(!reg.test(value)){
                             callback(new Error('手机号不合法'));
                         }
+                        for(let customer of vue.allCustomers){
+                            if(customer.cnum != vue.addForm.cnum && customer.phone == vue.addForm.phone){
+                                callback(new Error('手机号已被使用'))
+                            }
+                        }
                     }
                     callback();
                 }
@@ -158,16 +174,18 @@
                 }
             };
             return{
-                dialogVisible: false,
+                modifyDialogVisible: false,
                 allCustomers:[],
                 showCustomers:[],
                 formInline: {
                     user:""
                 },
                 addForm:{
+                    cnum:"",
                     name:"",
                     email:"",
-                    phone:""
+                    phone:"",
+                    code:""
                 },
                 rules: {
                     name: [
@@ -188,8 +206,11 @@
             this.showCustomers = this.allCustomers
         },
         methods: {
+            handleDelete(row){
+                
+            },
             handleModify(row){
-                this.dialogVisible = true;
+                this.modifyDialogVisible = true;
                 this.addForm = row;
             },
             handleClose(done){
@@ -199,24 +220,7 @@
                 let keyWord = this.formInline.user
                 this.showCustomers = this.allCustomers.filter((c)=>(c.name.indexOf(keyWord)!=-1))
             },
-            open(){
-                this.$prompt('请输入邮箱', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-                    inputErrorMessage: '邮箱格式不正确'
-                }).then(({ value }) => {
-                    this.$message({
-                        type: 'success',
-                        message: '你的邮箱是: ' + value
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '取消输入'
-                    });
-                });
-            },
+
             quit(){
                 axios.post('/logout', {
                 }).then(function (response) {
@@ -230,17 +234,19 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         let formData = new FormData();
-                        formData.append('username', this.addForm.name);
+                        formData.append('cnum',this.addForm.cnum);
+                        formData.append('name', this.addForm.name);
                         formData.append('email', this.addForm.email);
                         formData.append('phone',this.addForm.phone);
+                        formData.append('code',this.addForm.code);
                         let config = {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
                         };
-                        axios.post('/signin',formData,config)
+                        axios.post('/ModifyCustomer',formData,config)
                             .then(function (response) {
-                                this.dialogVisible=false;
+                                vue.modifyDialogVisible = false;
                             })
                             .catch(function (error) {
                                 console.log(error);
@@ -254,7 +260,7 @@
             closeForm(formName){
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.dialogVisible=false;
+                        this.modifyDialogVisible=false;
                     } else {
                         console.log('error submit!!');
                         return false;
