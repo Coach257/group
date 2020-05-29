@@ -42,10 +42,8 @@ public class ModifyCustomer extends HttpServlet {
 
         Customer customer = new Customer(Integer.valueOf(cnum),username,email,phone,password);
 
-        customer = new Customer(123,"xxx","xxx@xxx","13301230123","a123");
-
         adminService.ChangeCustomer(customer);
-
+        resp.getWriter().print(cnum+username+email+phone+password);
         return;
     }
     private static Map getFilePath(HttpServletRequest request) {
