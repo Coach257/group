@@ -247,6 +247,7 @@
                         axios.post('/ModifyCustomer',formData,config)
                             .then(function (response) {
                                 vue.modifyDialogVisible = false;
+                                console.log(response)
                             })
                             .catch(function (error) {
                                 console.log(error);
