@@ -92,9 +92,9 @@ public class Room {
 
     public String toString(){
         return "{\"Rnum\":\""+ Rnum + "\"," +
-                "\"Capacity\":\""+ Capacity +"\"," +
-                "\"CanUse\":\""+ CanUse + "\"," +
-                "\"EmptyOrNot\":\""+ EmptyOrNot + "\"," +
+                "\"Capacity\":"+ Capacity +"," + //这个是数字
+                "\"CanUse\":"+ (CanUse?"true":"false") + "," +  //bool
+                "\"EmptyOrNot\":"+ EmptyOrNot + "," +  //bool
                 "\"url\":\""+ url + "\"," +
                 "\"CostPerDay\":\""+ CostPerDay + "\"," +
                 "\"Place\":\""+ Place + "\"," +
