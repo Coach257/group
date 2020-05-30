@@ -1,28 +1,32 @@
 let vue = new Vue({
     el: '#app',
     data:{
-        keyword:"",
+        formInline: {
+            user:'',
+        },
         allRooms:[],
         showRooms:[],
         dialogVisible: false,
         options: [{
-            value: '选项1',
+            value: 1,
             label: '单人房'
         }, {
-            value: '选项2',
+            value: 2,
             label: '双人房'
         }, {
-            value: '选项3',
+            value: 4,
             label: '四人房'
         },],
         dialogImageUrl: '',
         dialogimgVisible: false,
         addForm:{
+            Raddress:'',
             Rnum:'',
             RName:'',
             Place: '',
             Capacity: '',
             CostPerDay: '',
+            Url:''
         }
     },
     methods: {
@@ -35,22 +39,11 @@ let vue = new Vue({
                 console.log(error);
             });
         },
-        findRoomByKeyword(){//根据关键字查询
-            let keyWord = this.keyword
-            this.showRooms = this.allRooms.filter((c)=>(c.name.indexOf(keyWord)!=-1))
-        },
-        changestate(){//暂停、恢复出租
-
-        },
-        handleModify(){
-            this.dialogVisible = true;
-        },
         handleRemove(file, fileList) {
             console.log(file, fileList);
         },
-        handlePictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
-            this.dialogVisible = true;
+        handlePreview(file) {
+            console.log(file);
         },
         submitForm(formName) {
             this.dialogVisible=false;
