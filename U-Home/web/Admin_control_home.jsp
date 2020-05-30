@@ -60,7 +60,7 @@
                 <el-table :data="showRooms">
                     <el-table-column prop="Rnum" label="编号">
                     </el-table-column>
-                    <el-table-column prop="RName" label="房间名称">
+                    <el-table-column prop="Rname" label="房间名称">
                     </el-table-column>
                     <el-table-column prop="Place" label="房间地址">
                     </el-table-column>
