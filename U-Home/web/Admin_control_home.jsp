@@ -50,17 +50,17 @@
                 <el-row>
                 <el-form :inline="true" :model="formInline" class="demo-form-inline" >
                     <el-form-item>
-                        <el-input prefix-icon="el-icon-search" v-model="formInline.user" placeholder="请输入关键词" ></el-input>
+                        <el-input prefix-icon="el-icon-search" v-model="keyword" placeholder="请输入关键词" ></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="submit">查询</el-button>
+                        <el-button type="primary" @click="findRoomByKeyword">查 询</el-button>
                     </el-form-item>
                 </el-form>
                 </el-row>
                 <el-table :data="showRooms">
                     <el-table-column prop="Rnum" label="编号">
                     </el-table-column>
-                    <el-table-column prop="Rname" label="房间名称">
+                    <el-table-column prop="RName" label="房间名称">
                     </el-table-column>
                     <el-table-column prop="Place" label="房间地址">
                     </el-table-column>
@@ -69,7 +69,9 @@
                     <el-table-column prop="CostPerDay" label="日租金">
                     </el-table-column>
                     <el-table-column>
-                            <el-button type="primary" @click="changestatus">暂停出租</el-button>
+                        <template slot-scope="scope">
+                            <el-button type="primary" v-if="scope.row" @click="changestate">暂停出租</el-button>
+                        </template>
                     </el-table-column>
                 </el-table>
                 <el-dialog title="添加房源" :visible.sync="dialogVisible" :before-close="handleClose">

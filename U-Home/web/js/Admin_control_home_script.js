@@ -1,9 +1,7 @@
 let vue = new Vue({
     el: '#app',
     data:{
-        formInline: {
-            user:'',
-        },
+        keyword:"",
         allRooms:[],
         showRooms:[],
         dialogVisible: false,
@@ -36,6 +34,13 @@ let vue = new Vue({
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        findRoomByKeyword(){//根据关键字查询
+            let keyWord = this.keyword
+            this.showRooms = this.allRooms.filter((c)=>(c.name.indexOf(keyWord)!=-1))
+        },
+        changestate(){//暂停、恢复出租
+
         },
         handleModify(){
             this.dialogVisible = true;
