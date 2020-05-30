@@ -40,13 +40,12 @@ public class LoginServlet extends HttpServlet {
                 case "worker":
                     Worker worker=(Worker)res;
                     session.setAttribute("worker",worker);
-                    //worker主页
+                    resp.sendRedirect("repair_order.jsp");
                     break;
                 case "admin":
                     Admin admin=(Admin)res;
                     session.setAttribute("admin",admin);
                     resp.sendRedirect("Admin_control_customer.jsp");
-                    //管理器
                     break;
             }
         }

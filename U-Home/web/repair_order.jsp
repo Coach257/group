@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/admin.css">
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/axios.min.js"></script>
-    <title>个人中心-维修评价</title>
+    <title>维修师傅-我的工单</title>
 </head>
 <body>
 <div id="app">
@@ -19,26 +19,14 @@
         <el-container height="100%">
             <el-aside width="200px">
                 <el-menu
-                        default-active="4"
+                        default-active="1"
                         class="el-menu-vertical-demo"
                         background-color="#545c64"
                         text-color="#fff"
                         active-text-color="#ffd04b">
-                    <el-menu-item index="1" @click="linkto('personal_center.jsp')">
-                        <i class="el-icon-user-solid"></i>
-                        <span slot="title">个人信息</span>
-                    </el-menu-item>
-                    <el-menu-item index="2" @click="linkto('personal_order.jsp')">
+                    <el-menu-item index="1" @click="linkto('repair_order.jsp')">
                         <i class="el-icon-document"></i>
-                        <span slot="title">历史订单</span>
-                    </el-menu-item>
-                    <el-menu-item index="3" @click="linkto('personal_complain.jsp')">
-                        <i class="el-icon-chat-dot-round"></i>
-                        <span slot="title">报修和投诉</span>
-                    </el-menu-item>
-                    <el-menu-item index="4" @click="linkto('personal_feedback.jsp')">
-                        <i class="el-icon-message"></i>
-                        <span slot="title" class="is-active">反馈</span>
+                        <span slot="title" class="is-active">我的工单</span>
                     </el-menu-item>
                 </el-menu>
             </el-aside>
@@ -56,7 +44,7 @@
                         </el-table-column>
                         <el-table-column
                                 prop="name"
-                                label="维修师傅姓名"
+                                label="租客姓名"
                                 width="180">
                         </el-table-column>
                         <el-table-column
@@ -64,12 +52,8 @@
                                 label="房屋地址">
                         </el-table-column>
                         <el-table-column
-                                prop="rate"
-                                label="评价">
-                            <el-rate
-                                    v-model="value"
-                                    show-text>
-                            </el-rate>
+                                prop="state"
+                                label="状态">
                         </el-table-column>
                     </el-table>
                 </template>
@@ -95,37 +79,37 @@
                     date: '2016-05-03',
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
+                    state:'未解决'
                 }, {
                     date: '2016-05-02',
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
+                    state:'未解决'
                 }, {
                     date: '2016-05-04',
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
+                    state:'未解决'
                 }, {
                     date: '2016-05-01',
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
+                    state:'未解决'
                 }, {
                     date: '2016-05-08',
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
+                    state:'未解决'
                 }, {
                     date: '2016-05-06',
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
+                    state:'未解决'
                 }, {
                     date: '2016-05-07',
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
+                    state:'未解决'
                 }]
             }
         },

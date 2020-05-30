@@ -19,28 +19,26 @@
         <el-container height="100%">
             <el-aside width="200px">
                 <el-menu
-                        default-active="2"
+                        default-active="1"
                         class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose"
                         background-color="#545c64"
                         text-color="#fff"
                         active-text-color="#ffd04b">
                     <el-menu-item index="1">
                         <i class="el-icon-user-solid"></i>
-                        <span slot="title" class="is-active">个人信息</span>
+                        <span slot="title" @click="linkto('personal_center.jsp')">个人信息</span>
                     </el-menu-item>
-                    <el-menu-item index="2">
+                    <el-menu-item index="2" @click="linkto('personal_order.jsp')">
                         <i class="el-icon-document"></i>
                         <span slot="title">历史订单</span>
                     </el-menu-item>
-                    <el-menu-item index="3">
+                    <el-menu-item index="3" @click="linkto('personal_complain.jsp')">
                         <i class="el-icon-chat-dot-round"></i>
-                        <span slot="title">我的投诉</span>
+                        <span slot="title">保修和投诉</span>
                     </el-menu-item>
-                    <el-menu-item index="4">
+                    <el-menu-item index="4" @click="linkto('personal_feedback.jsp')">
                         <i class="el-icon-message"></i>
-                        <span slot="title">维修反馈</span>
+                        <span slot="title">反馈</span>
                     </el-menu-item>
                 </el-menu>
             </el-aside>
@@ -139,6 +137,9 @@
             },
             handlePreview(file) {
                 console.log(file);
+            },
+            linkto(location){
+                window.location.href=location;
             }
         }
     })

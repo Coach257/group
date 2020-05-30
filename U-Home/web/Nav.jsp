@@ -9,7 +9,7 @@
         result="<a href=\"login.jsp\" class=\"linktyle\">登录</a>";
     }
     else{
-        result="<a href=\"#\" class=\"linktyle\">"+customer.getName()+"</a>";
+        result="<a href=\"personal_center.jsp\" class=\"linktyle\">"+customer.getName()+"</a>";
     }
 %>
 <section id="main_head" :class="isfixed==false ? 'main_head_notfixed':'main_head_fixed'">

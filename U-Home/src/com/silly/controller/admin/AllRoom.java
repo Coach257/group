@@ -29,6 +29,7 @@ public class AllRoom extends HttpServlet {
             }
         }
         result += "]";
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().print(result);
         return;
     }

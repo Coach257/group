@@ -75,40 +75,44 @@
                 <el-dialog title="添加房源" :visible.sync="dialogVisible" :before-close="handleClose">
                     <div style="width:100%;text-align:center">
                         <el-form :model="addForm" ref="addForm" :inline="true"  class="center" >
+                            <el-form-item label="房间图片" prop="Url">
                                 <el-upload
+                                        class="upload-demo"
                                         action="https://jsonplaceholder.typicode.com/posts/"
-                                        list-type="picture-card"
-                                        :on-preview="handlePictureCardPreview"
-                                        :on-remove="handleRemove">
-                                    <i class="el-icon-plus"></i>
+                                        :on-preview="handlePreview"
+                                        :on-remove="handleRemove"
+                                        list-type="picture"
+                                        v-model="addForm.Url">
+                                    <el-button size="small" type="primary">点击上传</el-button>
+                                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                 </el-upload>
-                                <el-dialog :visible.sync="dialogimgVisible">
-                                    <img width="100%" :src="dialogImageUrl" alt="">
-                                </el-dialog>
+                            </el-form-item>
                             <el-row>
-                            <el-form-item label="房间名称" prop="rname">
-                                <el-input v-model="addForm.rname" ></el-input>
+                            <el-form-item label="房间名称" prop="Rname">
+                                <el-input v-model="addForm.Rname"></el-input>
                             </el-form-item>
                             </el-row>
                             <el-row>
-                            <el-form-item label="房间地址" prop="raddress">
-                                <el-input v-model="addForm.raddress" ></el-input>
+                            <el-form-item label="房间地址" prop="Raddress">
+                                <el-input v-model="addForm.Raddress" ></el-input>
                             </el-form-item>
                             </el-row>
                             <el-row>
-                            <el-form-item label="日租金" prop="rcostperday">
-                                <el-input v-model="addForm.rcostperday" ></el-input>
+                            <el-form-item label="日租金" prop="CostPerday">
+                                <el-input v-model="addForm.CostPerday" ></el-input>
                             </el-form-item>
                             </el-row>
                             <el-row>
-                                <el-select v-model="value" placeholder="房间类型">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
+                                <el-form-item label="房间类型" prop="Capacity">
+                                    <el-select v-model="addForm.Capacity" placeholder="选择类型">
+                                        <el-option
+                                                v-for="item in options"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
                             </el-row>
                             <el-row>
                             <el-form-item>

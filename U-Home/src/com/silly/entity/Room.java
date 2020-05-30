@@ -98,7 +98,7 @@ public class Room {
                 "\"url\":\""+ url + "\"," +
                 "\"CostPerDay\":\""+ CostPerDay + "\"," +
                 "\"Place\":\""+ Place + "\"," +
-                "\"RName\":\""+ RName + "\""+
+                "\"Rname\":\""+ RName + "\""+
                 "}";
     }
 }
