@@ -62,6 +62,9 @@ let vue = new Vue({
         handleClose(done){
             this.closeForm('addForm');
         },
+        linkto(location){
+            window.location.href=location;
+        }
     },
     mounted:function() {
         let config = {

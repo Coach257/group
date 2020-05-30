@@ -181,6 +181,9 @@ let vue = new Vue({
                     return false;
                 }
             });
+        },
+        linkto(location){
+            window.location.href=location;
         }
     }
 })

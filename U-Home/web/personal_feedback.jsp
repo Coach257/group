@@ -14,7 +14,7 @@
     <el-container>
         <el-header>
             <span style="color: white;font-size: 24px;line-height: 50px; float: left;">优家，有你就有家</span>
-            <el-button plain style="float: right; position:relative;top:5.2px;" @click="quit">退出</el-button>
+            <el-button plain style="float: right; position:relative;top:5.2px;" @click="linkto('index.jsp')">返回首页</el-button>
         </el-header>
         <el-container height="100%">
             <el-aside width="200px">
@@ -39,6 +39,9 @@
                     <el-menu-item index="4" @click="linkto('personal_feedback.jsp')">
                         <i class="el-icon-message"></i>
                         <span slot="title" class="is-active">反馈</span>
+                    </el-menu-item>
+                    <el-menu-item index="5" @click="quit">
+                        <span slot="title">退出登录</span>
                     </el-menu-item>
                 </el-menu>
             </el-aside>
