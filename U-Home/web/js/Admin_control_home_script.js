@@ -19,12 +19,10 @@ let vue = new Vue({
         dialogimgVisible: false,
         addForm:{
             Raddress:'',
-            Rnum:'',
             Rname:'',
-            Place: '',
             Capacity: '',
             CostPerDay: '',
-            Url:''
+            File:'',
         }
     },
     methods: {
@@ -54,6 +52,24 @@ let vue = new Vue({
             console.log(file);
         },
         submitForm(formName) {
+            let formData = new FormData();
+            formData.append('File',this.addForm.File);
+            formData.append('Rname',this.addForm.Rname);
+            formData.append('Raddress',this.addForm.Raddress);
+            formData.append('Capacity',this.addForm.Capacity);
+            formData.append('CostPerDay',this.addForm.CostPerDay);
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            axios.post('/NewRoom',formData,config)
+                .then(function (response) {
+                    alert('成功');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
             this.dialogVisible=false;
         },
         closeForm(formName){
@@ -61,6 +77,9 @@ let vue = new Vue({
         },
         handleClose(done){
             this.closeForm('addForm');
+        },
+        FileChange(file){
+          this.addForm.File=file.raw;
         },
         linkto(location){
             window.location.href=location;

@@ -48,7 +48,7 @@
                 <el-button type="primary" plain @click="handleModify">添加房源</el-button>
                 </el-row>
                 <el-row>
-                <el-form :inline="true" :model="formInline" class="demo-form-inline" >
+                <el-form :inline="true"class="demo-form-inline" >
                     <el-form-item>
                         <el-input prefix-icon="el-icon-search" v-model="keyword" placeholder="请输入关键词" ></el-input>
                     </el-form-item>
@@ -83,8 +83,8 @@
                                         action="https://jsonplaceholder.typicode.com/posts/"
                                         :on-preview="handlePreview"
                                         :on-remove="handleRemove"
-                                        list-type="picture"
-                                        v-model="addForm.Url">
+                                        :on-change="FileChange"
+                                        list-type="picture">
                                     <el-button size="small" type="primary">点击上传</el-button>
                                     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                 </el-upload>
