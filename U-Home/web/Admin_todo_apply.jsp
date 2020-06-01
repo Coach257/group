@@ -39,33 +39,41 @@
         </el-aside>
         <el-container>
             <el-main>
-                <h1>这是处理申请页面</h1>
+                <%--待处理申请表格--%>
+                <el-table :data="ToDoApply">
+                    <el-table-column prop="Cnum" label="用户编号">
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="CheckCustomer(scope.row)">查看用户信息</el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="Rnum" label="房源编号">
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="CheckRoom(scope.row)">查看房源信息</el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="CheckPass(scope.row)">申请通过</el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="CheckPass(scope.row)">申请不通过</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+
+
             </el-main>
         </el-container>
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="/element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        methods: {
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        }
-    })
-</script>
+<script src="js/Admin_todo_apply.js"></script>
 </html>
