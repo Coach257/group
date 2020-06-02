@@ -41,6 +41,8 @@
             <el-main>
                 <%--待处理申请表格--%>
                 <el-table :data="ToDoApply">
+                    <el-table-column prop="Onum" label="订单编号">
+                    </el-table-column>
                     <el-table-column prop="Cnum" label="用户编号">
                     </el-table-column>
                     <el-table-column>
@@ -55,6 +57,9 @@
                             <el-button type="primary" @click="CheckRoom(scope.row)">查看房源信息</el-button>
                         </template>
                     </el-table-column>
+                    <el-table-column prop="Time" label="订单类型">
+                        <%--这里显示长租或者短租--%>
+                    </el-table-column>
                     <el-table-column>
                         <template slot-scope="scope">
                             <el-button type="primary" @click="CheckPass(scope.row)">申请通过</el-button>
@@ -62,12 +67,51 @@
                     </el-table-column>
                     <el-table-column>
                         <template slot-scope="scope">
-                            <el-button type="primary" @click="CheckPass(scope.row)">申请不通过</el-button>
+                            <el-button type="primary" @click="CheckUnPass(scope.row)">申请不通过</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
-
-
+                    <%--用户信息--%>
+                <el-dialog title="用户信息" :visible.sync="CustomerDialogVisible">
+                    <div style="width:100%;text-align:center">
+                        <el-form :model="CustomerForm" ref="CustomerForm" :inline="true"  class="center" >
+                            <el-row><el-form-item label="用户编号" prop="Cnum" :disabled="true">
+                                <el-input v-model="CustomerForm.Cnum" ></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="用户名" prop="Name" :disabled="true">
+                                <el-input v-model="CustomerForm.Name" ></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="邮 箱" prop="Email" :disabled="true">
+                                <el-input v-model="CustomerForm.Email" ></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="手机号" prop="Phone" :disabled="true">
+                                <el-input v-model="CustomerForm.Phone" ></el-input>
+                            </el-form-item></el-row>
+                        </el-form>
+                    </div>
+                </el-dialog>
+                    <%--房源信息--%>
+                <el-dialog title="房源信息" :visible.sync="RoomDialogVisible">
+                    <div style="width:100%;text-align:center">
+                        <el-form :model="RoomForm" ref="RoomForm" :inline="true"  class="center" >
+                            <el-row><el-form-item label="房源编号" prop="Rnum" :disabled="true">
+                                <el-input v-model="RoomForm.Rnum" ></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="房间名称" prop="Rname" :disabled="true">
+                                <el-input v-model="RoomForm.Rname" ></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="房间地址" prop="Place" :disabled="true">
+                                <el-input v-model="RoomForm.Place" ></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="日租金" prop="CostPerDay" :disabled="true">
+                                <el-input v-model="RoomForm.CostPerDay" ></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="房间类型" prop="Capacity" :disabled="true">
+                                <el-input v-model="RoomForm.Capacity" ></el-input>
+                            </el-form-item></el-row>
+                        </el-form>
+                    </div>
+                </el-dialog>
             </el-main>
         </el-container>
     </el-container>

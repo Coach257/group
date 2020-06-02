@@ -132,7 +132,8 @@ let vue = new Vue({
                     };
                     axios.post('/NewRoom',formData,config)
                         .then(function (response) {
-                            alert('成功');
+                            alert('添加成功');
+                            window.location.href='Admin_control_home.jsp';
                         })
                         .catch(function (error) {
                             alert('信息不合法')
