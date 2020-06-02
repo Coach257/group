@@ -20,9 +20,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
-
-@WebServlet("/NewRoom")
-public class NewRoom extends HttpServlet {
+@WebServlet("/ModifyRoomCanUse")
+public class ModifyRoomCanUse extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -43,6 +42,8 @@ public class NewRoom extends HttpServlet {
                         case "Place":room.setPlace(value);break;
                         case "Capacity":room.setCapacity(Integer.valueOf(value));break;
                         case "CostPerDay":room.setCostPerDay(Integer.valueOf(value));break;
+                        case "CanUse":room.setCanUse(Boolean.valueOf(value));break;
+                        case "EmptyOrNot":room.setEmptyOrNot((Boolean.valueOf(value)));break;
                     }
                 }
                 else{
@@ -62,10 +63,8 @@ public class NewRoom extends HttpServlet {
             e.printStackTrace();
             System.out.println(e);
         }
-        room.setRnum((int) (System.currentTimeMillis()/1000));
-        room.setCanUse(true);
-        room.setEmptyOrNot(true);
         AdminService adminService = new AdminServiceImpl();
-        adminService.AddRoom(room);
+        adminService.ChangeRoom(room);
+        return;
     }
 }

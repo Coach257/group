@@ -68,10 +68,15 @@
                     </el-table-column>
                     <el-table-column prop="CostPerDay" label="日租金">
                     </el-table-column>
+
                     <el-table-column>
-                        <template slot-scope="scope">
-                            <el-button type="primary" v-if="scope.row" @click="changestate">暂停出租</el-button>
+                        <template slot-scope="scope" >
+                            <div v-if="scope.row.EmptyOrNot">
+                                <el-button type="primary" v-if="scope.row.CanUse" @click="changestate(scope.row)">暂停出租</el-button>
+                                <el-button type="primary" v-else @click="changestate(scope.row)">恢复出租</el-button>
+                            </div>
                         </template>
+
                     </el-table-column>
                 </el-table>
                 <el-dialog title="添加房源" :visible.sync="dialogVisible" :before-close="handleClose">

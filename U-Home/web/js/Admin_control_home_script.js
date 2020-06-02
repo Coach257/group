@@ -89,8 +89,23 @@ let vue = new Vue({
             let keyWord = this.keyword
             this.showRooms = this.allRooms.filter((c)=>(c.Rname.indexOf(keyWord)!=-1))
         },
-        changestate(){//暂停、恢复出租
-
+        changestate(row){//暂停、恢复出租
+            row.CanUse = !row.CanUse
+            let formData = new FormData();
+            for(let key in row){
+                formData.append(key,row[key])
+            }
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            axios.post('/ModifyRoomCanUse',formData,config)
+                .then(function (response) {
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         handleModify(){
             this.dialogVisible = true;
@@ -103,31 +118,31 @@ let vue = new Vue({
         },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        let formData = new FormData();
-                        formData.append('File',this.addForm.File);
-                        formData.append('Rname',this.addForm.Rname);
-                        formData.append('Place',this.addForm.Place);
-                        formData.append('Capacity',this.addForm.Capacity);
-                        formData.append('CostPerDay',this.addForm.CostPerDay);
-                        let config = {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        };
-                        axios.post('/NewRoom',formData,config)
-                            .then(function (response) {
-                                alert('成功');
-                            })
-                            .catch(function (error) {
-                                alert('信息不合法')
-                                console.log(error);
-                            });
-                        this.dialogVisible=false;
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
+                if (valid) {
+                    let formData = new FormData();
+                    formData.append('File',this.addForm.File);
+                    formData.append('Rname',this.addForm.Rname);
+                    formData.append('Place',this.addForm.Place);
+                    formData.append('Capacity',this.addForm.Capacity);
+                    formData.append('CostPerDay',this.addForm.CostPerDay);
+                    let config = {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    };
+                    axios.post('/NewRoom',formData,config)
+                        .then(function (response) {
+                            alert('成功');
+                        })
+                        .catch(function (error) {
+                            alert('信息不合法')
+                            console.log(error);
+                        });
+                    this.dialogVisible=false;
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
             });
         },
         closeForm(formName){
