@@ -16,7 +16,7 @@ import java.util.List;
 public class AllRoom extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("!!!!!!!!!!!!!!! ");
+
         List<Room> list;
         AdminService adminService=new AdminServiceImpl();
         list=adminService.AllRoom();

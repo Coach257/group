@@ -95,13 +95,13 @@
                             </el-form-item>
                             </el-row>
                             <el-row>
-                            <el-form-item label="房间地址" prop="Raddress">
-                                <el-input v-model="addForm.Raddress" ></el-input>
+                            <el-form-item label="房间地址" prop="Place">
+                                <el-input v-model="addForm.Place" ></el-input>
                             </el-form-item>
                             </el-row>
                             <el-row>
-                            <el-form-item label="日租金" prop="CostPerday">
-                                <el-input v-model="addForm.CostPerday" ></el-input>
+                            <el-form-item label="日租金" prop="CostPerDay">
+                                <el-input v-model="addForm.CostPerDay" ></el-input>
                             </el-form-item>
                             </el-row>
                             <el-row>

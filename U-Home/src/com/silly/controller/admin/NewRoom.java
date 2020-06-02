@@ -1,6 +1,9 @@
 package com.silly.controller.admin;
 
 import com.silly.controller.GetFilePath;
+import com.silly.entity.Room;
+import com.silly.service.AdminService;
+import com.silly.service.impl.AdminServiceImpl;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -22,6 +25,10 @@ import java.util.Map;
 public class NewRoom extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        System.out.println("new3");
+        Room room = new Room();
         try {
             DiskFileItemFactory fileItemFactory=new DiskFileItemFactory();
             ServletFileUpload servletFileUpload=new ServletFileUpload(fileItemFactory);
@@ -31,6 +38,13 @@ public class NewRoom extends HttpServlet {
                     String name=fileItem.getFieldName();
                     String value=fileItem.getString("UTF-8");
                     System.out.println(name+":"+value);
+
+                    switch (name){
+                        case "Rname":room.setRName(value);break;
+                        case "Place":room.setPlace(value);break;
+                        case "Capacity":room.setCapacity(Integer.valueOf(value));break;
+                        case "CostPerDay":room.setCostPerDay(Integer.valueOf(value));break;
+                    }
                 }
                 else{
                     String name=new String(fileItem.getName().getBytes("GBK"),"UTF-8");
@@ -47,7 +61,13 @@ public class NewRoom extends HttpServlet {
             }
         } catch (FileUploadException e) {
             e.printStackTrace();
+            System.out.println(e);
         }
-
+        room.setRnum((int) (System.currentTimeMillis()/1000));
+        room.setCanUse(true);
+        room.setEmptyOrNot(true);
+        AdminService adminService = new AdminServiceImpl();
+        adminService.AddRoom(room);
+        System.out.println(room.toString());
     }
 }

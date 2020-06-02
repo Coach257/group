@@ -1,28 +1,78 @@
 let vue = new Vue({
     el: '#app',
-    data:{
-        keyword:"",
-        allRooms:[],
-        showRooms:[],
-        dialogVisible: false,
-        options: [{
-            value: 1,
-            label: '单人房'
-        }, {
-            value: 2,
-            label: '双人房'
-        }, {
-            value: 4,
-            label: '四人房'
-        },],
-        dialogImageUrl: '',
-        dialogimgVisible: false,
-        addForm:{
-            Raddress:'',
-            Rname:'',
-            Capacity: '',
-            CostPerDay: '',
-            File:'',
+    data(){
+        var validateName = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入房间名称'));
+            } else {
+                callback();
+            }
+        };
+        var validatePlace = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入房间地址'));
+            } else {
+                callback();
+            }
+        };
+        var validateCostPerDay = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入日租金'));
+            } else {
+                if (value !== '') {
+                    var reg=/^[0-9]*$/;
+                    if(!reg.test(value)){
+                        callback(new Error('日租金不合法'));
+                    }
+                }
+                callback();
+            }
+        };
+        var validateCapacity = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请选择类型'));
+            } else {
+                callback();
+            }
+        };
+        return {
+            keyword:"",
+            allRooms:[],
+            showRooms:[],
+            dialogVisible: false,
+            options: [{
+                value: 1,
+                label: '单人房'
+            }, {
+                value: 2,
+                label: '双人房'
+            }, {
+                value: 4,
+                label: '四人房'
+            },],
+            dialogImageUrl: '',
+            dialogimgVisible: false,
+            addForm:{
+                Place:'',
+                Rname:'',
+                Capacity: '',
+                CostPerDay: '',
+                File:'',
+            },
+            rules: {
+                Rname: [
+                    { validator: validateName(),trigger: 'blur' }
+                ],
+                Place: [
+                    { validator:validatePlace(), trigger: 'blur' },
+                ],
+                Capacity: [
+                    { validator:validateCapacity(), trigger: 'blur' },
+                ],
+                CostPerDay: [
+                    { validator:validateCostPerDay(), trigger: 'blur' },
+                ],
+            }
         }
     },
     methods: {
@@ -52,25 +102,33 @@ let vue = new Vue({
             console.log(file);
         },
         submitForm(formName) {
-            let formData = new FormData();
-            formData.append('File',this.addForm.File);
-            formData.append('Rname',this.addForm.Rname);
-            formData.append('Raddress',this.addForm.Raddress);
-            formData.append('Capacity',this.addForm.Capacity);
-            formData.append('CostPerDay',this.addForm.CostPerDay);
-            let config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            };
-            axios.post('/NewRoom',formData,config)
-                .then(function (response) {
-                    alert('成功');
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            this.dialogVisible=false;
+            this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        let formData = new FormData();
+                        formData.append('File',this.addForm.File);
+                        formData.append('Rname',this.addForm.Rname);
+                        formData.append('Place',this.addForm.Place);
+                        formData.append('Capacity',this.addForm.Capacity);
+                        formData.append('CostPerDay',this.addForm.CostPerDay);
+                        let config = {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        };
+                        axios.post('/NewRoom',formData,config)
+                            .then(function (response) {
+                                alert('成功');
+                            })
+                            .catch(function (error) {
+                                alert('信息不合法')
+                                console.log(error);
+                            });
+                        this.dialogVisible=false;
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+            });
         },
         closeForm(formName){
             this.dialogVisible=false;
