@@ -76,7 +76,7 @@
                 </el-table>
                 <el-dialog title="添加房源" :visible.sync="dialogVisible" :before-close="handleClose">
                     <div style="width:100%;text-align:center">
-                        <el-form :model="addForm" ref="addForm" :inline="true"  class="center" >
+                        <el-form :model="addForm" :rules="rules" ref="addForm" :inline="true"  class="center" >
                             <el-form-item label="房间图片" prop="Url">
                                 <el-upload
                                         class="upload-demo"

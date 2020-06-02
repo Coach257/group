@@ -61,16 +61,16 @@ let vue = new Vue({
             },
             rules: {
                 Rname: [
-                    { validator: validateName(),trigger: 'blur' }
+                    { validator: validateName,trigger: 'blur' }
                 ],
                 Place: [
-                    { validator:validatePlace(), trigger: 'blur' },
+                    { validator:validatePlace, trigger: 'blur' },
                 ],
                 Capacity: [
-                    { validator:validateCapacity(), trigger: 'blur' },
+                    { validator:validateCapacity, trigger: 'blur' },
                 ],
                 CostPerDay: [
-                    { validator:validateCostPerDay(), trigger: 'blur' },
+                    { validator:validateCostPerDay, trigger: 'blur' },
                 ],
             }
         }
