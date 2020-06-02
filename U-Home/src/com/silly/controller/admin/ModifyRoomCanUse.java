@@ -35,9 +35,9 @@ public class ModifyRoomCanUse extends HttpServlet {
                 if(fileItem.isFormField()){
                     String name=fileItem.getFieldName();
                     String value=fileItem.getString("UTF-8");
-                    System.out.println(name+":"+value);
 
                     switch (name){
+                        case "Rnum":room.setRnum(Integer.valueOf(value));break;
                         case "Rname":room.setRName(value);break;
                         case "Place":room.setPlace(value);break;
                         case "Capacity":room.setCapacity(Integer.valueOf(value));break;
@@ -65,6 +65,7 @@ public class ModifyRoomCanUse extends HttpServlet {
         }
         AdminService adminService = new AdminServiceImpl();
         adminService.ChangeRoom(room);
+        System.out.println(room.toString());
         return;
     }
 }
