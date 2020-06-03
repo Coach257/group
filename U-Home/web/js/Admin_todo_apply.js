@@ -24,6 +24,17 @@ let vue = new Vue({
         }
     },
     methods: {
+        formatterColumn(row, column) {
+            switch(row.Time){
+                case true:
+                    return '长期';
+                    break;
+                case false:
+                    return '短期';
+                default:
+                    return 'WTF?!';
+            }
+        },
         quit(){
             axios.post('/logout', {
             }).then(function (response) {
@@ -50,11 +61,29 @@ let vue = new Vue({
                 this.RoomForm = showRoom[0]
             console.log(showRoom)
         },
+        //mode中1是未提交，2是未审核，3是未付款，4是已完成订单,5是审核不通过，
         CheckPass(row){
-
+            if(row.Time){
+                row.Mode = 3;
+            }else{
+                row.Mode = 4;
+            }
+            this.ModifyOrder(row)
         },
         CheckUnPass(row){
-
+            row.Mode = 5;
+            this.ModifyOrder(row)
+        },
+        ModifyOrder(order){
+            let formDate = new FormData()
+            formDate.append('data',JSON.stringify(order))
+            axios.post('/ModifyOrder',formDate,{headers: {'Content-Type': 'multipart/form-data'}})
+                .then(function (response) {
+                    window.location.href='Admin_todo_apply.jsp';
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     },
     mounted:function() {
@@ -66,7 +95,8 @@ let vue = new Vue({
         axios.post('/AllOrder',new FormData,config)
             .then(function (response) {
                 vue.allOrders= response.data;
-                vue.showOrders = vue.allOrders;
+                console.log(vue.allOrders)
+                vue.showOrders = vue.allOrders.filter((o)=>(o.Mode == 2))//2是审核不通过
             })
             .catch(function (error) {
                 console.log(error);
@@ -85,5 +115,6 @@ let vue = new Vue({
             .catch(function (error) {
                 console.log(error);
             });
+
     },
 })

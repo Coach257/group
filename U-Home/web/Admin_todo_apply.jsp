@@ -40,7 +40,7 @@
         <el-container>
             <el-main>
                 <%--待处理申请表格--%>
-                <el-table :data="allOrders">
+                <el-table :data="showOrders">
                     <el-table-column prop="Onum" label="订单编号">
                     </el-table-column>
                     <el-table-column prop="Cnum" label="用户编号">
@@ -57,7 +57,7 @@
                             <el-button type="primary" @click="CheckRoom(scope.row)">详情</el-button>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="Time" label="订单类型">
+                    <el-table-column prop="Time" :formatter="formatterColumn" label="订单类型">
                         <%--这里显示长租或者短租--%>
                     </el-table-column>
                     <el-table-column prop="BeginDate" label="开始时间">

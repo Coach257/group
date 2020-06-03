@@ -8,7 +8,7 @@ public class Order {
     private int Cnum;
     private int Onum;
     private int Rnum;
-    private int Mode;
+    private int Mode;//mode中1是未提交，2是未审核，3是未付款，4是已完成订单,5是审核不通过，可根据需求添加目标数字作为mode
     private int MoneyNeeded;
     private Date BeginDate;
     private boolean Time;
@@ -71,7 +71,7 @@ public class Order {
         return MoneyNeeded;
     }
 
-    @JSONField(name = "BeginDate")
+    @JSONField(format="yyyy-MM-dd",name = "BeginDate")
     public Date getBeginDate() {
         return BeginDate;
     }
@@ -81,7 +81,7 @@ public class Order {
         return Time;
     }
 
-    @JSONField(name = "EndDate")
+    @JSONField(format="yyyy-MM-dd",name = "EndDate")
     public Date getEndDate() {
         return EndDate;
     }
