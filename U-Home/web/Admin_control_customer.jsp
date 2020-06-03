@@ -51,13 +51,13 @@
                 </el-form>
                 <%--查询结果--%>
                 <el-table :data="showCustomers">
-                    <el-table-column prop="cnum" label="编号">
+                    <el-table-column prop="Cnum" label="编号">
                     </el-table-column>
-                    <el-table-column prop="name" label="用户名">
+                    <el-table-column prop="Name" label="用户名">
                     </el-table-column>
-                    <el-table-column prop="email" label="邮箱">
+                    <el-table-column prop="Email" label="邮箱">
                     </el-table-column>
-                    <el-table-column prop="phone" label="手机号">
+                    <el-table-column prop="Phone" label="手机号">
                     </el-table-column>
                     <el-table-column>
                         <template slot-scope="scope">

@@ -11,7 +11,7 @@ let vue = new Vue({
                         callback(new Error('邮箱不合法'));
                     }
                     for(let customer of vue.allCustomers){
-                        if(customer.cnum != vue.addForm.cnum && customer.email == vue.addForm.email){
+                        if(customer.Cnum != vue.addForm.Cnum && customer.Email == vue.addForm.Email){
                             callback(new Error('邮箱已被使用'))
                         }
                     }
@@ -29,7 +29,7 @@ let vue = new Vue({
                         callback(new Error('手机号不合法'));
                     }
                     for(let customer of vue.allCustomers){
-                        if(customer.cnum != vue.addForm.cnum && customer.phone == vue.addForm.phone){
+                        if(customer.Cnum != vue.addForm.Cnum && customer.Phone == vue.addForm.Phone){
                             callback(new Error('手机号已被使用'))
                         }
                     }
@@ -37,7 +37,7 @@ let vue = new Vue({
                 callback();
             }
         };
-        var validateUsername = (rule, value, callback) => {
+        var validateUserName = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入用户名'));
             } else {
@@ -52,20 +52,20 @@ let vue = new Vue({
                 user:""
             },
             addForm:{
-                cnum:"",
-                name:"",
-                email:"",
-                phone:"",
-                code:""
+                Cnum:"",
+                Name:"",
+                Email:"",
+                Phone:"",
+                Code:""
             },
             rules: {
-                name: [
-                    { validator: validateUsername,trigger: 'blur' }
+                Name: [
+                    { validator: validateUserName,trigger: 'blur' }
                 ],
-                email: [
+                Email: [
                     { validator:validateEmail, trigger: 'blur' },
                 ],
-                phone: [
+                Phone: [
                     {validator:validateMobilePhone,trigger:'blur'}
                 ]
 
@@ -90,9 +90,9 @@ let vue = new Vue({
 
     },
     methods: {
-        handleDelete(row){//只传cnum
+        handleDelete(row){//只传Cnum
             let formData = new FormData();
-            formData.append('cnum',row.cnum);
+            formData.append('Cnum',row.Cnum);
             let config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -109,14 +109,14 @@ let vue = new Vue({
             //更新页面
             for(let i in this.allCustomers){
                 let c = this.allCustomers[i];
-                if(c.cnum == row.cnum){
+                if(c.Cnum == row.Cnum){
                     this.allCustomers.splice(i,1);
                     break;
                 }
             }
             for(let i in this.showCustomers){
                 let c = this.showCustomers[i];
-                if(c.cnum == row.cnum){
+                if(c.Cnum == row.Cnum){
                     this.showCustomers.splice(i,1);
                     break;
                 }
@@ -132,7 +132,7 @@ let vue = new Vue({
         },
         findCustomerByKeyword() {//查询用户
             let keyWord = this.formInline.user
-            this.showCustomers = this.allCustomers.filter((c)=>(c.name.indexOf(keyWord)!=-1))
+            this.showCustomers = this.allCustomers.filter((c)=>(c.Name.indexOf(keyWord)!=-1))
         },
 
         quit(){
@@ -148,11 +148,11 @@ let vue = new Vue({
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     let formData = new FormData();
-                    formData.append('cnum',this.addForm.cnum);
-                    formData.append('name', this.addForm.name);
-                    formData.append('email', this.addForm.email);
-                    formData.append('phone',this.addForm.phone);
-                    formData.append('code',this.addForm.code);
+                    formData.append('Cnum',this.addForm.Cnum);
+                    formData.append('Name', this.addForm.Name);
+                    formData.append('Email', this.addForm.Email);
+                    formData.append('Phone',this.addForm.Phone);
+                    formData.append('Code',this.addForm.Code);
                     let config = {
                         headers: {
                             'Content-Type': 'multipart/form-data'

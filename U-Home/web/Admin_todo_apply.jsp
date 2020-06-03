@@ -40,34 +40,40 @@
         <el-container>
             <el-main>
                 <%--待处理申请表格--%>
-                <el-table :data="ToDoApply">
+                <el-table :data="allOrders">
                     <el-table-column prop="Onum" label="订单编号">
                     </el-table-column>
                     <el-table-column prop="Cnum" label="用户编号">
                     </el-table-column>
                     <el-table-column>
                         <template slot-scope="scope">
-                            <el-button type="primary" @click="CheckCustomer(scope.row)">查看用户信息</el-button>
+                            <el-button type="primary" @click="CheckCustomer(scope.row)">详情</el-button>
                         </template>
                     </el-table-column>
                     <el-table-column prop="Rnum" label="房源编号">
                     </el-table-column>
                     <el-table-column>
                         <template slot-scope="scope">
-                            <el-button type="primary" @click="CheckRoom(scope.row)">查看房源信息</el-button>
+                            <el-button type="primary" @click="CheckRoom(scope.row)">详情</el-button>
                         </template>
                     </el-table-column>
                     <el-table-column prop="Time" label="订单类型">
                         <%--这里显示长租或者短租--%>
                     </el-table-column>
-                    <el-table-column>
+                    <el-table-column prop="Time" label="开始时间">
+                        <%--这里显示长租或者短租--%>
+                    </el-table-column>
+                    <el-table-column prop="Time" label="结束时间">
+                        <%--这里显示长租或者短租--%>
+                    </el-table-column>
+                    <el-table-column label="申请通过">
                         <template slot-scope="scope">
-                            <el-button type="primary" @click="CheckPass(scope.row)">申请通过</el-button>
+                            <el-button type="primary" @click="CheckPass(scope.row)">是</el-button>
                         </template>
                     </el-table-column>
-                    <el-table-column>
+                    <el-table-column >
                         <template slot-scope="scope">
-                            <el-button type="primary" @click="CheckUnPass(scope.row)">申请不通过</el-button>
+                            <el-button type="primary" @click="CheckUnPass(scope.row)">否</el-button>
                         </template>
                     </el-table-column>
                 </el-table>

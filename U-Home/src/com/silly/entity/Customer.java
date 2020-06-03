@@ -1,5 +1,7 @@
 package com.silly.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Customer {
     private int Cnum;
     private String Name;
@@ -17,23 +19,27 @@ public class Customer {
     }
 
 
-
+    @JSONField(name = "Cnum")
     public int getCnum() {
         return Cnum;
     }
 
+    @JSONField(name = "Name")
     public String getName() {
         return Name;
     }
 
+    @JSONField(name = "Email")
     public String getEmail() {
         return Email;
     }
 
+    @JSONField(name = "Phone")
     public String getPhone() {
         return Phone;
     }
 
+    @JSONField(name = "Code")
     public String getCode() {
         return Code;
     }
