@@ -76,6 +76,21 @@ let vue = new Vue({
         }
     },
     methods: {
+        formatterColumn(row, column) {
+            switch(row.Capacity){
+                case 1:
+                    return '单人间';
+                    break;
+                case 2:
+                    return '双人间';
+                    break;
+                case 4:
+                    return '四人间';
+                    break;
+                default:
+                    return '未知';
+            }
+        },
         quit(){
             axios.post('/logout', {
             }).then(function (response) {
@@ -87,7 +102,9 @@ let vue = new Vue({
         },
         findRoomByKeyword(){//根据关键字查询
             let keyWord = this.keyword
-            this.showRooms = this.allRooms.filter((c)=>(c.Rname.indexOf(keyWord)!=-1))
+            this.showRooms = this.allRooms.filter((c)=>(
+                c.Rname.indexOf(keyWord)!=-1 || c.Place.indexOf(keyWord)!=-1
+            ))
         },
         changestate(row){//暂停、恢复出租
             row.CanUse = !row.CanUse

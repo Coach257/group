@@ -64,9 +64,9 @@
                     </el-table-column>
                     <el-table-column prop="Place" label="房间地址">
                     </el-table-column>
-                    <el-table-column prop="Capacity" label="房间类型">
+                    <el-table-column prop="Capacity" :formatter="formatterColumn" label="房间类型">
                     </el-table-column>
-                    <el-table-column prop="CostPerDay" label="日租金">
+                    <el-table-column prop="CostPerDay"  label="日租金">
                     </el-table-column>
 
                     <el-table-column>
