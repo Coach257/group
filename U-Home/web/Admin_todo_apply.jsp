@@ -60,10 +60,10 @@
                     <el-table-column prop="Time" label="订单类型">
                         <%--这里显示长租或者短租--%>
                     </el-table-column>
-                    <el-table-column prop="Time" label="开始时间">
+                    <el-table-column prop="BeginDate" label="开始时间">
                         <%--这里显示长租或者短租--%>
                     </el-table-column>
-                    <el-table-column prop="Time" label="结束时间">
+                    <el-table-column prop="EndDate" label="结束时间">
                         <%--这里显示长租或者短租--%>
                     </el-table-column>
                     <el-table-column label="申请通过">
@@ -81,17 +81,17 @@
                 <el-dialog title="用户信息" :visible.sync="CustomerDialogVisible">
                     <div style="width:100%;text-align:center">
                         <el-form :model="CustomerForm" ref="CustomerForm" :inline="true"  class="center" >
-                            <el-row><el-form-item label="用户编号" prop="Cnum" :disabled="true">
-                                <el-input v-model="CustomerForm.Cnum" ></el-input>
+                            <el-row><el-form-item label="用户编号" prop="Cnum" >
+                                <el-input v-model="CustomerForm.Cnum" :disabled="true"></el-input>
                             </el-form-item></el-row>
-                            <el-row><el-form-item label="用户名" prop="Name" :disabled="true">
-                                <el-input v-model="CustomerForm.Name" ></el-input>
+                            <el-row><el-form-item label="用户名" prop="Name">
+                                <el-input v-model="CustomerForm.Name" :disabled="true"></el-input>
                             </el-form-item></el-row>
-                            <el-row><el-form-item label="邮 箱" prop="Email" :disabled="true">
-                                <el-input v-model="CustomerForm.Email" ></el-input>
+                            <el-row><el-form-item label="邮 箱" prop="Email">
+                                <el-input v-model="CustomerForm.Email" :disabled="true"></el-input>
                             </el-form-item></el-row>
-                            <el-row><el-form-item label="手机号" prop="Phone" :disabled="true">
-                                <el-input v-model="CustomerForm.Phone" ></el-input>
+                            <el-row><el-form-item label="手机号" prop="Phone">
+                                <el-input v-model="CustomerForm.Phone":disabled="true"></el-input>
                             </el-form-item></el-row>
                         </el-form>
                     </div>
@@ -100,20 +100,20 @@
                 <el-dialog title="房源信息" :visible.sync="RoomDialogVisible">
                     <div style="width:100%;text-align:center">
                         <el-form :model="RoomForm" ref="RoomForm" :inline="true"  class="center" >
-                            <el-row><el-form-item label="房源编号" prop="Rnum" :disabled="true">
-                                <el-input v-model="RoomForm.Rnum" ></el-input>
+                            <el-row><el-form-item label="房源编号" prop="Rnum">
+                                <el-input v-model="RoomForm.Rnum" :disabled="true"></el-input>
                             </el-form-item></el-row>
-                            <el-row><el-form-item label="房间名称" prop="Rname" :disabled="true">
-                                <el-input v-model="RoomForm.Rname" ></el-input>
+                            <el-row><el-form-item label="房间名称" prop="Rname" >
+                                <el-input v-model="RoomForm.Rname" :disabled="true"></el-input>
                             </el-form-item></el-row>
-                            <el-row><el-form-item label="房间地址" prop="Place" :disabled="true">
-                                <el-input v-model="RoomForm.Place" ></el-input>
+                            <el-row><el-form-item label="房间地址" prop="Place" >
+                                <el-input v-model="RoomForm.Place" :disabled="true"></el-input>
                             </el-form-item></el-row>
-                            <el-row><el-form-item label="日租金" prop="CostPerDay" :disabled="true">
-                                <el-input v-model="RoomForm.CostPerDay" ></el-input>
+                            <el-row><el-form-item label="日租金" prop="CostPerDay">
+                                <el-input v-model="RoomForm.CostPerDay" :disabled="true"></el-input>
                             </el-form-item></el-row>
-                            <el-row><el-form-item label="房间类型" prop="Capacity" :disabled="true">
-                                <el-input v-model="RoomForm.Capacity" ></el-input>
+                            <el-row><el-form-item label="房间类型" prop="Capacity">
+                                <el-input v-model="RoomForm.Capacity" :disabled="true"></el-input>
                             </el-form-item></el-row>
                         </el-form>
                     </div>

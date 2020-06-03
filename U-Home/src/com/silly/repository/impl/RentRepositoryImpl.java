@@ -24,8 +24,9 @@ public class RentRepositoryImpl implements RentRepository {
                 sql = "select * from Orders where Mode = ?";
                 if(mode==-1){
                     sql="select * from Orders";
+                    list = qR.query(connection, sql, new BeanListHandler<Order>(Order.class));
                 }
-                list = qR.query(connection, sql, new BeanListHandler<Order>(Order.class), mode);
+                else list = qR.query(connection, sql, new BeanListHandler<Order>(Order.class), mode);
             } else {//特定用户查找自己的订单
                 sql = "select * from Orders where Mode = ? and Cnum = ?";
                 list = qR.query(connection, sql, new BeanListHandler<Order>(Order.class), mode);

@@ -23,11 +23,7 @@ public class AllOrder extends HttpServlet {
         List<Order> list;
         AdminService adminService=new AdminServiceImpl();
         list = new ArrayList<Order>();
-        list.add(new Order(1591189600,123,123,0,123,
-                java.sql.Date.valueOf("2000-1-1"),true,java.sql.Date.valueOf("2000-12-31")));
-
-        //list = adminService.AllOrder();
-
+        list = adminService.AllOrder();
         String result = "[";
         for(int i = 0;i<list.size();i++){
             Order order = list.get(i);
