@@ -60,6 +60,33 @@ let vue =new Vue({
         handleClose(done){
             this.closeForm('addForm');
         },
+        submitForm(formName){
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    let formData = new FormData();
+                    formData.append('Name',this.addForm.Name);
+                    formData.append('Code',this.addForm.Code);
+                    let config = {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    };
+                    axios.post('/NewWorker',formData,config)
+                        .then(function (response) {
+                            alert('添加成功');
+                            window.location.href='Admin_control_worker.jsp';
+                        })
+                        .catch(function (error) {
+                            alert('信息不合法')
+                            console.log(error);
+                        });
+                    this.dialogVisible=false;
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+        }
     },
     mounted:function() {
         let config = {

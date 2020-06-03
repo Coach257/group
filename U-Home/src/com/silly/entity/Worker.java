@@ -4,8 +4,8 @@ public class Worker {
     private int Wnum;
     private String Name;
     private String Code;
-    private int DealTime;
-    private double Score;
+    private int DealTime;//处理报修次数
+    private double Score;//评分
 
     public void setWnum(int wnum) {
         Wnum = wnum;
@@ -47,12 +47,12 @@ public class Worker {
         return Score;
     }
 
-    public Worker(int a,String b,String c,int d,double e){
-        this.Code=c;
-        this.Name=b;
-        this.Wnum=a;
-        this.DealTime=d;
-        this.Score=e;
+    public Worker(int Wnum,String Name,String Code,int DealTime,double Score){
+        this.Code=Code;
+        this.Name=Name;
+        this.Wnum=Wnum;
+        this.DealTime=DealTime;
+        this.Score=Score;
     }
 
     public Worker(){

@@ -31,7 +31,6 @@ public class AllWorker extends HttpServlet {
         }
         result += "]";
         resp.setCharacterEncoding("UTF-8");
-        System.out.println(result);
         resp.getWriter().print(result);
         return;
     }
