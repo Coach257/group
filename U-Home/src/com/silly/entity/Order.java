@@ -1,5 +1,7 @@
 package com.silly.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 public class Order {
@@ -44,34 +46,42 @@ public class Order {
         EndDate = endDate;
     }
 
+    @JSONField(name = "Cnum")
     public int getCnum() {
         return Cnum;
     }
 
+    @JSONField(name = "Onum")
     public int getOnum() {
         return Onum;
     }
 
+    @JSONField(name = "Rnum")
     public int getRnum() {
         return Rnum;
     }
 
+    @JSONField(name = "Mode")
     public int getMode() {
         return Mode;
     }
 
+    @JSONField(name = "MoneyNeeded")
     public int getMoneyNeeded() {
         return MoneyNeeded;
     }
 
+    @JSONField(name = "BeginDate")
     public Date getBeginDate() {
         return BeginDate;
     }
 
+    @JSONField(name = "Time")
     public boolean isTime() {
         return Time;
     }
 
+    @JSONField(name = "EndDate")
     public Date getEndDate() {
         return EndDate;
     }
