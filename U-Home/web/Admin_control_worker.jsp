@@ -9,6 +9,11 @@
     <script src="js/axios.min.js"></script>
     <title>客服管理中心</title>
 </head>
+<style>
+    .el-row{
+        margin-top: 20px;
+    }
+</style>
 <body>
 <div id="app">
     <el-header style="font-size: 12px;height: 50px; line-height: 50px;">
@@ -39,7 +44,56 @@
         </el-aside>
         <el-container>
             <el-main>
-                <h1>这是管理师傅页面</h1>
+                <%--添加师傅--%>
+                <el-row>
+                    <el-button type="primary" plain @click="handleModify">添加新师傅</el-button>
+                </el-row>
+                <%--查询师傅--%>
+                <el-row>
+                    <el-form :inline="true"class="demo-form-inline" >
+                        <el-form-item>
+                            <el-input prefix-icon="el-icon-search" v-model="keyword" placeholder="请输入关键词" ></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="findWorkerByKeyword">查 询</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-row>
+                <%--查询结果--%>
+                <el-table :data="showWorkers">
+                    <el-table-column prop="Wnum" label="编号">
+                    </el-table-column>
+                    <el-table-column prop="Name" label="姓名">
+                    </el-table-column>
+                    <el-table-column prop="DealTime" label="处理报修次数">
+                    </el-table-column>
+                    <el-table-column prop="Score" label="评分">
+                    </el-table-column>
+                </el-table>
+                    <%--添加师傅--%>
+                <el-dialog title="添加新师傅" :visible.sync="dialogVisible" :before-close="handleClose">
+                    <div style="width:100%;text-align:center">
+                        <el-form :model="addForm" :rules="rules" ref="addForm" :inline="true"  class="center" >
+                            <el-row>
+                                <el-form-item label="师傅姓名" prop="Name">
+                                    <el-input v-model="addForm.Name"></el-input>
+                                </el-form-item>
+                            </el-row>
+                            <el-row>
+                                <el-form-item label="密码" prop="Code">
+                                    <el-input v-model="addForm.Code" ></el-input>
+                                </el-form-item>
+                            </el-row>
+                            <el-row>
+                                <el-form-item>
+                                    <el-button @click="closeForm('addForm')">取 消</el-button>
+                                    <el-button type="submit" @click="submitForm('addForm')">提 交</el-button>
+                                </el-form-item>
+                            </el-row>
+                        </el-form>
+                    </div>
+                </el-dialog>
+
             </el-main>
         </el-container>
     </el-container>
@@ -47,24 +101,5 @@
 </body>
 <script src="js/vue.js"></script>
 <script src="/element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        methods: {
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        },
-
-    })
-</script>
+<script src="js/Admin_control_worker_script.js"></script>
 </html>

@@ -28,7 +28,8 @@ public class WorkerRepositoryImpl implements WorkerRepository {
             statement.setString(2,password);
             resultSet = statement.executeQuery();
             if(resultSet.next()){
-                worker = new Worker(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3));
+                worker = new Worker(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3)
+                ,resultSet.getInt(4),resultSet.getDouble(5));
             }
         } catch (SQLException e) {
             e.printStackTrace();

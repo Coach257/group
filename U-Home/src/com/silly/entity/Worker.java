@@ -4,9 +4,15 @@ public class Worker {
     private int Wnum;
     private String Name;
     private String Code;
+    private int DealTime;
+    private double Score;
 
     public void setWnum(int wnum) {
         Wnum = wnum;
+    }
+
+    public int getWnum() {
+        return Wnum;
     }
 
     public void setName(String name) {
@@ -17,10 +23,6 @@ public class Worker {
         Code = code;
     }
 
-    public int getWnum() {
-        return Wnum;
-    }
-
     public String getName() {
         return Name;
     }
@@ -29,13 +31,39 @@ public class Worker {
         return Code;
     }
 
-    public Worker(int a,String b,String c){
+    public void setDealTime(int dealTime) {
+        DealTime = dealTime;
+    }
+
+    public int getDealTime() {
+        return DealTime;
+    }
+
+    public void setScore(double score) {
+        Score = score;
+    }
+
+    public double getScore() {
+        return Score;
+    }
+
+    public Worker(int a,String b,String c,int d,double e){
         this.Code=c;
         this.Name=b;
         this.Wnum=a;
+        this.DealTime=d;
+        this.Score=e;
     }
 
     public Worker(){
 
+    }
+    public String toString(){
+        return "{\"Wnum\":\""+Wnum+ "\"," +
+                "\"Name\":\""+ Name +"\"," +
+                "\"DealTime\":\""+ DealTime + "\"," +
+                "\"Code\":\""+ Code + "\"," +
+                "\"Score\":\""+Score + "\""+
+                "}";
     }
 }
