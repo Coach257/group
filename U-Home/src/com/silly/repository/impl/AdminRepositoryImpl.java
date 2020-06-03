@@ -123,7 +123,7 @@ public class AdminRepositoryImpl implements AdminRepository {
                         b.getPhone(),b.getCode(),b.getUrl());
             }
             else if(table.equals("Worker")){
-                sql+="(?,?,?)";
+                sql+="(?,?,?,0,0)";
                 Worker b=(Worker) a;
                 qR.update(connection,sql,b.getWnum(),b.getName(),b.getCode());
             }
