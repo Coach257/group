@@ -55,6 +55,7 @@ let vue = new Vue({
                 Email:'',
                 Phone:'',
             },
+            avatarPath:"",
             addForm:{
                 File:"",
             },
@@ -145,6 +146,7 @@ let vue = new Vue({
             .then(function (response) {
                 vue.CurrentCustomer = response.data;
                 console.log(vue.CurrentCustomer)
+                vue.avatarPath = "CustomerPic/"+(vue.CurrentCustomer.Cnum)+".jpg"
             })
             .catch(function (error) {
                 console.log(error);

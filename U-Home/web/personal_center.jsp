@@ -54,7 +54,7 @@
             <el-main>
                 <el-form ref="CurrentCustomer" :model="CurrentCustomer" label-width="80px" size="mini">
                     <el-form-item label="头像：">
-                        <el-avatar shape="square" :size="size" :src="'CustomerPic/'+CurrentCustomer.Cnum+'.jpg'"></el-avatar>
+                        <el-avatar shape="square" :size="size" :src="avatarPath"></el-avatar>
                     </el-form-item>
                     <el-form-item label="用户名：">
                         {{CurrentCustomer.Name}}
