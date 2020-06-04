@@ -30,5 +30,6 @@ public interface AdminService {
     public void ChangeRoom(Room a);
     public Customer FindByCnum(int cnum);
     public Room FindByRnum(int rnum);
+    public List<Customer> InformList();
 
 }

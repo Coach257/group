@@ -146,5 +146,8 @@ public class AdminServiceImpl implements AdminService {
         return roomRepository.getbyRnum(rnum);
     }
 
-
+    @Override
+    public List<Customer> InformList() {
+        return allUseRepository.InformList();
+    }
 }
