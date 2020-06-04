@@ -28,6 +28,8 @@ public class NewRoom extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         Room room = new Room();
+        room.setRnum((int) (System.currentTimeMillis()/1000));
+
         try {
             DiskFileItemFactory fileItemFactory=new DiskFileItemFactory();
             ServletFileUpload servletFileUpload=new ServletFileUpload(fileItemFactory);
@@ -37,7 +39,6 @@ public class NewRoom extends HttpServlet {
                     String name=fileItem.getFieldName();
                     String value=fileItem.getString("UTF-8");
                     System.out.println(name+":"+value);
-
                     switch (name){
                         case "Rname":room.setRName(value);break;
                         case "Place":room.setPlace(value);break;
@@ -46,7 +47,7 @@ public class NewRoom extends HttpServlet {
                     }
                 }
                 else{
-                    String name=new String(fileItem.getName().getBytes("GBK"),"UTF-8");
+                    String name = String.valueOf(room.getRnum())+".jpg";
                     InputStream inputStream=fileItem.getInputStream();
                     String path=req.getServletContext().getRealPath("RoomPic/"+name);
                     OutputStream outputStream=new FileOutputStream(path);
@@ -62,7 +63,7 @@ public class NewRoom extends HttpServlet {
             e.printStackTrace();
             System.out.println(e);
         }
-        room.setRnum((int) (System.currentTimeMillis()/1000));
+
         room.setCanUse(true);
         room.setEmptyOrNot(0);
         AdminService adminService = new AdminServiceImpl();

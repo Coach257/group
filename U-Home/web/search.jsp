@@ -34,7 +34,7 @@
             <div style="margin: 10px 0;"></div>
             <el-form :inline="true" :model="form" class="demo-form-inline" >
                 <el-form-item>
-                    <el-input prefix-icon="el-icon-search" v-model="form.input" placeholder="请输入关键词" ></el-input>
+                    <el-input prefix-icon="el-icon-search" v-model="keyword" placeholder="请输入关键词" ></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="submit" @click="findRoomByKeyword">查询</el-button>
@@ -42,7 +42,7 @@
             </el-form>
         </el-header>
         <el-main>
-            <el-table :data="tableData" style="width: 100%">
+            <el-table :data="showRooms" style="width: 100%">
                 <el-table-column label="房源名" width="180">
                     <template slot-scope="scope">
                         <span style="margin-left: 10px">{{ scope.row.Rname }}</span>
@@ -50,12 +50,12 @@
                 </el-table-column>
                 <el-table-column label="图片展示" width="180">
                     <template slot-scope="scope">
-                        <el-image style="width: 100px; height: 100px" :src="scope.row.url"></el-image>
+                        <el-image style="width: 100px; height: 100px" :src="'RoomPic/'+scope.row.Rnum+'.jpg'"></el-image>
                     </template>
                 </el-table-column>
                 <el-table-column label="地址" width="180">
                     <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ scope.row.Raddress}}</span>
+                        <span style="margin-left: 10px">{{ scope.row.Place}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column label="日租金" width="180">
@@ -66,9 +66,9 @@
                 <el-table-column label="房间类型" width="180">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="top">
-                            <p>已有{{ scope.row.Empty}}位其他租客</p>
+                            <p>已有{{ scope.row.EmptyOrNot}}位其他租客</p>
                             <div slot="reference" class="name-wrapper">
-                                <el-tag size="large">{{scope.row.Capacity}}</el-tag>
+                                <el-tag size="large">{{CapacityToString(scope.row.Capacity)}}</el-tag>
                             </div>
                         </el-popover>
                     </template>
@@ -95,48 +95,6 @@
 <script src="js/vue.js"></script>
 <!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        data() {
-            return {
-                form:{
-                    input:'',
-                },
-                tableData: [{
-                    url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-                    Raddress: '北京航空航天大学',
-                    Capacity: '四人间',
-                    Empty: 2,
-                    Rname: 'BUAA',
-                    CostPerDay: '223',
-                },
-                ]
-            }
-        },
-        methods: {
-            onSubmit() {
-                console.log('submit!');
-            },
-            quit() {
-                axios.post('/logout', {}).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location) {
-                window.location.href = location;
-            },
-            handleEdit(index, row) {
-                console.log(index, row);
-            },
-            handleDelete(index, row) {
-                console.log(index, row);
-            }
-        }
-    })
-</script>
+<script src="js/search_script.js"></script>
 
 </html>
