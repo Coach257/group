@@ -33,30 +33,6 @@ public class CurrentCustomer extends HttpServlet {
         resp.getWriter().print(result);
         System.out.println(result);
 
-        //上传头像
-        try {
-            String name = customer.getCnum() + ".jpg";
-
-            DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
-            ServletFileUpload servletFileUpload = new ServletFileUpload(fileItemFactory);
-            List<FileItem> list = servletFileUpload.parseRequest(req);
-            for(FileItem fileItem:list) {
-                if (fileItem.getFieldName().equals("File")) {
-                    InputStream inputStream = fileItem.getInputStream();
-                    String path = req.getServletContext().getRealPath("CustomerPic/" + name);
-                    OutputStream outputStream = new FileOutputStream(path);
-                    int temp = 0;
-                    while ((temp = inputStream.read()) != -1) {
-                        outputStream.write(temp);
-                    }
-                    outputStream.close();
-                    inputStream.close();
-                }
-            }
-        } catch (FileUploadException e) {
-            e.printStackTrace();
-            System.out.println(e);
-        }
 
         return;
     }

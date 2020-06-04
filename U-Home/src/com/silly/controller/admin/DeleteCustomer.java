@@ -22,7 +22,7 @@ public class DeleteCustomer extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        String cnum = impfileMap.get("cnum").toString();
+        String cnum = impfileMap.get("Cnum").toString();
         Customer customer = new Customer(Integer.valueOf(cnum),null,null,null,null);
 
         adminService.DeleteCustomer(customer);

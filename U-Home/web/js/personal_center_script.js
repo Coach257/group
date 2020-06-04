@@ -54,6 +54,7 @@ let vue = new Vue({
                 Name:'',
                 Email:'',
                 Phone:'',
+                Code:'',
             },
             avatarPath:"",
             addForm:{
@@ -80,10 +81,7 @@ let vue = new Vue({
     methods: {
         ModifyCustomer(){
             this.centerDialogVisible = true
-            this.sizeForm.Cnum = this.CurrentCustomer.Cnum;
-            this.sizeForm.Email=this.CurrentCustomer.Email;
-            this.sizeForm.Phone = this.CurrentCustomer.Phone;
-            this.sizeForm.Name=this.CurrentCustomer.Name;
+            this.sizeForm = this.CurrentCustomer;
         },
         test(){
             console.log("test");
@@ -95,22 +93,38 @@ let vue = new Vue({
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    //修改基本信息
                     let formData = new FormData();
+                    console.log(this.sizeForm)
                     formData.append('data',JSON.stringify(this.sizeForm))
-                    formData.append('File',this.addForm.File);
                     let config = {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     };
-                    axios.post('/CurrentCustomer',formData,config)
+                    axios.post('/ModifyCustomer',formData,config)
                         .then(function (response) {
                             vue.modifyDialogVisible = false;
                             console.log(response)
+                            this.CurrentCustomer = this.sizeForm
                         })
                         .catch(function (error) {
                             console.log(error);
                         });
+                    //上传头像
+                    if(this.addForm.File) {
+                        formData = new FormData();
+                        formData.append('File', this.addForm.File);
+                        axios.post('/ModifyAvator', formData, config)
+                            .then(function (response) {
+                                vue.modifyDialogVisible = false;
+                                console.log(response)
+                                vue.CurrentCustomer = vue.sizeForm
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    }
                 } else {
                     console.log('error submit!!');
                     return false;
