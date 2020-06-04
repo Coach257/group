@@ -4,7 +4,7 @@ public class Room {
     private int Rnum;
     private int Capacity;
     private boolean CanUse;
-    private boolean EmptyOrNot;
+    private int EmptyOrNot;
     private String url;
     private int CostPerDay;
     private String Place;
@@ -38,7 +38,7 @@ public class Room {
         CanUse = canUse;
     }
 
-    public void setEmptyOrNot(boolean emptyOrNot) {
+    public void setEmptyOrNot(int emptyOrNot) {
         EmptyOrNot = emptyOrNot;
     }
 
@@ -50,7 +50,7 @@ public class Room {
         CostPerDay = costPerDay;
     }
 
-    public boolean isEmptyOrNot() {
+    public int getEmptyOrNot() {
         return EmptyOrNot;
     }
 
@@ -74,7 +74,7 @@ public class Room {
         this.RName = RName;
     }
 
-    public Room(int rnum, int capacity, boolean emptyOrNot, String url, boolean canUse, int Cost,
+    public Room(int rnum, int capacity, int emptyOrNot, String url, boolean canUse, int Cost,
                 String place, String rName) {
         Rnum = rnum;
         Capacity = capacity;

@@ -64,7 +64,7 @@ public class NewRoom extends HttpServlet {
         }
         room.setRnum((int) (System.currentTimeMillis()/1000));
         room.setCanUse(true);
-        room.setEmptyOrNot(true);
+        room.setEmptyOrNot(0);
         AdminService adminService = new AdminServiceImpl();
         adminService.AddRoom(room);
     }

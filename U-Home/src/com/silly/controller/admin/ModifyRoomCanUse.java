@@ -43,7 +43,7 @@ public class ModifyRoomCanUse extends HttpServlet {
                         case "Capacity":room.setCapacity(Integer.valueOf(value));break;
                         case "CostPerDay":room.setCostPerDay(Integer.valueOf(value));break;
                         case "CanUse":room.setCanUse(Boolean.valueOf(value));break;
-                        case "EmptyOrNot":room.setEmptyOrNot((Boolean.valueOf(value)));break;
+                        case "EmptyOrNot":room.setEmptyOrNot((Integer.valueOf(value)));break;
                     }
                 }
                 else{

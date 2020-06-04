@@ -103,9 +103,9 @@ public class AdminRepositoryImpl implements AdminRepository {
             QueryRunner qR = new QueryRunner();
             sql="insert into "+table+" values";
             if(table.equals("Room")){
-                sql+="(?,?,true,?,true,?,?,?)";
+                sql+="(?,?,?,?,true,?,?,?)";
                 Room b=(Room)a;
-                qR.update(connection,sql,b.getRnum(),b.getCapacity(),b.getUrl(),
+                qR.update(connection,sql,b.getRnum(),b.getCapacity(),b.getEmptyOrNot(),b.getUrl(),
                         b.getCostPerDay(),b.getPlace(),b.getRName());
             }
             else if(table.equals("Orders")){
@@ -218,7 +218,7 @@ public class AdminRepositoryImpl implements AdminRepository {
             String sql = "update Room set Capacity = ?, EmptyOrNot =?, url = ?, CanUse= ?," +
                     "CostPerDay= ? ,Place= ? ,RName= ? where Rnum= ?";
             QueryRunner qR = new QueryRunner();
-            qR.update(connection,sql,a.getCapacity(),a.isEmptyOrNot(),a.getUrl(),a.isCanUse()
+            qR.update(connection,sql,a.getCapacity(),a.getEmptyOrNot(),a.getUrl(),a.isCanUse()
             ,a.getCostPerDay(),a.getPlace(),a.getRName(),a.getRnum());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
