@@ -148,11 +148,7 @@ let vue = new Vue({
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     let formData = new FormData();
-                    formData.append('Cnum',this.addForm.Cnum);
-                    formData.append('Name', this.addForm.Name);
-                    formData.append('Email', this.addForm.Email);
-                    formData.append('Phone',this.addForm.Phone);
-                    formData.append('Code',this.addForm.Code);
+                    formData.append('data',JSON.stringify(this.addForm))
                     let config = {
                         headers: {
                             'Content-Type': 'multipart/form-data'

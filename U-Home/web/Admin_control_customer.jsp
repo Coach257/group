@@ -75,13 +75,13 @@
                     <div style="width:100%;text-align:center">
                         <el-form :model="addForm" :rules="rules" ref="addForm" :inline="true"  class="center" >
                             <el-form-item label="用户名" prop="name">
-                                <el-input v-model="addForm.name" ></el-input>
+                                <el-input v-model="addForm.Name" ></el-input>
                             </el-form-item>
                             <el-form-item label="邮 箱" prop="email">
-                                <el-input v-model="addForm.email" ></el-input>
+                                <el-input v-model="addForm.Email" ></el-input>
                             </el-form-item>
                             <el-form-item label="手机号" prop="phone">
-                                <el-input v-model="addForm.phone" ></el-input>
+                                <el-input v-model="addForm.Phone" ></el-input>
                             </el-form-item>
                             <el-form-item>
                                 <el-button @click="closeForm('addForm')">取 消</el-button>

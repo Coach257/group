@@ -51,23 +51,26 @@
                         <el-avatar shape="square" :size="size" :src="squareUrl"></el-avatar>
                     </el-form-item>
                     <el-form-item label="姓名：">
-                    施哲纶
-                </el-form-item>
+                        {{CurrentCustomer.Name}}
+                    </el-form-item>
                     <el-form-item label="电话：">
-                        1234567890
+                        {{CurrentCustomer.Phone}}
                     </el-form-item>
                     <el-form-item label="邮箱：">
-                        18373044@buaa.edu.cn
+                        {{CurrentCustomer.Email}}
+                    </el-form-item>
+                    <el-form-item label="test">
+                        <el-button type="primary" @click="test">test</el-button>
                     </el-form-item>
                     <el-form-item size="large">
-                        <el-button type="primary" @click="centerDialogVisible = true">修改资料</el-button>
+                        <el-button type="primary" @click="ModifyCustomer">修改资料</el-button>
 
                         <el-dialog
                                 title="修改资料"
                                 :visible.sync="centerDialogVisible"
                                 width="30%"
                                 center>
-                            <el-form ref="form" :model="sizeForm" label-width="80px" size="mini">
+                            <el-form ref="form" :model="sizeForm" :rules="rules" ref="sizeForm" label-width="80px" size="mini">
                                 <el-form-item label="头像：">
                                     <el-avatar shape="square" :size="size" :src="squareUrl"></el-avatar>
                                 </el-form-item>
@@ -82,18 +85,18 @@
                                     </el-upload>
                                 <div style="margin: 20px 0;"></div>
                                 <el-form-item label="姓名：">
-                                    <el-input v-model="sizeForm.name"></el-input>
+                                    <el-input v-model="sizeForm.Name"></el-input>
                                 </el-form-item>
                                 <el-form-item label="电话：">
-                                    <el-input v-model="sizeForm.cellphone"></el-input>
+                                    <el-input v-model="sizeForm.Phone"></el-input>
                                 </el-form-item>
                                 <el-form-item label="邮箱：">
-                                    <el-input v-model="sizeForm.email"></el-input>
+                                    <el-input v-model="sizeForm.Email"></el-input>
                                 </el-form-item>
                             </el-form>
                             <span slot="footer" class="dialog-footer">
                             <el-button @click="centerDialogVisible = false">取 消</el-button>
-                            <el-button type="primary" @click="centerDialogVisible = false">保 存</el-button>
+                            <el-button type="submit" @click="submitForm('sizeForm')">保 存</el-button>
                           </span>
                         </el-dialog>
                     </el-form-item>
@@ -107,46 +110,7 @@
 <script src="js/vue.js"></script>
 <!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        data() {
-            return{
-                sizeForm: {
-                    name: '',
-                },
-                formInline: {
-                    keywords: '',
-                },
-                squareUrl: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-                centerDialogVisible: false,
-            }
-        },
-        methods: {
-            onSubmit() {
-                console.log('submit!');
-            },
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
-            handlePreview(file) {
-                console.log(file);
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        }
-    })
-</script>
+<script src="js/personal_center_script.js"></script>
 <style>
     .image {
         width: 100%;

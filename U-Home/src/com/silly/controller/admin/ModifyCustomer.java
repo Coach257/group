@@ -1,5 +1,6 @@
 package com.silly.controller.admin;
 
+import com.alibaba.fastjson.JSON;
 import com.silly.controller.GetFilePath;
 import com.silly.entity.Customer;
 import com.silly.service.AdminService;
@@ -23,13 +24,9 @@ public class ModifyCustomer extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        String cnum = impfileMap.get("cnum").toString();
-        String username=impfileMap.get("name").toString();
-        String email=impfileMap.get("email").toString();
-        String phone=impfileMap.get("phone").toString();
-        String password=impfileMap.get("code").toString();
+        String data = impfileMap.get("data").toString();
 
-        Customer customer = new Customer(Integer.valueOf(cnum),username,email,phone,password);
+        Customer customer = JSON.parseObject(data,Customer.class);
 
         adminService.ChangeCustomer(customer);
         return;
