@@ -12,4 +12,5 @@ public interface LodgerRepository {
     public Customer getbyEmail(String email);
     public Customer getbyPhone(String phone);
     public List<Customer> GetLodger();
+    public Customer getbyCnum(int Cnum);
 }

@@ -136,5 +136,15 @@ public class AdminServiceImpl implements AdminService {
         adminRepository.alterRoom(a);
     }
 
+    public Customer FindByCnum(int cnum)
+    {
+        return lodgerRepository.getbyCnum(cnum);
+    }
+
+    public Room FindByRnum(int rnum)
+    {
+        return roomRepository.getbyRnum(rnum);
+    }
+
 
 }

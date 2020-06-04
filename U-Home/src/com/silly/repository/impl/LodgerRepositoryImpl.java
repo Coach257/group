@@ -83,6 +83,7 @@ public class LodgerRepositoryImpl implements LodgerRepository {
         }
         return lodger;
     }
+
     public Customer getbyEmail(String email) {
         Connection connection = JDBCtools.getConnection();
         String sql = "select * from Customer where Email = ?";
@@ -103,6 +104,7 @@ public class LodgerRepositoryImpl implements LodgerRepository {
         }
         return lodger;
     }
+
     public Customer getbyPhone(String phone) {
         Connection connection = JDBCtools.getConnection();
         String sql = "select * from Customer where Phone = ?";
@@ -144,5 +146,26 @@ public class LodgerRepositoryImpl implements LodgerRepository {
             }
         }
         return list;
+    }
+
+    public Customer getbyCnum(int Cnum) {
+        Connection connection = JDBCtools.getConnection();
+        String sql = "select * from Customer where Cnum = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Customer lodger = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1,Cnum);
+            resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                lodger = new Customer(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCtools.release(connection,statement,resultSet);
+        }
+        return lodger;
     }
 }

@@ -28,5 +28,7 @@ public interface AdminService {
     public void DeleteRoom(Room a);
     public void AddRoom(Room a);
     public void ChangeRoom(Room a);
+    public Customer FindByCnum(int cnum);
+    public Room FindByRnum(int rnum);
 
 }
