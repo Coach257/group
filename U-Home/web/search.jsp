@@ -32,7 +32,7 @@
             <el-button plain style="float: right; position:relative;top:5.2px;" @click="linkto('index.jsp')">返回首页
             </el-button>
             <div style="margin: 10px 0;"></div>
-            <el-form :inline="true" :model="form" class="demo-form-inline" >
+            <el-form :inline="true" class="demo-form-inline" >
                 <el-form-item>
                     <el-input prefix-icon="el-icon-search" v-model="keyword" placeholder="请输入关键词" ></el-input>
                 </el-form-item>
@@ -77,23 +77,40 @@
                     <template slot-scope="scope">
                         <el-button
                                 size="large"
-                                @click="handleEdit(scope.$index, scope.row)">长租
+                                @click="rent(scope.row)">长租
                         </el-button>
                         <el-button
                                 size="large"
                                 type="danger"
-                                @click="handleDelete(scope.$index, scope.row)">短租
+                                @click="rent(scope.row)">短租
                         </el-button>
                     </template>
                 </el-table-column>
             </el-table>
+
+            <el-dialog title="x租" :visible.sync="RentVisible">
+                <div style="width:100%;text-align:center">
+                    <el-form :model="form" ref="form" :inline="true"  class="center" >
+                        <el-form-item label="开始时间" prop="startTime" >
+                            <el-date-picker v-model="form.startTime"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" clearable style="width: 100%"
+                                            :picker-options="startDatePicker" type="date"  :placeholder="dialogStatus=='view'?'':'请输入订阅开始时间'"></el-date-picker>
+                        </el-form-item>
+                        <el-form-item label="结束时间" prop="endTime">
+                            <el-date-picker v-model="form.endTime"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" clearable style="width: 100%"
+                                            :picker-options="endDatePicker"   type="date"  :placeholder="dialogStatus=='view'?'':'请输入订阅结束时间'"></el-date-picker>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button @click="closeForm">取 消</el-button>
+                            <el-button type="submit" @click="submitForm">提 交</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </el-dialog>
         </el-main>
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
 <script src="js/search_script.js"></script>
 

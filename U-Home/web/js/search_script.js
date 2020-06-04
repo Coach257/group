@@ -6,17 +6,13 @@ let vue = new Vue({
             allRooms:{},
             showRooms:{},
             form:{
-
+                startTime:'',
+                endTime:'',
             },
-            tableData: [{
-                url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-                Raddress: '北京航空航天大学',
-                Capacity: '四人间',
-                Empty: 2,
-                Rname: 'BUAA',
-                CostPerDay: '223',
-            },
-            ]
+            tableData: [],
+            RentVisible:false,
+            startDatePicker: this.beginDate(),
+            endDatePicker: this.processDate(),
         }
     },
     methods: {
@@ -41,9 +37,6 @@ let vue = new Vue({
                 c.Rname.indexOf(keyWord)!=-1 || c.Place.indexOf(keyWord)!=-1
             ))
         },
-        onSubmit() {
-            console.log('submit!');
-        },
         quit() {
             axios.post('/logout', {}).then(function (response) {
                 console.log(response);
@@ -55,12 +48,42 @@ let vue = new Vue({
         linkto(location) {
             window.location.href = location;
         },
-        handleEdit(index, row) {
-            console.log(index, row);
+        rent(row){
+            this.RentVisible=true;
         },
-        handleDelete(index, row) {
-            console.log(index, row);
-        }
+        closeForm(){
+            this.RentVisible=false;
+        },
+        submitForm(){
+            console.log(this.form.startTime);
+            console.log(this.form.endTime);
+            this.RentVisible=false;
+        },
+        beginDate(){
+            const self = this
+            return {
+                disabledDate(time){
+                    if (self.form.endTime) {  //如果结束时间不为空，则小于结束时间
+                        return new Date(self.form.endTime).getTime() < time.getTime()
+                    } else {
+                         return time.getTime() < Date.now()//结束时间不选时，开始时间最小值大于等于当天
+                    }
+                }
+            }
+        },
+        processDate() {
+            const  self = this
+            return {
+                disabledDate(time) {
+                    if (self.form.startTime) {  //如果开始时间不为空，则结束时间大于开始时间,且大于当前时间
+                        return new Date(self.form.startTime).getTime() > time.getTime() || time.getTime() < Date.now() - 1000*3600*24
+                    } else {
+                        return time.getTime() < Date.now() - 1000*3600*24//开始时间不选时，结束时间最大值大于等于当天
+                    }
+                }
+            }
+        },
+
     },
     mounted:function() {
         let config = {
