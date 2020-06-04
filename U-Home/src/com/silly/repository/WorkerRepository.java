@@ -8,4 +8,5 @@ import java.util.List;
 public interface WorkerRepository {
     public Worker login(String username, String password);
     public List<Worker> getWorker();
+    public void AlterWorkerInfo(Worker a);
 }

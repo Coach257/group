@@ -1,6 +1,6 @@
 package com.silly.repository;
 
-import com.silly.entity.Customer;
+import com.silly.entity.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -13,4 +13,10 @@ public interface LodgerRepository {
     public Customer getbyPhone(String phone);
     public List<Customer> GetLodger();
     public Customer getbyCnum(int Cnum);
+    public void CreateOrder(Customer a, Room b,boolean TimeMode,java.sql.Date Bdate,java.sql.Date Edate);
+    public void MakeComplaint(String Content,Customer a);
+    public List<Order> GetMyOrder(Customer a);
+    public List<Fix> GetMyFix(Customer a);
+    public Worker GetWorkerInfo(Fix a);
+    public void JudgeOnFix(Fix a,int star);
 }

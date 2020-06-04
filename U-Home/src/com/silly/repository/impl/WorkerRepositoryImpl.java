@@ -61,4 +61,24 @@ public class WorkerRepositoryImpl implements WorkerRepository {
         }
         return list;
     }
+
+    @Override
+    public void AlterWorkerInfo(Worker a) {
+        Connection connection=null;
+        try {
+            connection = JDBCtools.getConnection();
+            String sql = "update Worker set DealTime= ? , Score= ? ,Code= ? where Wnum= ?";
+            QueryRunner qR = new QueryRunner();
+            qR.update(connection,sql,a.getDealTime(),a.getScore(),a.getCode(),a.getWnum());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }
+    }
 }
