@@ -46,15 +46,34 @@
                 </el-menu>
             </el-aside>
             <el-main>
+
                 <el-row>
-                    <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
+                    <el-col :span="8" v-for="(room, index) in allRooms" :key="o" :offset="index > 0 ? 2 : 0">
                         <el-card :body-style="{ padding: '0px' }">
-                            <b>房屋地址：</b>北京航空航天大学十五公寓<br>
-                            <b>房屋类型：</b>四人间<br>
-                            <b>租住方式：</b>长租<br>
-                            <b>入住时间：</b>2018-09-01<br>
-                            <b>搬出时间：</b>待定<br>
-                            <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+                            <el-form ref="CurrentCustomer" :model="CurrentCustomer" label-width="100px" size="mini">
+                                <el-form-item label="房屋地址：">
+                                    {{room.Place}}
+                                </el-form-item>
+                                <el-form-item label="房屋类型：">
+                                    {{CapacityToString(room.Capacity)}}
+                                </el-form-item>
+                                <el-form-item label="租住方式：">
+                                    {{room.Time?"长租":"短租"}}
+                                </el-form-item>
+                                <el-form-item label="入住时间：">
+                                    {{allOrders[index].BeginDate}}
+                                </el-form-item>
+                                <el-form-item label="搬出时间：">
+                                    {{allOrders[index].EndDate}}
+                                </el-form-item>
+                                <el-form-item label="审核状态：">
+                                    {{allOrders[index].mode==2?"等待审核":"已审核"}}
+                                </el-form-item>
+                                <el-form-item label="付款情况：">
+                                    {{room.Time?"已完成":"未付款"}}
+                                </el-form-item>
+                            </el-form>
+                            <img :src="'RoomPic/'+room.Rnum+'.jpg'" class="image">
                         </el-card>
                     </el-col>
                 </el-row>
@@ -67,36 +86,7 @@
 <script src="js/vue.js"></script>
 <!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        data() {
-            return{
-                tableData:Array(20).fill(item),
-                formInline: {
-                    keywords: '',
-                }
-            }
-        },
-        methods: {
-            onSubmit() {
-                console.log('submit!');
-            },
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        }
-    })
-</script>
+<script src="js/personal_order_script.js"></script>
 <style>
     .image {
         width: 100%;

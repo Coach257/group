@@ -65,9 +65,6 @@
                     <el-form-item label="邮箱：">
                         {{CurrentCustomer.Email}}
                     </el-form-item>
-                    <el-form-item label="test">
-                        <el-button type="primary" @click="test">test</el-button>
-                    </el-form-item>
                     <el-form-item size="large">
                         <el-button type="primary" @click="ModifyCustomer">修改资料</el-button>
                     </el-form-item>
