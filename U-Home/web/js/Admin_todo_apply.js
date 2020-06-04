@@ -64,9 +64,9 @@ let vue = new Vue({
         //mode中1是未提交，2是未审核，3是未付款，4是已完成订单,5是审核不通过，
         CheckPass(row){
             if(row.Time){
-                row.Mode = 3;
-            }else{
                 row.Mode = 4;
+            }else{
+                row.Mode = 3;
             }
             this.ModifyOrder(row)
         },
