@@ -39,7 +39,86 @@
         </el-aside>
         <el-container>
             <el-main>
-                <h1>这是管理合同页面</h1>
+                <el-row>
+                    <el-form :inline="true"class="demo-form-inline" >
+                        <el-form-item>
+                            <el-input prefix-icon="el-icon-search" v-model="keyword" placeholder="请输入关键词" ></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="findOrderByKeyword">查 询</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-row>
+
+                <%--长租订单表格--%>
+                <el-table :data="showOrders">
+                    <el-table-column prop="Onum" label="订单编号">
+                    </el-table-column>
+                    <el-table-column prop="Cnum" label="用户编号">
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="CheckCustomer(scope.row)">详情</el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="Rnum" label="房源编号">
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="CheckRoom(scope.row)">详情</el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="BeginDate" label="开始时间">
+                    </el-table-column>
+                    <el-table-column prop="EndDate" label="结束时间">
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <a :href="'/ModifyOrder?name='+scope.row.Onum">下载合同</a>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <%--用户信息--%>
+                <el-dialog title="用户信息" :visible.sync="CustomerDialogVisible">
+                    <div style="width:100%;text-align:center">
+                        <el-form :model="CustomerForm" ref="CustomerForm" :inline="true"  class="center" >
+                            <el-row><el-form-item label="用户编号" prop="Cnum" >
+                                <el-input v-model="CustomerForm.Cnum" :disabled="true"></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="用户名" prop="Name">
+                                <el-input v-model="CustomerForm.Name" :disabled="true"></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="邮 箱" prop="Email">
+                                <el-input v-model="CustomerForm.Email" :disabled="true"></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="手机号" prop="Phone">
+                                <el-input v-model="CustomerForm.Phone":disabled="true"></el-input>
+                            </el-form-item></el-row>
+                        </el-form>
+                    </div>
+                </el-dialog>
+                <%--房源信息--%>
+                <el-dialog title="房源信息" :visible.sync="RoomDialogVisible">
+                    <div style="width:100%;text-align:center">
+                        <el-form :model="RoomForm" ref="RoomForm" :inline="true"  class="center" >
+                            <el-row><el-form-item label="房源编号" prop="Rnum">
+                                <el-input v-model="RoomForm.Rnum" :disabled="true"></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="房间名称" prop="Rname" >
+                                <el-input v-model="RoomForm.Rname" :disabled="true"></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="房间地址" prop="Place" >
+                                <el-input v-model="RoomForm.Place" :disabled="true"></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="日租金" prop="CostPerDay">
+                                <el-input v-model="RoomForm.CostPerDay" :disabled="true"></el-input>
+                            </el-form-item></el-row>
+                            <el-row><el-form-item label="房间类型" prop="Capacity">
+                                <el-input v-model="RoomForm.Capacity" :disabled="true"></el-input>
+                            </el-form-item></el-row>
+                        </el-form>
+                    </div>
+                </el-dialog>
             </el-main>
         </el-container>
     </el-container>
@@ -47,23 +126,5 @@
 </body>
 <script src="js/vue.js"></script>
 <script src="/element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        methods: {
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        }
-    })
-</script>
+<script src="js/Admin_control_contract_script.js"></script>
 </html>

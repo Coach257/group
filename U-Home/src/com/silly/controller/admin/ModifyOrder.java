@@ -14,7 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,4 +57,19 @@ public class ModifyOrder extends HttpServlet {
         return;
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String filename=req.getParameter("name")+".pdf";
+        resp.setContentType("application/x-msdownload");
+        resp.setHeader("Content-Disposition","attachment;filename="+filename);
+        OutputStream outputStream=resp.getOutputStream();
+        String path=req.getServletContext().getRealPath("Contract/"+filename);
+        InputStream inputStream=new FileInputStream(path);
+        int temp=0;
+        while((temp=inputStream.read())!=-1){
+            outputStream.write(temp);
+        }
+        outputStream.close();
+        inputStream.close();
+    }
 }
