@@ -6,6 +6,9 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class Mail extends Thread {
+
+
+
     /**
      * 示例：sendMail("shizhelun20000820@126.com","友情提醒：您的各种大作业要写不完了","U-home");
      * sendMail("1029247665@qq.com","皇家赌场邀请您","U-home");
@@ -14,7 +17,7 @@ public class Mail extends Thread {
         try {
 
             String emailUser = "1029247665@qq.com";
-            String emailPwd = "wgufpvayjuwmbdcj";
+            String emailPwd = "";
             String emailHost = "smtp.qq.com";
             String emailAuth = "true";
             String emailProtocol = "smtp";
