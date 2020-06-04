@@ -16,7 +16,6 @@ public class PDF {
     public static void makePDF(String path,int filename, Map map) {
         // 获取项目部署的根目录
         String desFile = path+String.valueOf(filename)+".pdf";// 正式pdf保存路径
-        System.out.println(desFile);
         String srcFile =path+"租房合同模板.pdf";// 合同模版的路径
         PdfReader reader = null;
         PdfStamper stamper = null;

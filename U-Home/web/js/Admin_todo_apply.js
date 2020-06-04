@@ -96,7 +96,7 @@ let vue = new Vue({
             .then(function (response) {
                 vue.allOrders= response.data;
                 console.log(vue.allOrders)
-                vue.showOrders = vue.allOrders.filter((o)=>(o.Mode == 2))//2是审核不通过
+                vue.showOrders = vue.allOrders.filter((o)=>(o.Mode == 2))//2是未审核
             })
             .catch(function (error) {
                 console.log(error);
