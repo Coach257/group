@@ -55,6 +55,9 @@ let vue = new Vue({
                 Email:'',
                 Phone:'',
             },
+            addForm:{
+                File:"",
+            },
             formInline: {
                 keywords: '',
             },
@@ -93,12 +96,13 @@ let vue = new Vue({
                 if (valid) {
                     let formData = new FormData();
                     formData.append('data',JSON.stringify(this.sizeForm))
+                    formData.append('File',this.addForm.File);
                     let config = {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     };
-                    axios.post('/ModifyCustomer',formData,config)
+                    axios.post('/CurrentCustomer',formData,config)
                         .then(function (response) {
                             vue.modifyDialogVisible = false;
                             console.log(response)
@@ -131,12 +135,16 @@ let vue = new Vue({
         },
         linkto(location){
             window.location.href=location;
-        }
+        },
+        FileChange(file){
+            this.addForm.File=file.raw;
+        },
     },
     mounted(){
         axios.post('/CurrentCustomer',new FormData,{headers: {'Content-Type': 'multipart/form-data'}})
             .then(function (response) {
                 vue.CurrentCustomer = response.data;
+                console.log(vue.CurrentCustomer)
             })
             .catch(function (error) {
                 console.log(error);
