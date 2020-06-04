@@ -74,13 +74,13 @@
                 <el-dialog title="修改信息" :visible.sync="modifyDialogVisible" :before-close="handleClose">
                     <div style="width:100%;text-align:center">
                         <el-form :model="addForm" :rules="rules" ref="addForm" :inline="true"  class="center" >
-                            <el-form-item label="用户名" prop="name">
+                            <el-form-item label="用户名" prop="Name">
                                 <el-input v-model="addForm.Name" ></el-input>
                             </el-form-item>
-                            <el-form-item label="邮 箱" prop="email">
+                            <el-form-item label="邮 箱" prop="Email">
                                 <el-input v-model="addForm.Email" ></el-input>
                             </el-form-item>
-                            <el-form-item label="手机号" prop="phone">
+                            <el-form-item label="手机号" prop="Phone">
                                 <el-input v-model="addForm.Phone" ></el-input>
                             </el-form-item>
                             <el-form-item>
@@ -95,9 +95,7 @@
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="/element-ui/lib/index.js"></script>
 <script src="js/Admin_control_customer_script.js"></script>
 </html>

@@ -49,7 +49,12 @@ let vue = new Vue({
         return{
             size:64,
             CurrentCustomer:{},
-            sizeForm: {},
+            sizeForm: {
+                Cnum:'',
+                Name:'',
+                Email:'',
+                Phone:'',
+            },
             formInline: {
                 keywords: '',
             },
@@ -71,7 +76,10 @@ let vue = new Vue({
     methods: {
         ModifyCustomer(){
             this.centerDialogVisible = true
-            this.sizeForm = this.CurrentCustomer
+            this.sizeForm.Cnum = this.CurrentCustomer.Cnum;
+            this.sizeForm.Email=this.CurrentCustomer.Email;
+            this.sizeForm.Phone = this.CurrentCustomer.Phone;
+            this.sizeForm.Name=this.CurrentCustomer.Name;
         },
         test(){
             console.log("test");
@@ -81,8 +89,6 @@ let vue = new Vue({
             console.log('submit!');
         },
         submitForm(formName) {
-            this.centerDialogVisible = false
-            console.log(formName)
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     let formData = new FormData();
@@ -105,6 +111,8 @@ let vue = new Vue({
                     return false;
                 }
             });
+            this.centerDialogVisible = false;
+            console.log(formName);
         },
         quit(){
             axios.post('/logout', {
@@ -133,6 +141,5 @@ let vue = new Vue({
             .catch(function (error) {
                 console.log(error);
             });
-        console.log('hi',this.CurrentCustomer)
     }
 })

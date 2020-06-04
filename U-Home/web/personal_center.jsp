@@ -9,6 +9,12 @@
     <script src="js/axios.min.js"></script>
     <title>个人中心-个人信息</title>
 </head>
+<style>
+    .image {
+        width: 100%;
+        display: block;
+    }
+</style>
 <body>
 <div id="app">
     <el-container>
@@ -46,11 +52,11 @@
                 </el-menu>
             </el-aside>
             <el-main>
-                <el-form ref="form" :model="sizeForm" label-width="80px" size="mini">
+                <el-form ref="CurrentCustomer" :model="CurrentCustomer" label-width="80px" size="mini">
                     <el-form-item label="头像：">
                         <el-avatar shape="square" :size="size" :src="squareUrl"></el-avatar>
                     </el-form-item>
-                    <el-form-item label="姓名：">
+                    <el-form-item label="用户名：">
                         {{CurrentCustomer.Name}}
                     </el-form-item>
                     <el-form-item label="电话：">
@@ -64,42 +70,39 @@
                     </el-form-item>
                     <el-form-item size="large">
                         <el-button type="primary" @click="ModifyCustomer">修改资料</el-button>
-
-                        <el-dialog
-                                title="修改资料"
-                                :visible.sync="centerDialogVisible"
-                                width="30%"
-                                center>
-                            <el-form ref="form" :model="sizeForm" :rules="rules" ref="sizeForm" label-width="80px" size="mini">
-                                <el-form-item label="头像：">
-                                    <el-avatar shape="square" :size="size" :src="squareUrl"></el-avatar>
-                                </el-form-item>
-                                    <el-upload
-                                            class="upload-demo"
-                                            action="https://jsonplaceholder.typicode.com/posts/"
-                                            :on-preview="handlePreview"
-                                            :on-remove="handleRemove"
-                                            list-type="picture">
-                                        <el-button size="small" type="primary">点击上传</el-button>
-                                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                                    </el-upload>
-                                <div style="margin: 20px 0;"></div>
-                                <el-form-item label="姓名：">
-                                    <el-input v-model="sizeForm.Name"></el-input>
-                                </el-form-item>
-                                <el-form-item label="电话：">
-                                    <el-input v-model="sizeForm.Phone"></el-input>
-                                </el-form-item>
-                                <el-form-item label="邮箱：">
-                                    <el-input v-model="sizeForm.Email"></el-input>
-                                </el-form-item>
-                            </el-form>
-                            <span slot="footer" class="dialog-footer">
-                            <el-button @click="centerDialogVisible = false">取 消</el-button>
-                            <el-button type="submit" @click="submitForm('sizeForm')">保 存</el-button>
-                          </span>
-                        </el-dialog>
                     </el-form-item>
+                    <el-dialog title="修改资料" :visible.sync="centerDialogVisible" width="30%" center>
+                        <el-form ref="sizeForm" :model="sizeForm" :rules="rules" label-width="80px" size="mini">
+                            <el-form-item label="头像：">
+                                <el-avatar shape="square" :size="size" :src="squareUrl"></el-avatar>
+                            </el-form-item>
+                                <el-upload
+                                        class="upload-demo"
+                                        action="https://jsonplaceholder.typicode.com/posts/"
+                                        :on-preview="handlePreview"
+                                        :on-remove="handleRemove"
+                                        :on-change="FileChange"
+                                        list-type="picture">
+                                    <el-button size="small" type="primary">点击上传</el-button>
+                                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                                </el-upload>
+                            <div style="margin: 20px 0;"></div>
+                            <el-form-item label="姓名：" prop="Name">
+                                <el-input v-model="sizeForm.Name"></el-input>
+                            </el-form-item>
+                            <el-form-item label="电话：" prop="Phone">
+                                <el-input v-model="sizeForm.Phone"></el-input>
+                            </el-form-item>
+                            <el-form-item label="邮箱：" prop="Email">
+                                <el-input v-model="sizeForm.Email"></el-input>
+                            </el-form-item>
+                        </el-form>
+                        <span slot="footer" class="dialog-footer">
+                        <el-button @click="centerDialogVisible = false">取 消</el-button>
+                        <el-button type="submit" @click="submitForm('sizeForm')">保 存</el-button>
+                      </span>
+                    </el-dialog>
+
                 </el-form>
             </el-main>
         </el-container>
@@ -111,10 +114,4 @@
 <!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
 <script src="js/personal_center_script.js"></script>
-<style>
-    .image {
-        width: 100%;
-        display: block;
-    }
-</style>
 </html>
