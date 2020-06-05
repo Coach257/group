@@ -106,9 +106,7 @@
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
 <script src="js/personal_center_script.js"></script>
 </html>

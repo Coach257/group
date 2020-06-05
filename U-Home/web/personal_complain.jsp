@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -47,27 +46,29 @@
                 </el-menu>
             </el-aside>
             <el-main>
-                <el-form>
-                    <el-input
+                <el-form :model="addForm" :rules="rules" ref="addForm"  class="demo-form-inline">
+                    <el-row><el-form-item prop="textarea"><el-input
                             type="textarea"
                             :rows="2"
+                            width="100%"
                             placeholder="请输入内容"
-                            v-model="textarea">
-                    </el-input>
-                    </el-upload>
+                            v-model="addForm.textarea">
+                    </el-input></el-form-item></el-row>
                     <div style="margin: 20px 0;"></div>
-                    <el-form-item>
+                    <el-row><el-form-item label="投诉图片" prop="File">
+                        <el-upload
+                                class="upload-demo"
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                :on-preview="handlePreview"
+                                :on-remove="handleRemove"
+                                :on-change="FileChange"
+                                list-type="picture">
+                            <el-button size="small" type="primary">点击上传</el-button>
+                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </el-upload></el-form-item></el-row>
+                    <el-row><el-form-item>
                         <el-button type="primary" @click="onSubmit">提交</el-button>
-                    </el-form-item>
-                    <el-upload
-                            class="upload-demo"
-                            action="https://jsonplaceholder.typicode.com/posts/"
-                            :on-preview="handlePreview"
-                            :on-remove="handleRemove"
-                            :file-list="fileList"
-                            list-type="picture">
-                        <el-button size="small" type="primary">上传图片</el-button>
-                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                    </el-form-item></el-row>
                 </el-form>
             </el-main>
         </el-container>
@@ -78,66 +79,5 @@
 <script src="js/vue.js"></script>
 <!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        data() {
-            fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
-            const item = {
-                cnum: '用户编号',
-                username: '用户名',
-                email: '邮箱地址',
-                phone:'手机号'
-            };
-            return{
-                tableData:Array(20).fill(item),
-                formInline: {
-                    keywords: '',
-                },
-                textarea: ''
-            }
-        },
-        methods: {
-            onSubmit() {
-                console.log('submit!');
-            },
-            open(){
-                this.$prompt('请输入邮箱', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-                    inputErrorMessage: '邮箱格式不正确'
-                }).then(({ value }) => {
-                    this.$message({
-                        type: 'success',
-                        message: '你的邮箱是: ' + value
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '取消输入'
-                    });
-                });
-            },
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
-            handlePreview(file) {
-                console.log(file);
-            },
-            linkto(location) {
-                window.location.href=location;
-            }
-        }
-    })
-</script>
+<script src="js/personal_complain_script.js"></script>
 </html>
