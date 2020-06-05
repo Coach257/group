@@ -130,8 +130,8 @@ public class AdminRepositoryImpl implements AdminRepository {
             else if(table.equals("Fix")){
                 sql+="(?,?,?,?,?,?)";
                 Fix b=(Fix)a;
-                qR.update(connection,sql,b.getFnum(),b.getCnum(),b.getRnum(),
-                        b.getWnum(),b.getContent(),b.getStar());
+                qR.update(connection,sql,b.getFnum(),b.getCnum(),
+                        b.getWnum(),b.getContent(),b.getStar(),b.getReply());
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -259,11 +259,11 @@ public class AdminRepositoryImpl implements AdminRepository {
         Connection connection=null;
         try {
             connection = JDBCtools.getConnection();
-            String sql = "update Room set Cnum = ?, Rnum =?, Wnum = ?, Content= ?," +
-                    "Star= ? where Fnum= ?";
+            String sql = "update Room set Cnum = ?, Wnum = ?, Content= ?," +
+                    "Star= ? , Reply= ? where Fnum= ?";
             QueryRunner qR = new QueryRunner();
-            qR.update(connection,sql,a.getCnum(),a.getRnum(),a.getWnum(),a.getContent()
-            ,a.getStar(),a.getFnum());
+            qR.update(connection,sql,a.getCnum(),a.getWnum(),a.getContent()
+            ,a.getStar(),a.getReply(),a.getFnum());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {

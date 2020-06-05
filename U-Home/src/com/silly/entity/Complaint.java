@@ -3,7 +3,7 @@ package com.silly.entity;
 public class Complaint {
     private int CoNum;
     private int Cnum;
-    private int Rnum;
+    private String Reply;
     private String ComplaintContnet;
     private boolean HaveDone;
 
@@ -24,14 +24,6 @@ public class Complaint {
         Cnum = cnum;
     }
 
-    public int getRnum() {
-        return Rnum;
-    }
-
-    public void setRnum(int rnum) {
-        Rnum = rnum;
-    }
-
     public String getComplaintContnet() {
         return ComplaintContnet;
     }
@@ -48,10 +40,18 @@ public class Complaint {
         HaveDone = haveDone;
     }
 
-    public Complaint(int coNum, int cnum, int rnum, String complaintContnet, boolean haveDone) {
+    public String getReply() {
+        return Reply;
+    }
+
+    public void setReply(String reply) {
+        Reply = reply;
+    }
+
+    public Complaint(int coNum, int cnum, String complaintContnet, boolean haveDone, String reply) {
         CoNum = coNum;
         Cnum = cnum;
-        Rnum = rnum;
+        Reply=reply;
         ComplaintContnet = complaintContnet;
         HaveDone=haveDone;
     }

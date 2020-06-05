@@ -3,7 +3,7 @@ package com.silly.entity;
 public class Fix {
     private int Fnum;
     private int Cnum;
-    private int Rnum;
+    private String Reply;
     private int Wnum;
     private String Content;
     private int Star;
@@ -32,10 +32,6 @@ public class Fix {
         Cnum = cnum;
     }
 
-    public void setRnum(int rnum) {
-        Rnum = rnum;
-    }
-
     public void setWnum(int wnum) {
         Wnum = wnum;
     }
@@ -48,19 +44,25 @@ public class Fix {
         return Cnum;
     }
 
-    public int getRnum() {
-        return Rnum;
-    }
-
     public int getWnum() {
         return Wnum;
     }
 
-    public Fix(int fnum, int cnum, int rnum, int wnum) {
+    public String getReply() {
+        return Reply;
+    }
+
+    public void setReply(String reply) {
+        Reply = reply;
+    }
+
+    public Fix(int fnum, int cnum, int wnum,String content,int star,String reply) {
         Fnum = fnum;
         Cnum = cnum;
-        Rnum = rnum;
         Wnum = wnum;
+        Content=content;
+        Star=star;
+        Reply=reply;
     }
 
     public Fix(){

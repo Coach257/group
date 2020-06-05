@@ -223,15 +223,15 @@ public class LodgerRepositoryImpl implements LodgerRepository {
     @Override
     public void MakeComplaint(String Content,Customer a) {
         int CoNum=(int) (System.currentTimeMillis()/1000);
-        Complaint b=new Complaint(CoNum,a.getCnum(),-1,Content,false);
+        Complaint b=new Complaint(CoNum,a.getCnum(),Content,false,null);
         Connection connection=null;
         String sql=null;
         try{
             connection = JDBCtools.getConnection();
             QueryRunner qR = new QueryRunner();
             sql="insert into Complaint values(?,?,?,?,?)";
-            qR.update(connection,sql,b.getCoNum(),b.getCnum(),b.getRnum(),
-                    b.getComplaintContnet(),b.isHaveDone());
+            qR.update(connection,sql,b.getCoNum(),b.getCnum(),
+                    b.getComplaintContnet(),b.isHaveDone(),b.getReply());
         }catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
