@@ -40,13 +40,17 @@
                     </el-menu-item>
                     <el-menu-item index="3" @click="linkto('personal_complain.jsp')">
                         <i class="el-icon-chat-dot-round"></i>
-                        <span slot="title">报修和投诉</span>
+                        <span slot="title" >我要投诉</span>
                     </el-menu-item>
-                    <el-menu-item index="4" @click="linkto('personal_feedback.jsp')">
+                    <el-menu-item index="4" @click="linkto('personal_fix.jsp')">
+                        <i class="el-icon-chat-dot-round"></i>
+                        <span slot="title" class="is-active">我要报修</span>
+                    </el-menu-item>
+                    <el-menu-item index="5" @click="linkto('personal_feedback.jsp')">
                         <i class="el-icon-message"></i>
                         <span slot="title">反馈</span>
                     </el-menu-item>
-                    <el-menu-item index="5" @click="quit">
+                    <el-menu-item index="6" @click="quit">
                         <span slot="title">退出登录</span>
                     </el-menu-item>
                 </el-menu>

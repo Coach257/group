@@ -14,7 +14,7 @@ public interface LodgerRepository {
     public List<Customer> GetLodger();
     public Customer getbyCnum(int Cnum);
     public void CreateOrder(Customer a, Room b,boolean TimeMode,java.sql.Date Bdate,java.sql.Date Edate);
-    public void MakeComplaint(String Content,Customer a);
+    public void MakeComplaint(int CoNum,String Content,Customer a);
     public List<Order> GetMyOrder(Customer a);
     public List<Fix> GetMyFix(Customer a);
     public Worker GetWorkerInfo(Fix a);

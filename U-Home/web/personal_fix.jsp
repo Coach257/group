@@ -2,13 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <!-- import CSS -->
     <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="css/admin.css">
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/axios.min.js"></script>
-    <title>个人中心-历史订单</title>
+    <title>个人中心-我要报修</title>
 </head>
+<style>
+    .disabled .el-upload--picture-card {
+        display: none;
+    }
+</style>
 <body>
 <div id="app">
     <el-container>
@@ -19,7 +23,7 @@
         <el-container height="100%">
             <el-aside width="200px">
                 <el-menu
-                        default-active="2"
+                        default-active="4"
                         class="el-menu-vertical-demo"
                         background-color="#545c64"
                         text-color="#fff"
@@ -30,7 +34,7 @@
                     </el-menu-item>
                     <el-menu-item index="2" @click="linkto('personal_order.jsp')">
                         <i class="el-icon-document"></i>
-                        <span slot="title"class="is-active">历史订单</span>
+                        <span slot="title">历史订单</span>
                     </el-menu-item>
                     <el-menu-item index="3" @click="linkto('personal_complain.jsp')">
                         <i class="el-icon-chat-dot-round"></i>
@@ -38,11 +42,11 @@
                     </el-menu-item>
                     <el-menu-item index="4" @click="linkto('personal_fix.jsp')">
                         <i class="el-icon-chat-dot-round"></i>
-                        <span slot="title">我要报修</span>
+                        <span slot="title" class="is-active">我要报修</span>
                     </el-menu-item>
                     <el-menu-item index="5" @click="linkto('personal_feedback.jsp')">
                         <i class="el-icon-message"></i>
-                        <span slot="title" class="is-active">反馈</span>
+                        <span slot="title">反馈</span>
                     </el-menu-item>
                     <el-menu-item index="6" @click="quit">
                         <span slot="title">退出登录</span>
@@ -50,52 +54,40 @@
                 </el-menu>
             </el-aside>
             <el-main>
-
-                <el-row>
-                    <el-col :span="8" v-for="(room, index) in allRooms" :key="o" :offset="index > 0 ? 2 : 0">
-                        <el-card :body-style="{ padding: '0px' }">
-                            <el-form ref="CurrentCustomer" :model="CurrentCustomer" label-width="100px" size="mini">
-                                <el-form-item label="房屋地址：">
-                                    {{room.Place}}
-                                </el-form-item>
-                                <el-form-item label="房屋类型：">
-                                    {{CapacityToString(room.Capacity)}}
-                                </el-form-item>
-                                <el-form-item label="租住方式：">
-                                    {{room.Time?"长租":"短租"}}
-                                </el-form-item>
-                                <el-form-item label="入住时间：">
-                                    {{allOrders[index].BeginDate}}
-                                </el-form-item>
-                                <el-form-item label="搬出时间：">
-                                    {{allOrders[index].EndDate}}
-                                </el-form-item>
-                                <el-form-item label="审核状态：">
-                                    {{allOrders[index].mode==2?"等待审核":"已审核"}}
-                                </el-form-item>
-                                <el-form-item label="付款情况：">
-                                    {{room.Time?"已完成":"未付款"}}
-                                </el-form-item>
-                            </el-form>
-                            <img :src="'RoomPic/'+room.Rnum+'.jpg'" class="image">
-                        </el-card>
-                    </el-col>
-                </el-row>
+                <el-form :model="addForm" :rules="rules" ref="addForm"  class="demo-form-inline">
+                    <el-row><el-form-item prop="textarea"><el-input
+                            type="textarea"
+                            :rows="2"
+                            width="100%"
+                            placeholder="请输入内容"
+                            v-model="addForm.textarea">
+                    </el-input></el-form-item></el-row>
+                    <div style="margin: 20px 0;"></div>
+                    <el-row><el-form-item label="报修图片">
+                        <el-upload
+                                class="upload-demo"
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                :on-preview="handlePreview"
+                                :on-remove="handleRemove"
+                                :on-change="FileChange"
+                                :file-list="addForm.fileList"
+                                :limit=addForm.limitNum
+                                :auto-upload="false"
+                                :on-exceed="exceedFile"
+                                list-type="picture">
+                            <el-button size="small" type="primary">点击上传</el-button>
+                            <div slot="tip" class="el-upload__tip">只能上传一张jpg/png图片，且不超过500kb</div>
+                        </el-upload></el-form-item></el-row>
+                    <el-row><el-form-item>
+                        <el-button type="primary" @click="submitForm('addForm')">提交</el-button>
+                    </el-form-item></el-row>
+                </el-form>
             </el-main>
         </el-container>
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
-<script src="js/personal_order_script.js"></script>
-<style>
-    .image {
-        width: 100%;
-        display: block;
-    }
-
-</style>
+<script src="js/personal_fix_script.js"></script>
 </html>

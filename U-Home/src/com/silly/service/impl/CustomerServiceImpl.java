@@ -29,8 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void MakeComplaint(Customer a, String Content) {
-        lodgerRepository.MakeComplaint(Content, a);
+    public void MakeComplaint(int CoNum,Customer a, String Content) {
+        lodgerRepository.MakeComplaint(CoNum,Content, a);
     }
 
     @Override

@@ -1,13 +1,15 @@
 package com.silly.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Complaint {
     private int CoNum;
     private int Cnum;
     private String Reply;
-    private String ComplaintContnet;
+    private String ComplaintContent;
     private boolean HaveDone;
 
-
+    @JSONField(name = "CoNum")
     public int getCoNum() {
         return CoNum;
     }
@@ -15,7 +17,7 @@ public class Complaint {
     public void setCoNum(int coNum) {
         CoNum = coNum;
     }
-
+    @JSONField(name = "Cnum")
     public int getCnum() {
         return Cnum;
     }
@@ -24,14 +26,15 @@ public class Complaint {
         Cnum = cnum;
     }
 
-    public String getComplaintContnet() {
-        return ComplaintContnet;
+    @JSONField(name = "ComplaintContent")
+    public String getComplaintContent() {
+        return ComplaintContent;
     }
 
     public void setComplaintContnet(String complaintContnet) {
-        ComplaintContnet = complaintContnet;
+        ComplaintContent = complaintContnet;
     }
-
+    @JSONField(name = "HaveDone")
     public boolean isHaveDone() {
         return HaveDone;
     }
@@ -39,7 +42,7 @@ public class Complaint {
     public void setHaveDone(boolean haveDone) {
         HaveDone = haveDone;
     }
-
+    @JSONField(name = "Reply")
     public String getReply() {
         return Reply;
     }
@@ -52,7 +55,7 @@ public class Complaint {
         CoNum = coNum;
         Cnum = cnum;
         Reply=reply;
-        ComplaintContnet = complaintContnet;
+        ComplaintContent = complaintContnet;
         HaveDone=haveDone;
     }
 

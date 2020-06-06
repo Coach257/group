@@ -93,9 +93,9 @@ let vue=new Vue({
                             'Content-Type': 'multipart/form-data'
                         }
                     };
-                    axios.post('/NewComplain',formData,config)
+                    axios.post('/NewFix',formData,config)
                         .then(function (response) {
-                            successmessage('添加成功，我们会尽快处理您的投诉');
+                            successmessage('添加成功，我们会尽快处理您的报修');
                             setTimeout(refresh,2000);
                         })
                         .catch(function (error) {

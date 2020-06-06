@@ -2,13 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <!-- import CSS -->
     <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="css/admin.css">
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/axios.min.js"></script>
     <title>个人中心-我要投诉</title>
 </head>
+<style>
+    .disabled .el-upload--picture-card {
+        display: none;
+    }
+</style>
 <body>
 <div id="app">
     <el-container>
@@ -34,13 +38,17 @@
                     </el-menu-item>
                     <el-menu-item index="3" @click="linkto('personal_complain.jsp')">
                         <i class="el-icon-chat-dot-round"></i>
-                        <span slot="title" class="is-active">报修和投诉</span>
+                        <span slot="title" class="is-active">我要投诉</span>
                     </el-menu-item>
-                    <el-menu-item index="4" @click="linkto('personal_feedback.jsp')">
+                    <el-menu-item index="4" @click="linkto('personal_fix.jsp')">
+                        <i class="el-icon-chat-dot-round"></i>
+                        <span slot="title" >我要报修</span>
+                    </el-menu-item>
+                    <el-menu-item index="5" @click="linkto('personal_feedback.jsp')">
                         <i class="el-icon-message"></i>
                         <span slot="title">反馈</span>
                     </el-menu-item>
-                    <el-menu-item index="5" @click="quit">
+                    <el-menu-item index="6" @click="quit">
                         <span slot="title">退出登录</span>
                     </el-menu-item>
                 </el-menu>
@@ -55,19 +63,23 @@
                             v-model="addForm.textarea">
                     </el-input></el-form-item></el-row>
                     <div style="margin: 20px 0;"></div>
-                    <el-row><el-form-item label="投诉图片" prop="File">
+                    <el-row><el-form-item label="投诉图片">
                         <el-upload
                                 class="upload-demo"
                                 action="https://jsonplaceholder.typicode.com/posts/"
                                 :on-preview="handlePreview"
                                 :on-remove="handleRemove"
                                 :on-change="FileChange"
+                                :file-list="addForm.fileList"
+                                :limit=addForm.limitNum
+                                :auto-upload="false"
+                                :on-exceed="exceedFile"
                                 list-type="picture">
                             <el-button size="small" type="primary">点击上传</el-button>
-                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                            <div slot="tip" class="el-upload__tip">只能上传一张jpg/png图片，且不超过500kb</div>
                         </el-upload></el-form-item></el-row>
                     <el-row><el-form-item>
-                        <el-button type="primary" @click="onSubmit">提交</el-button>
+                        <el-button type="primary" @click="submitForm('addForm')">提交</el-button>
                     </el-form-item></el-row>
                 </el-form>
             </el-main>

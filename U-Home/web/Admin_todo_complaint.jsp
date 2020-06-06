@@ -39,7 +39,25 @@
         </el-aside>
         <el-container>
             <el-main>
-                <h1>这是处理投诉页面</h1>
+
+                <el-table :data="showComplaint" style="width: 100%">
+                    <el-table-column label="投诉图片" width="300">
+                        <template slot-scope="scope">
+                            <el-image style="width: 100px; height: 100px" :src="'ComplaintPic/'+scope.row.Conum+'.jpg'"></el-image>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="文字描述" width="300">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.ComplainContent}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="处理">
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="apply(scope.row)">回复</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+
             </el-main>
         </el-container>
     </el-container>
@@ -47,23 +65,5 @@
 </body>
 <script src="js/vue.js"></script>
 <script src="/element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        methods: {
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        }
-    })
-</script>
+<script src="js/Admin_todo_complaint.js"></script>
 </html>
