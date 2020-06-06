@@ -169,13 +169,13 @@ public class AdminRepositoryImpl implements AdminRepository {
     }
 
     @Override
-    public void havenChecked(Complaint a) {
+    public void havenChecked(int CoNum,String reply) {
         Connection connection=null;
         try {
             connection = JDBCtools.getConnection();
-            String sql = "update Complaint set HaveDone= true where CoNum= ?";
+            String sql = "update Complaint set HaveDone= true,Reply=? where CoNum= ?";
             QueryRunner qR = new QueryRunner();
-            qR.update(connection,sql,a.getCoNum());
+            qR.update(connection,sql,reply,CoNum);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {

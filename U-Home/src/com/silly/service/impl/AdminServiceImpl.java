@@ -40,9 +40,9 @@ public class AdminServiceImpl implements AdminService {
         return adminRepository.checkUndoneComplaint();
     }
 
-    public void HaveSeenComplaint(Complaint a){
+    public void HaveSeenComplaint(int CoNum,String reply){
         //作为已阅的存在，建议在创立工单之前加一个已阅判定
-        adminRepository.havenChecked(a);
+        adminRepository.havenChecked(CoNum,reply);
     }
 
     public void AddFix(Fix a){

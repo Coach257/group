@@ -10,7 +10,7 @@ public interface AdminRepository {
     public void deleteOneInfo(String table,Object a);
     public void addOneInfo(String table,Object a);
     public List<Complaint> checkUndoneComplaint();
-    public void havenChecked(Complaint a);
+    public void havenChecked(int CoNum,String reply);
     public void alterOrdersInfo(Order a);
     public void alterRoom(Room a);
     public List<Fix> checkUndoneFix();

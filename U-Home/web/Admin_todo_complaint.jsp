@@ -39,7 +39,7 @@
         </el-aside>
         <el-container>
             <el-main>
-
+                <%--待回复列表--%>
                 <el-table :data="showComplaint" style="width: 100%">
                     <el-table-column label="投诉图片" width="300">
                         <template slot-scope="scope">
@@ -54,10 +54,26 @@
                     </el-table-column>
                     <el-table-column label="处理">
                         <template slot-scope="scope">
-                            <el-button type="primary" @click="apply(scope.row)">回复</el-button>
+                            <el-button type="primary" @click="reply(scope.row)">回复</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
+                <%--回复内容--%>
+                <el-dialog title="回复" :visible.sync="DialogVisible" width="50%" center>
+                    <el-form ref="replyForm" :model="replyForm" :rules="rules" label-width="80px" size="mini">
+                        <el-row><el-form-item label="回复内容:" prop="textarea"><el-input
+                                type="textarea"
+                                :rows="2"
+                                width="100%"
+                                placeholder="请输入内容"
+                                v-model="replyForm.textarea">
+                        </el-input></el-form-item></el-row>
+                        <el-row>
+                            <el-button @click="closeform">取 消</el-button>
+                            <el-button type="submit" @click="replyform('replyForm')">回 复</el-button>
+                        </el-row>
+                    </el-form>
+                </el-dialog>
 
             </el-main>
         </el-container>

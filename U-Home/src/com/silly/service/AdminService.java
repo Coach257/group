@@ -9,7 +9,7 @@ public interface AdminService {
     public List<Order> UnsettledOrders();
     public void changeUSOrders(Order a);
     public List<Complaint> UnsettledComplaint();
-    public void HaveSeenComplaint(Complaint a);
+    public void HaveSeenComplaint(int CoNum,String reply);
     public void AddFix(Fix a);
     public List<Fix> UnsettledFix();
     public void settleFixOnForce(Fix a);
