@@ -93,11 +93,11 @@
                     <el-form :model="form" ref="form" :inline="true"  class="center" >
                         <el-form-item label="开始时间" prop="startTime" >
                             <el-date-picker v-model="form.startTime"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" clearable style="width: 100%"
-                                            :picker-options="startDatePicker" type="date"  :placeholder="dialogStatus=='view'?'':'请输入订阅开始时间'"></el-date-picker>
+                                            :picker-options="startDatePicker" type="date"  ></el-date-picker>
                         </el-form-item>
                         <el-form-item label="结束时间" prop="endTime">
                             <el-date-picker v-model="form.endTime"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" clearable style="width: 100%"
-                                            :picker-options="endDatePicker"   type="date"  :placeholder="dialogStatus=='view'?'':'请输入订阅结束时间'"></el-date-picker>
+                                            :picker-options="endDatePicker"   type="date"  ></el-date-picker>
                         </el-form-item>
                         <el-form-item>
                             <el-button @click="closeForm">取 消</el-button>

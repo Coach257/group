@@ -43,12 +43,13 @@
                 <el-table :data="showComplaint" style="width: 100%">
                     <el-table-column label="投诉图片" width="300">
                         <template slot-scope="scope">
-                            <el-image style="width: 100px; height: 100px" :src="'ComplaintPic/'+scope.row.Conum+'.jpg'"></el-image>
+                            <el-image style="width: 100px; height: 100px" :src="'ComplaintPic/'+scope.row.CoNum+'.jpg'"
+                                      :preview-src-list="['ComplaintPic/'+scope.row.CoNum+'.jpg']"></el-image>
                         </template>
                     </el-table-column>
                     <el-table-column label="文字描述" width="300">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.ComplainContent}}</span>
+                            <span style="margin-left: 10px">{{ scope.row.ComplaintContent}}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="处理">

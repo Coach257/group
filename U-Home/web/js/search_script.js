@@ -3,8 +3,8 @@ let vue = new Vue({
     data() {
         return {
             keyword:"",
-            allRooms:{},
-            showRooms:{},
+            allRooms:[],
+            showRooms:[],
             form:{
                 startTime:'',
                 endTime:'',
