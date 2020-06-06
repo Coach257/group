@@ -29,7 +29,7 @@ public class NewFix extends HttpServlet {
 
         HttpSession session=req.getSession();
         Customer customer= (Customer) session.getAttribute("customer");
-        int CoNum=(int)(System.currentTimeMillis()/1000);
+        int FNum=(int)(System.currentTimeMillis()/1000);
         String string=null;
         try {
             DiskFileItemFactory fileItemFactory=new DiskFileItemFactory();
@@ -41,13 +41,13 @@ public class NewFix extends HttpServlet {
                     String value=fileItem.getString("UTF-8");
                     System.out.println(name+":"+value);
                     switch (name){
-                        case "ComplainContent":string=value;break;
+                        case "Content":string=value;break;
                     }
                 }
                 else{
-                    String name = String.valueOf(CoNum)+".jpg";
+                    String name = String.valueOf(FNum)+".jpg";
                     InputStream inputStream=fileItem.getInputStream();
-                    String path=req.getServletContext().getRealPath("ComplaintPic/"+name);
+                    String path=req.getServletContext().getRealPath("FixPic/"+name);
                     OutputStream outputStream=new FileOutputStream(path);
                     int temp=0;
                     while((temp=inputStream.read())!=-1){
@@ -62,6 +62,6 @@ public class NewFix extends HttpServlet {
             System.out.println(e);
         }
         CustomerService customerService=new CustomerServiceImpl();
-        customerService.MakeComplaint(CoNum,customer,string);
+        customerService.MakeFix(FNum,customer,string);
     }
 }

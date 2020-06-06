@@ -13,7 +13,7 @@ function successmessage(data){
     });
 }
 function refresh(){
-    window.location.href='personal_complain.jsp';
+    window.location.href='personal_fix.jsp';
 }
 let vue=new Vue({
     el: '#app',
@@ -87,7 +87,7 @@ let vue=new Vue({
                 if (valid) {
                     let formData = new FormData();
                     formData.append('File',this.addForm.file);
-                    formData.append('ComplainContent',this.addForm.textarea);
+                    formData.append('Content',this.addForm.textarea);
                     let config = {
                         headers: {
                             'Content-Type': 'multipart/form-data'
