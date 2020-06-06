@@ -255,15 +255,13 @@ public class AdminRepositoryImpl implements AdminRepository {
     }
 
     @Override
-    public void alterFix(Fix a) {
+    public void alterFix(int Wnum,int Fnum) {
         Connection connection=null;
         try {
             connection = JDBCtools.getConnection();
-            String sql = "update Room set Cnum = ?, Wnum = ?, Content= ?," +
-                    "Star= ? , Reply= ? where Fnum= ?";
+            String sql = "update Fix set Wnum = ? where Fnum= ?";
             QueryRunner qR = new QueryRunner();
-            qR.update(connection,sql,a.getCnum(),a.getWnum(),a.getContent()
-            ,a.getStar(),a.getReply(),a.getFnum());
+            qR.update(connection,sql,Wnum,Fnum);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {

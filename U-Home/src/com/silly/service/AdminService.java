@@ -12,7 +12,7 @@ public interface AdminService {
     public void HaveSeenComplaint(int CoNum,String reply);
     public void AddFix(Fix a);
     public List<Fix> UnsettledFix();
-    public void settleFixOnForce(Fix a);
+    public void settleFixOnForce(int Wnum,int Fnum);
     public List<Customer> AllCustomer();
     public void AddCustomer(Customer a);
     public void DeleteCustomer(Customer a);

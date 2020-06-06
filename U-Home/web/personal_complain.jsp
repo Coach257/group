@@ -80,7 +80,7 @@
                                 :on-exceed="exceedFile"
                                 list-type="picture">
                             <el-button size="small" type="primary">点击上传</el-button>
-                            <div slot="tip" class="el-upload__tip">只能上传一张jpg/png图片，且不超过500kb</div>
+                            <div slot="tip" class="el-upload__tip">只能上传一张jpg</div>
                         </el-upload></el-form-item></el-row>
                     <el-row><el-form-item>
                         <el-button type="primary" @click="submitForm('addForm')">提交</el-button>

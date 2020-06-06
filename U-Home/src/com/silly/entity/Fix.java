@@ -1,5 +1,7 @@
 package com.silly.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Fix {
     private int Fnum;
     private int Cnum;
@@ -8,7 +10,7 @@ public class Fix {
     private int Star;
     private String Reply;
 
-
+    @JSONField(name = "Content")
     public String getContent() {
         return Content;
     }
@@ -16,7 +18,7 @@ public class Fix {
     public void setContent(String content) {
         Content = content;
     }
-
+    @JSONField(name = "Star")
     public int getStar() {
         return Star;
     }
@@ -36,19 +38,19 @@ public class Fix {
     public void setWnum(int wnum) {
         Wnum = wnum;
     }
-
+    @JSONField(name = "Fnum")
     public int getFnum() {
         return Fnum;
     }
-
+    @JSONField(name = "Cnum")
     public int getCnum() {
         return Cnum;
     }
-
+    @JSONField(name = "Wnum")
     public int getWnum() {
         return Wnum;
     }
-
+    @JSONField(name = "Reply")
     public String getReply() {
         return Reply;
     }

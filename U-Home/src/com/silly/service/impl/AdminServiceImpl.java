@@ -59,10 +59,10 @@ public class AdminServiceImpl implements AdminService {
         return adminRepository.checkUndoneFix();
     }
 
-    public void settleFixOnForce(Fix a){
+    public void settleFixOnForce(int Wnum,int Fnum){
         //更改工单信息
         //个人想法，star=-2为设置时未处理未接单，-1为师傅接单，>=0用户评分
-        adminRepository.alterFix(a);
+        adminRepository.alterFix(Wnum,Fnum);
     }
 
     //租客相关

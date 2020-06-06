@@ -39,7 +39,63 @@
         </el-aside>
         <el-container>
             <el-main>
-                <h1>这是待处理报修页面</h1>
+                <%--待处理报修列表--%>
+                <el-table :data="showFix" style="width: 100%">
+                    <el-table-column label="报修图片" width="300">
+                        <template slot-scope="scope">
+                            <el-image style="width: 100px; height: 100px" :src="'FixPic/'+scope.row.Fnum+'.jpg'"
+                                      :preview-src-list="['FixPic/'+scope.row.Fnum+'.jpg']"></el-image>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="文字描述" width="300">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.Content}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="处理">
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="choose(scope.row)">选择师傅</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <%--选择师傅--%>
+                    <el-dialog title="选择师傅" :visible.sync="dialogVisible" :before-close="handleClose" height="500">
+                        <el-row>
+                            <el-form :inline="true"class="demo-form-inline" >
+                                <el-form-item>
+                                    <el-input prefix-icon="el-icon-search" v-model="keyword" placeholder="请输入关键词" ></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" @click="findWorkerByKeyword">查 询</el-button>
+                                </el-form-item>
+                            </el-form>
+                        </el-row>
+                        <el-table :data="showWorkers" height="400">
+
+                            <el-table-column prop="Wnum" label="编号">
+                            </el-table-column>
+                            <el-table-column prop="Name" label="姓名">
+                            </el-table-column>
+                            <el-table-column prop="DealTime" label="处理报修次数">
+                            </el-table-column>
+                            <el-table-column prop="Score" label="评分">
+                            </el-table-column>
+                            <el-table-column>
+                                <template slot-scope="scope">
+                                <el-dialog
+                                        width="30%"
+                                        title="确认选择"
+                                        :visible.sync="innerVisible"
+                                        append-to-body>
+                                    <el-button size="mini" type="text" @click="innerVisible = false">取消</el-button>
+                                    <el-button type="primary" size="mini" @click="submit">确定</el-button>
+                                </el-dialog>
+                                    <el-button @click="select(scope.row)">选择</el-button>
+                                </el-popover>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-dialog>
             </el-main>
         </el-container>
     </el-container>
@@ -47,23 +103,5 @@
 </body>
 <script src="js/vue.js"></script>
 <script src="/element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        methods: {
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        }
-    })
-</script>
+<script src="js/Admin_todo_repair_script.js"></script>
 </html>
