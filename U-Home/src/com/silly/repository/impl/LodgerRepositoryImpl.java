@@ -297,7 +297,7 @@ public class LodgerRepositoryImpl implements LodgerRepository {
         try {
             connection = JDBCtools.getConnection();
             QueryRunner qR = new QueryRunner();
-            sql = "select * from Fix  where Cnum= ?";
+            sql = "select * from Fix  where Cnum= ? and Star=-1";
             list = qR.query(connection, sql, new BeanListHandler<Fix>(Fix.class),a.getCnum());
             return list;
         } catch (SQLException throwables) {
@@ -358,7 +358,7 @@ public class LodgerRepositoryImpl implements LodgerRepository {
 
     @Override
     public void MakeFix(int FNum, Customer a,String Content ) {
-        Fix b=new Fix(FNum,a.getCnum(),-1,Content,0,null);
+        Fix b=new Fix(FNum,a.getCnum(),-1,Content,-1,null);
         Connection connection=null;
         String sql=null;
         try{

@@ -15,4 +15,6 @@ public interface AdminRepository {
     public void alterRoom(Room a);
     public List<Fix> checkUndoneFix();
     public void alterFix(int Wnum,int Fnum);
+
+    public Fix getfixbyfnum(int Fnum);
 }

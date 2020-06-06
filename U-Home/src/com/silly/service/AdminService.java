@@ -33,5 +33,6 @@ public interface AdminService {
     public Room FindByRnum(int rnum);
     public List<Customer> InformList();
     public List<Fix> WorkerFix(Worker worker);
+    public Fix GetFixByFnum(int Fnum);
 
 }

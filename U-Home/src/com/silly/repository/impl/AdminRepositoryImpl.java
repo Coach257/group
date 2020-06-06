@@ -262,8 +262,6 @@ public class AdminRepositoryImpl implements AdminRepository {
             String sql = "update Fix set Wnum = ? where Fnum= ?";
             QueryRunner qR = new QueryRunner();
             qR.update(connection,sql,Wnum,Fnum);
-            sql="update Worker set DealTime=DealTime+1 where Wnum=?";
-            qR.update(connection,sql,Wnum);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -273,5 +271,28 @@ public class AdminRepositoryImpl implements AdminRepository {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public Fix getfixbyfnum(int Fnum) {
+        Connection connection = JDBCtools.getConnection();
+        String sql = "select * from Fix where Fnum = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Fix fix = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, String.valueOf(Fnum));
+            resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                fix = new Fix(resultSet.getInt(1),resultSet.getInt(2),resultSet.getInt(3)
+                        ,resultSet.getString(4),resultSet.getInt(5),resultSet.getString(6));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCtools.release(connection,statement,resultSet);
+        }
+        return fix;
     }
 }

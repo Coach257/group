@@ -9,6 +9,11 @@
     <script src="js/axios.min.js"></script>
     <title>个人中心-维修评价</title>
 </head>
+<style>
+    .el-row{
+        margin-top: 10px;
+    }
+</style>
 <body>
 <div id="app">
     <el-container>
@@ -54,116 +59,72 @@
                 </el-menu>
             </el-aside>
             <el-main>
-                <template>
-                    <el-table
-                            :data="tableData"
-                            height="250"
-                            border
-                            style="width: 100%">
-                        <el-table-column
-                                prop="date"
-                                label="日期"
-                                width="180">
-                        </el-table-column>
-                        <el-table-column
-                                prop="name"
-                                label="维修师傅姓名"
-                                width="180">
-                        </el-table-column>
-                        <el-table-column
-                                prop="address"
-                                label="房屋地址">
-                        </el-table-column>
-                        <el-table-column
-                                prop="rate"
-                                label="评价">
+                <el-table :data="showFix" style="width: 100%">
+                    <el-table-column label="报修图片" width="180">
+                        <template slot-scope="scope">
+                            <el-image style="width: 100px; height: 100px" :src="'FixPic/'+scope.row.Fnum+'.jpg'"
+                                      :preview-src-list="['FixPic/'+scope.row.Fnum+'.jpg']"></el-image>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="文字描述" width="180">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.Content}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="查看回复">
+                        <template slot-scope="scope">
+                            <el-popover
+                                    placement="bottom"
+                                    title="回复"
+                                    width="200"
+                                    trigger="click">
+                                <el-row> <span>{{scope.row.Reply!=null?scope.row.Reply:"暂时还没有师傅处理哦"}}</span></el-row>
+                                <el-row>
+                                <el-button type="primary" :disabled="scope.row.Reply==null" @click="check(scope.row)">查看师傅信息</el-button>
+                                </el-row>
+                                <el-button type="primary"  slot="reference">查看回复</el-button></el-popover>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="评价" width="180">
+                        <template slot-scope="scope">
                             <el-rate
-                                    v-model="value"
+                                    v-model="scope.row.value"
                                     show-text>
                             </el-rate>
-                        </el-table-column>
-                    </el-table>
-                </template>
+                        </template>
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                        <el-button type="primary" @click="submit(scope.row)">评价</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <%--师傅信息--%>
+                <el-dialog title="师傅信息" :visible.sync="dialogFormVisible" width="30%">
+                    <el-form :model="showWorker">
+                        <el-form-item label="姓名">
+                            <p>{{showWorker.Name}}</p>
+                        </el-form-item>
+                        <el-form-item label="处理工单次数">
+                            <p>{{showWorker.DealTime}}</p>
+                        </el-form-item>
+                        <el-form-item label="历史评分">
+                            <el-rate
+                                    v-model="showWorker.Score"
+                                    disabled
+                                    show-score
+                                    text-color="#ff9900"
+                                    >
+                            </el-rate>
+                        </el-form-item>
+                    </el-form>
+                </el-dialog>
             </el-main>
         </el-container>
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        data() {
-            return{
-                // tableData:Array(20).fill(item),
-                formInline: {
-                    keywords: '',
-                },
-                tableData: [{
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
-                }, {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
-                }, {
-                    date: '2016-05-08',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
-                }, {
-                    date: '2016-05-06',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
-                }, {
-                    date: '2016-05-07',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    value:3
-                }]
-            }
-        },
-        methods: {
-            onSubmit() {
-                console.log('submit!');
-            },
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        }
-    })
-</script>
-<style>
-    .image {
-        width: 100%;
-        display: block;
-    }
-
-</style>
+<script src="js/personal_feedback_script.js"></script>
 </html>

@@ -160,4 +160,9 @@ public class AdminServiceImpl implements AdminService {
     public List<Fix> WorkerFix(Worker worker) {
         return workerRepository.MyFix(worker);
     }
+
+    @Override
+    public Fix GetFixByFnum(int Fnum) {
+        return adminRepository.getfixbyfnum(Fnum);
+    }
 }
