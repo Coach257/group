@@ -10,6 +10,30 @@ let vue = new Vue({
         }
     },
     methods: {
+        pay(order){
+            console.log(order)
+
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            let formData = new FormData;
+            formData.append('Order',JSON.stringify(order))
+
+            axios.post('/PayOrder',formData,config)
+                .then(function (response) {
+                    let data = response.data;
+                    vue.allRooms= data.resultRoom;
+                    vue.allOrders = data.resultOrder;
+                    console.log(response.data)
+                    console.log(vue.allRooms)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        },
         CapacityToString(Capacity) {
             switch(Capacity){
                 case 1:

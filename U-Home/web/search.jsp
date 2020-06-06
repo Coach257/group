@@ -77,12 +77,12 @@
                     <template slot-scope="scope">
                         <el-button
                                 size="large"
-                                @click="rent(scope.row)">长租
+                                @click="rent(scope.row,true)">长租
                         </el-button>
                         <el-button
                                 size="large"
                                 type="danger"
-                                @click="rent(scope.row)">短租
+                                @click="rent(scope.row,false)">短租
                         </el-button>
                     </template>
                 </el-table-column>

@@ -154,10 +154,10 @@ let vue = new Vue({
                             'Content-Type': 'multipart/form-data'
                         }
                     };
+                    console.log("JSON",JSON.stringify(this.addForm))
                     axios.post('/ModifyCustomer',formData,config)
                         .then(function (response) {
                             vue.modifyDialogVisible = false;
-                            console.log(response)
                         })
                         .catch(function (error) {
                             console.log(error);

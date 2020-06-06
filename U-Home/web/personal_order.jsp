@@ -75,10 +75,14 @@
                                     {{allOrders[index].EndDate}}
                                 </el-form-item>
                                 <el-form-item label="审核状态：">
-                                    {{allOrders[index].mode==2?"等待审核":"已审核"}}
+                                    {{(allOrders[index].Mode==2)?"等待审核":"已审核"}}
                                 </el-form-item>
-                                <el-form-item label="付款情况：">
-                                    {{room.Time?"已完成":"未付款"}}
+                                <el-form-item v-if="allOrders[index].Mode==3" label="付款情况：">
+                                    未付款
+                                    <el-button type="primary" @click="pay(allOrders[index])">付款</el-button>
+                                </el-form-item>
+                                <el-form-item v-if="allOrders[index].Mode==4" label="付款情况：">
+                                    已付款
                                 </el-form-item>
                             </el-form>
                             <img :src="'RoomPic/'+room.Rnum+'.jpg'" class="image">

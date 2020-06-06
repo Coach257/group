@@ -2,6 +2,9 @@ let vue = new Vue({
     el: '#app',
     data() {
         return {
+            order:{
+
+            },
             keyword:"",
             allRooms:[],
             showRooms:[],
@@ -48,7 +51,9 @@ let vue = new Vue({
         linkto(location) {
             window.location.href = location;
         },
-        rent(row){
+        rent(row,time){
+            this.order.row = row;
+            this.order.time = time;
             this.RentVisible=true;
         },
         closeForm(){
@@ -58,6 +63,25 @@ let vue = new Vue({
             console.log(this.form.startTime);
             console.log(this.form.endTime);
             this.RentVisible=false;
+            let formData = new FormData;
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+
+            console.log(JSON.stringify(this.order.row))
+            formData.append('Room',JSON.stringify(this.order.row))
+            formData.append('Time',this.order.time)
+            formData.append('startTime',this.form.startTime)
+            formData.append('endTime',this.form.endTime)
+
+            axios.post('/RentRoom',formData,config)
+                .then(function (response) {
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         beginDate(){
             const self = this
@@ -91,7 +115,7 @@ let vue = new Vue({
                 'Content-Type': 'multipart/form-data'
             }
         };
-        axios.post('/AllRoom',new FormData,config)
+        axios.post('/AllSuitableRoom',new FormData,config)
             .then(function (response) {
                 vue.allRooms= response.data;
                 vue.showRooms = vue.allRooms;

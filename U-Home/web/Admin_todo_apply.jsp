@@ -40,7 +40,7 @@
         <el-container>
             <el-main>
                 <%--待处理申请表格--%>
-                <el-table :data="showOrders">
+                <el-table :data="allOrders">
                     <el-table-column prop="Onum" label="订单编号">
                     </el-table-column>
                     <el-table-column prop="Cnum" label="用户编号">
