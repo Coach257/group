@@ -3,10 +3,11 @@ package com.silly.entity;
 public class Fix {
     private int Fnum;
     private int Cnum;
-    private String Reply;
     private int Wnum;
     private String Content;
     private int Star;
+    private String Reply;
+
 
     public String getContent() {
         return Content;

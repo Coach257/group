@@ -5,9 +5,9 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class Complaint {
     private int CoNum;
     private int Cnum;
-    private String Reply;
     private String ComplaintContent;
     private boolean HaveDone;
+    private String Reply;
 
     @JSONField(name = "CoNum")
     public int getCoNum() {
@@ -31,7 +31,7 @@ public class Complaint {
         return ComplaintContent;
     }
 
-    public void setComplaintContnet(String complaintContnet) {
+    public void setComplaintContent(String complaintContnet) {
         ComplaintContent = complaintContnet;
     }
     @JSONField(name = "HaveDone")
@@ -51,11 +51,11 @@ public class Complaint {
         Reply = reply;
     }
 
-    public Complaint(int coNum, int cnum, String complaintContnet, boolean haveDone, String reply) {
+    public Complaint(int coNum, int cnum, String complaintContent, boolean haveDone, String reply) {
         CoNum = coNum;
         Cnum = cnum;
         Reply=reply;
-        ComplaintContent = complaintContnet;
+        ComplaintContent = complaintContent;
         HaveDone=haveDone;
     }
 

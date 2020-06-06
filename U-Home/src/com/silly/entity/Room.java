@@ -3,9 +3,9 @@ package com.silly.entity;
 public class Room {
     private int Rnum;
     private int Capacity;
-    private boolean CanUse;
     private int EmptyOrNot;
     private String url;
+    private boolean CanUse;
     private int CostPerDay;
     private String Place;
     private String RName;
