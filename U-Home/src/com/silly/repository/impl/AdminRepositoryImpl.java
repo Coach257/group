@@ -262,6 +262,8 @@ public class AdminRepositoryImpl implements AdminRepository {
             String sql = "update Fix set Wnum = ? where Fnum= ?";
             QueryRunner qR = new QueryRunner();
             qR.update(connection,sql,Wnum,Fnum);
+            sql="update Worker set DealTime=DealTime+1 where Wnum=?";
+            qR.update(connection,sql,Wnum);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {

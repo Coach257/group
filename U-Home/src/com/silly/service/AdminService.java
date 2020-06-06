@@ -13,6 +13,7 @@ public interface AdminService {
     public void AddFix(Fix a);
     public List<Fix> UnsettledFix();
     public void settleFixOnForce(int Wnum,int Fnum);
+    public void DealFix(int Fnum,String reply);
     public List<Customer> AllCustomer();
     public void AddCustomer(Customer a);
     public void DeleteCustomer(Customer a);
@@ -31,5 +32,6 @@ public interface AdminService {
     public Customer FindByCnum(int cnum);
     public Room FindByRnum(int rnum);
     public List<Customer> InformList();
+    public List<Fix> WorkerFix(Worker worker);
 
 }

@@ -1,6 +1,7 @@
 package com.silly.repository.impl;
 
 
+import com.silly.entity.Fix;
 import com.silly.entity.Order;
 import com.silly.entity.Worker;
 import com.silly.repository.WorkerRepository;
@@ -80,5 +81,48 @@ public class WorkerRepositoryImpl implements WorkerRepository {
             }
 
         }
+    }
+
+    @Override
+    public List<Fix> MyFix(Worker worker) {
+        String sql;
+        Connection connection = null;
+        List<Fix> list=null;
+        try {
+            connection = JDBCtools.getConnection();
+            QueryRunner qR = new QueryRunner();
+            sql = "select * from Fix where Wnum=? and Reply is null ";
+            list = qR.query(connection, sql, new BeanListHandler<Fix>(Fix.class),worker.getWnum());
+            return list;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public void DealFix(int Fnum, String reply) {
+        Connection connection=null;
+        try {
+            connection = JDBCtools.getConnection();
+            String sql = "update Fix set Reply= ? where Fnum= ?";
+            QueryRunner qR = new QueryRunner();
+            qR.update(connection,sql,reply,Fnum);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return;
     }
 }

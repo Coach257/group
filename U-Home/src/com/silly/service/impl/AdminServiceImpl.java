@@ -65,6 +65,11 @@ public class AdminServiceImpl implements AdminService {
         adminRepository.alterFix(Wnum,Fnum);
     }
 
+    @Override
+    public void DealFix(int Fnum, String reply) {
+        workerRepository.DealFix(Fnum,reply);
+    }
+
     //租客相关
 
     public List<Customer> AllCustomer(){
@@ -149,5 +154,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Customer> InformList() {
         return allUseRepository.InformList();
+    }
+
+    @Override
+    public List<Fix> WorkerFix(Worker worker) {
+        return workerRepository.MyFix(worker);
     }
 }

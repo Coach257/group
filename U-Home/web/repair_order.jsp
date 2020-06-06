@@ -31,112 +31,48 @@
                 </el-menu>
             </el-aside>
             <el-main>
-                <template>
-                    <el-table
-                            :data="tableData"
-                            height="250"
-                            border
-                            style="width: 100%">
-                        <el-table-column
-                                prop="date"
-                                label="日期"
-                                width="180">
-                        </el-table-column>
-                        <el-table-column
-                                prop="name"
-                                label="租客姓名"
-                                width="180">
-                        </el-table-column>
-                        <el-table-column
-                                prop="address"
-                                label="房屋地址">
-                        </el-table-column>
-                        <el-table-column
-                                prop="state"
-                                label="状态">
-                        </el-table-column>
-                    </el-table>
-                </template>
+                <%--待处理工单--%>
+                <el-table :data="showFix" style="width: 100%">
+                    <el-table-column label="报修图片" width="300">
+                        <template slot-scope="scope">
+                            <el-image style="width: 100px; height: 100px" :src="'FixPic/'+scope.row.Fnum+'.jpg'"
+                                      :preview-src-list="['FixPic/'+scope.row.Fnum+'.jpg']"></el-image>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="文字描述" width="300">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.Content}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="处理">
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="reply(scope.row)">回复</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <%--回复内容--%>
+                <el-dialog title="回复" :visible.sync="DialogVisible" width="50%" center>
+                    <el-form ref="replyForm" :model="replyForm" :rules="rules" label-width="80px" size="mini">
+                        <el-row><el-form-item label="回复内容:" prop="textarea"><el-input
+                                type="textarea"
+                                :rows="2"
+                                width="100%"
+                                placeholder="请输入内容"
+                                v-model="replyForm.textarea">
+                        </el-input></el-form-item></el-row>
+                        <el-row>
+                            <el-button @click="closeform">取 消</el-button>
+                            <el-button type="submit" @click="replyform('replyForm')">回 复</el-button>
+                        </el-row>
+                    </el-form>
+                </el-dialog>
+
             </el-main>
         </el-container>
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        data() {
-            return{
-                // tableData:Array(20).fill(item),
-                formInline: {
-                    keywords: '',
-                },
-                tableData: [{
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    state:'未解决'
-                }, {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    state:'未解决'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    state:'未解决'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    state:'未解决'
-                }, {
-                    date: '2016-05-08',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    state:'未解决'
-                }, {
-                    date: '2016-05-06',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    state:'未解决'
-                }, {
-                    date: '2016-05-07',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    state:'未解决'
-                }]
-            }
-        },
-        methods: {
-            onSubmit() {
-                console.log('submit!');
-            },
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        }
-    })
-</script>
-<style>
-    .image {
-        width: 100%;
-        display: block;
-    }
-
-</style>
+<script src="js/repair_order_script.js"></script>
 </html>
