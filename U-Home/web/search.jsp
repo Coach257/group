@@ -50,7 +50,7 @@
                 </el-table-column>
                 <el-table-column label="图片展示" width="180">
                     <template slot-scope="scope">
-                        <el-image style="width: 100px; height: 100px" :src="'RoomPic/'+scope.row.Rnum+'.jpg'"></el-image>
+                        <el-image style="width: 100px; height: 100px" :src="'RoomPic/'+scope.row.Rnum+'.jpg'" :preview-src-list="['RoomPic/'+scope.row.Rnum+'.jpg']"></el-image>
                     </template>
                 </el-table-column>
                 <el-table-column label="地址" width="180">
