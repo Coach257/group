@@ -64,4 +64,8 @@ public class CustomerServiceImpl implements CustomerService {
         workerRepository.AlterWorkerInfo(tmp);
     }
 
+    @Override
+    public void MakeFix(int FNum, Customer a,String Content ) {
+        lodgerRepository.MakeFix(FNum, a,Content );
+    }
 }

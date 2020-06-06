@@ -239,7 +239,7 @@ public class AdminRepositoryImpl implements AdminRepository {
         try {
             connection = JDBCtools.getConnection();
             QueryRunner qR = new QueryRunner();
-            sql = "select * from Fix where Star = -2";
+            sql = "select * from Fix where Wnum = -1";
             list = qR.query(connection, sql, new BeanListHandler<Fix>(Fix.class));
             return list;
         } catch (SQLException throwables) {

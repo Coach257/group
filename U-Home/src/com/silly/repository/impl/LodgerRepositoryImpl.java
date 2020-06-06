@@ -333,5 +333,26 @@ public class LodgerRepositoryImpl implements LodgerRepository {
         return worker;
     }
 
+    @Override
+    public void MakeFix(int FNum, Customer a,String Content ) {
+        Fix b=new Fix(FNum,a.getCnum(),-1,Content,0,null);
+        Connection connection=null;
+        String sql=null;
+        try{
+            connection = JDBCtools.getConnection();
+            QueryRunner qR = new QueryRunner();
+            sql="insert into Fix values(?,?,?,?,?,?)";
+            qR.update(connection,sql,b.getFnum(),b.getCnum(),
+                    b.getWnum(),b.getContent(),b.getStar(),b.getReply());
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
