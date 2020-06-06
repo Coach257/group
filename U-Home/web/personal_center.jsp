@@ -48,9 +48,13 @@
                     </el-menu-item>
                     <el-menu-item index="5" @click="linkto('personal_feedback.jsp')">
                         <i class="el-icon-message"></i>
-                        <span slot="title">反馈</span>
+                        <span slot="title">报修反馈</span>
                     </el-menu-item>
-                    <el-menu-item index="6" @click="quit">
+                    <el-menu-item index="6" @click="linkto('personal_reply.jsp')">
+                        <i class="el-icon-message"></i>
+                        <span slot="title">投诉反馈</span>
+                    </el-menu-item>
+                    <el-menu-item index="7" @click="quit">
                         <span slot="title">退出登录</span>
                     </el-menu-item>
                 </el-menu>

@@ -244,6 +244,29 @@ public class LodgerRepositoryImpl implements LodgerRepository {
     }
 
     @Override
+    public List<Complaint> ShowMyComplaint(Customer a) {
+        Connection connection=null;
+        String sql=null;
+        List<Complaint>complaints=null;
+        try {
+            connection = JDBCtools.getConnection();
+            sql = "select * from Complaint where Cnum= ?";
+            QueryRunner qR = new QueryRunner();
+            complaints = qR.query(connection, sql, new BeanListHandler<Complaint>(Complaint.class),a.getCnum());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }
+        return complaints;
+    }
+
+    @Override
     public List<Order> GetMyOrder(Customer a) {
         String sql;
         Connection connection = null;

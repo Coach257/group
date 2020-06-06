@@ -34,6 +34,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Complaint> ShowMyComplaint(Customer a) {
+        return lodgerRepository.ShowMyComplaint(a);
+    }
+
+    @Override
     public void ChangeMyInfo(Customer a) {
         adminRepository.alterLodgerInfo(a);
     }

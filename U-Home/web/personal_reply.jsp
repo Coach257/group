@@ -19,7 +19,7 @@
         <el-container height="100%">
             <el-aside width="200px">
                 <el-menu
-                        default-active="2"
+                        default-active="6"
                         class="el-menu-vertical-demo"
                         background-color="#545c64"
                         text-color="#fff"
@@ -55,51 +55,37 @@
             </el-aside>
             <el-main>
 
-                <el-row>
-                    <el-col :span="8" v-for="(room, index) in allRooms" :key="o" :offset="index > 0 ? 2 : 0">
-                        <el-card :body-style="{ padding: '0px' }">
-                            <el-form ref="CurrentCustomer" :model="CurrentCustomer" label-width="100px" size="mini">
-                                <el-form-item label="房屋地址：">
-                                    {{room.Place}}
-                                </el-form-item>
-                                <el-form-item label="房屋类型：">
-                                    {{CapacityToString(room.Capacity)}}
-                                </el-form-item>
-                                <el-form-item label="租住方式：">
-                                    {{room.Time?"长租":"短租"}}
-                                </el-form-item>
-                                <el-form-item label="入住时间：">
-                                    {{allOrders[index].BeginDate}}
-                                </el-form-item>
-                                <el-form-item label="搬出时间：">
-                                    {{allOrders[index].EndDate}}
-                                </el-form-item>
-                                <el-form-item label="审核状态：">
-                                    {{allOrders[index].mode==2?"等待审核":"已审核"}}
-                                </el-form-item>
-                                <el-form-item label="付款情况：">
-                                    {{room.Time?"已完成":"未付款"}}
-                                </el-form-item>
-                            </el-form>
-                            <img :src="'RoomPic/'+room.Rnum+'.jpg'" class="image">
-                        </el-card>
-                    </el-col>
-                </el-row>
+                <el-table :data="showComplaint" style="width: 100%">
+                    <el-table-column label="我的投诉图片" width="300">
+                        <template slot-scope="scope">
+                            <el-image style="width: 100px; height: 100px" :src="'ComplaintPic/'+scope.row.CoNum+'.jpg'"
+                                      :preview-src-list="['ComplaintPic/'+scope.row.CoNum+'.jpg']"></el-image>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="我的文字描述" width="300">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.ComplaintContent}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="查看回复">
+                        <template slot-scope="scope">
+                            <el-popover
+                                    placement="bottom"
+                                    title="回复"
+                                    width="200"
+                                    trigger="click">
+                                <span>{{scope.row.Reply}}</span>
+                            <el-button type="primary"  slot="reference" @click="showreply(scope.row)" :disabled="!scope.row.HaveDone">
+                                {{scope.row.HaveDone?"查看回复":"管理员尚未处理"}}</el-button></el-popover>
+                        </template>
+                    </el-table-column>
+                </el-table>
             </el-main>
         </el-container>
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
-<script src="js/personal_order_script.js"></script>
-<style>
-    .image {
-        width: 100%;
-        display: block;
-    }
-
-</style>
+<script src="js/personal_reply_script.js"></script>
 </html>

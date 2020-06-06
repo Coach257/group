@@ -20,4 +20,5 @@ public interface LodgerRepository {
     public Worker GetWorkerInfo(Fix a);
     public void JudgeOnFix(Fix a,int star);
     public void MakeFix(int FNum,Customer a,String Content);
+    public List<Complaint> ShowMyComplaint(Customer a);
 }
