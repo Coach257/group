@@ -86,7 +86,7 @@ public class Order {
         return EndDate;
     }
 
-    public Order(int cnum, int onum, int rnum, int mode, int moneyNeeded, java.sql.Date beginDate,
+    public Order(int onum, int cnum, int rnum, int mode, int moneyNeeded, java.sql.Date beginDate,
                  boolean time, java.sql.Date endDate) {
         Cnum = cnum;
         Onum = onum;
