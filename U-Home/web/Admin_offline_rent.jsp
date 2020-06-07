@@ -39,7 +39,71 @@
         </el-aside>
         <el-container>
             <el-main>
-                <h1>这是线下租房页面</h1>
+                <h3>租客信息</h3>
+                <el-table :data="showCustomers">
+                    <el-table-column prop="Cnum" label="编号">
+                    </el-table-column>
+                    <el-table-column prop="Name" label="用户名">
+                    </el-table-column>
+                    <el-table-column prop="Email" label="邮箱">
+                    </el-table-column>
+                    <el-table-column prop="Phone" label="手机号">
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="handleModify(scope.row)">修改</el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="handleDelete(scope.row)">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+
+                <h3>房间信息</h3>
+                <el-table :data="showRooms">
+                    <el-table-column prop="Rnum" label="编号">
+                    </el-table-column>
+                    <el-table-column prop="Rname" label="房间名称">
+                    </el-table-column>
+                    <el-table-column prop="Place" label="房间地址">
+                    </el-table-column>
+                    <el-table-column prop="Capacity" :formatter="formatterColumn" label="房间类型">
+                    </el-table-column>
+                    <el-table-column prop="CostPerDay"  label="日租金">
+                    </el-table-column>
+
+                    <el-table-column>
+                        <template slot-scope="scope" >
+                            <div v-if="scope.row.EmptyOrNot">
+                                <el-button type="primary" v-if="scope.row.CanUse" @click="changestate(scope.row)">暂停出租</el-button>
+                                <el-button type="primary" v-else @click="changestate(scope.row)">恢复出租</el-button>
+                            </div>
+                        </template>
+
+                    </el-table-column>
+                </el-table>
+
+                <h3>租借类型</h3>
+                <br>
+                <el-radio-group v-model="form.time">
+                    <el-radio label="true" border>长 租</el-radio>
+                    <el-radio label="false" border>短 租</el-radio>
+                </el-radio-group>
+                <br>
+                <h3>开始时间</h3>
+                <br>
+                <el-date-picker v-model="form.beginDate"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" clearable style="width: 100%"
+                                :picker-options="startDatePicker" type="date"  ></el-date-picker>
+                <br>
+                <h3>结束时间</h3>
+                <br>
+                <el-date-picker v-model="form.endDate"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" clearable style="width: 100%"
+                                :picker-options="startDatePicker" type="date"  ></el-date-picker>
+
+                <el-button type="primary" @click="onSubmit">提 交</el-button>
+
             </el-main>
         </el-container>
     </el-container>
@@ -47,23 +111,6 @@
 </body>
 <script src="js/vue.js"></script>
 <script src="/element-ui/lib/index.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        methods: {
-            quit(){
-                axios.post('/logout', {
-                }).then(function (response) {
-                    console.log(response);
-                    window.location.href = 'index.jsp'
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            linkto(location){
-                window.location.href=location;
-            }
-        }
-    })
-</script>
+<script src="js/Admin_office_rent_script.js"></script>
+
 </html>
