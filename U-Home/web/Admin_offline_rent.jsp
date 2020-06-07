@@ -51,12 +51,7 @@
                     </el-table-column>
                     <el-table-column>
                         <template slot-scope="scope">
-                            <el-button type="primary" @click="handleModify(scope.row)">修改</el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column>
-                        <template slot-scope="scope">
-                            <el-button type="primary" @click="handleDelete(scope.row)">删除</el-button>
+                            <el-button type="primary" @click="SelectCustomerDialogVisible=true">选择租客</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -75,14 +70,11 @@
                     </el-table-column>
 
                     <el-table-column>
-                        <template slot-scope="scope" >
-                            <div v-if="scope.row.EmptyOrNot">
-                                <el-button type="primary" v-if="scope.row.CanUse" @click="changestate(scope.row)">暂停出租</el-button>
-                                <el-button type="primary" v-else @click="changestate(scope.row)">恢复出租</el-button>
-                            </div>
+                        <template slot-scope="scope">
+                            <el-button type="primary" @click="SelectRoomDialogVisible = true">选择房源</el-button>
                         </template>
-
                     </el-table-column>
+
                 </el-table>
 
                 <h3>租借类型</h3>
@@ -104,6 +96,52 @@
 
                 <el-button type="primary" @click="onSubmit">提 交</el-button>
 
+
+                <%--两个弹窗--%>
+
+                <el-dialog title="选择顾客" :visible.sync="SelectCustomerDialogVisible" :before-close="handleCloseCustomer">
+                    <div style="width:100%;text-align:center">
+                        <el-table :data="allCustomers">
+                            <el-table-column prop="Cnum" label="编号">
+                            </el-table-column>
+                            <el-table-column prop="Name" label="用户名">
+                            </el-table-column>
+                            <el-table-column prop="Email" label="邮箱">
+                            </el-table-column>
+                            <el-table-column prop="Phone" label="手机号">
+                            </el-table-column>
+                            <el-table-column>
+                                <template slot-scope="scope">
+                                    <el-button type="primary" @click="SelectCustomer(scope.row)">选择</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                </el-dialog>
+
+                <el-dialog title="选择房间" :visible.sync="SelectRoomDialogVisible" :before-close="handleCloseRoom">
+                    <div style="width:100%;text-align:center">
+                        <el-table :data="allRooms">
+                            <el-table-column prop="Rnum" label="编号">
+                            </el-table-column>
+                            <el-table-column prop="Rname" label="房间名称">
+                            </el-table-column>
+                            <el-table-column prop="Place" label="房间地址">
+                            </el-table-column>
+                            <el-table-column prop="Capacity" :formatter="formatterColumn" label="房间类型">
+                            </el-table-column>
+                            <el-table-column prop="CostPerDay"  label="日租金">
+                            </el-table-column>
+
+                            <el-table-column>
+                                <template slot-scope="scope">
+                                    <el-button type="primary" @click="SelectRoom(scope.row)">选择</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                </el-dialog>
+
             </el-main>
         </el-container>
     </el-container>
@@ -111,6 +149,6 @@
 </body>
 <script src="js/vue.js"></script>
 <script src="/element-ui/lib/index.js"></script>
-<script src="js/Admin_office_rent_script.js"></script>
+<script src="js/Admin_offline_rent_script.js"></script>
 
 </html>
