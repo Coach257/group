@@ -59,7 +59,7 @@
                     </el-table-column>
                 </el-table>
                 <%--选择师傅--%>
-                    <el-dialog title="选择师傅" :visible.sync="dialogVisible" :before-close="handleClose" height="500">
+                    <el-dialog title="选择师傅" :visible.sync="dialogVisible" :before-close="handleClose" height="500" width="80%">
                         <el-row>
                             <el-form :inline="true"class="demo-form-inline" >
                                 <el-form-item>
@@ -78,7 +78,16 @@
                             </el-table-column>
                             <el-table-column prop="DealTime" label="处理报修次数">
                             </el-table-column>
-                            <el-table-column prop="Score" label="评分">
+                            <el-table-column label="评分">
+                                <template slot-scope="scope">
+                                    <el-rate
+                                            v-model="scope.row.Score"
+                                            disabled
+                                            show-score
+                                            text-color="#ff9900"
+                                    >
+                                    </el-rate>
+                                </template>
                             </el-table-column>
                             <el-table-column>
                                 <template slot-scope="scope">

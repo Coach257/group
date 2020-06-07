@@ -63,7 +63,7 @@ public class Worker {
                 "\"Name\":\""+ Name +"\"," +
                 "\"DealTime\":\""+ DealTime + "\"," +
                 "\"Code\":\""+ Code + "\"," +
-                "\"Score\":\""+Score + "\""+
+                "\"Score\":\""+ String.format("%.2f",Score) + "\""+
                 "}";
     }
 }

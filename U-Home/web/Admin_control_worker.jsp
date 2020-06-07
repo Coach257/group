@@ -67,7 +67,16 @@
                     </el-table-column>
                     <el-table-column prop="DealTime" label="处理报修次数">
                     </el-table-column>
-                    <el-table-column prop="Score" label="评分">
+                    <el-table-column  label="评分">
+                        <template slot-scope="scope">
+                        <el-rate
+                                v-model="scope.row.Score"
+                                disabled
+                                show-score
+                                text-color="#ff9900"
+                        >
+                        </el-rate>
+                        </template>
                     </el-table-column>
                 </el-table>
                     <%--添加师傅--%>

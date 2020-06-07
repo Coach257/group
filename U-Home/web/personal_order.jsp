@@ -53,12 +53,10 @@
                     </el-menu-item>
                 </el-menu>
             </el-aside>
-            <el-main>
-
-                <el-row>
-                    <el-col :span="8" v-for="(room, index) in allRooms" :key="o" :offset="index > 0 ? 2 : 0">
+            <el-main height="700">
+                    <el-col :span="8" v-for="(room, index) in allRooms" :offset="index > 0 ? 2 : 0">
                         <el-card :body-style="{ padding: '0px' }">
-                            <el-form ref="CurrentCustomer" :model="CurrentCustomer" label-width="100px" size="mini">
+                            <el-form label-width="100px" size="mini">
                                 <el-form-item label="房屋地址：">
                                     {{room.Place}}
                                 </el-form-item>
@@ -88,15 +86,12 @@
                             <img :src="'RoomPic/'+room.Rnum+'.jpg'" class="image">
                         </el-card>
                     </el-col>
-                </el-row>
             </el-main>
         </el-container>
     </el-container>
 </div>
 </body>
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
-<!-- import JavaScript -->
 <script src="element-ui/lib/index.js"></script>
 <script src="js/personal_order_script.js"></script>
 <style>
