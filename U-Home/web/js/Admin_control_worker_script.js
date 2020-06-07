@@ -1,3 +1,20 @@
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
+}
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='Admin_control_worker.jsp';
+}
 let vue =new Vue({
     el: '#app',
     data(){
@@ -49,16 +66,20 @@ let vue =new Vue({
         },
         handleModify(){
             this.dialogVisible = true;
+            console.log(this.dialogVisible);
         },
         findWorkerByKeyword(){//根据关键字查询
             let keyWord = this.keyword
             this.showWorkers = this.allWorkers.filter((c)=>(c.Name.indexOf(keyWord)!=-1))
         },
         closeForm(formName){
+            if (this.$refs[formName]!==undefined) {
+                this.$refs[formName].resetFields();
+            }
             this.dialogVisible=false;
         },
-        handleClose(done){
-            this.closeForm('addForm');
+        handleClose(formName){
+            this.closeForm(formName);
         },
         submitForm(formName){
             this.$refs[formName].validate((valid) => {
@@ -73,17 +94,14 @@ let vue =new Vue({
                     };
                     axios.post('/NewWorker',formData,config)
                         .then(function (response) {
-                            alert('添加成功');
-                            window.location.href='Admin_control_worker.jsp';
+                            successmessage("添加成功");
+                            setTimeout(refresh,2000);
                         })
                         .catch(function (error) {
-                            alert('信息不合法')
+                            errormessage("添加失败，请检查");
                             console.log(error);
                         });
                     this.dialogVisible=false;
-                } else {
-                    console.log('error submit!!');
-                    return false;
                 }
             });
         }
@@ -103,5 +121,4 @@ let vue =new Vue({
                 console.log(error);
             });
     },
-
 })
