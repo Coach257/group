@@ -116,9 +116,15 @@ let vue =new Vue({
             .then(function (response) {
                 vue.allWorkers= response.data;
                 vue.showWorkers = vue.allWorkers;
+                for(let worker of vue.allWorkers){
+                    worker.Score=parseFloat(worker.Score);
+                }
+                console.log(vue.allWorkers);
+                console.log(vue.showWorkers);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
     },
 })

@@ -1,11 +1,24 @@
 document.querySelector('.img__btn').addEventListener('click', function() {
     document.querySelector('.content').classList.toggle('s--signup')
 })
-function refresh() {
-    window.location.href="login.jsp";
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
 }
-
-new Vue({
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='login.jsp';
+}
+let vue=new Vue({
     el:"#formsignin",
     data() {
         var validatePass = (rule, value, callback) => {
@@ -85,6 +98,11 @@ new Vue({
                     {validator:validateMobilePhone,trigger:'blur'}
                 ]
 
+            },
+            loginForm:{
+                username:'',
+                radio:'customer',
+                password:'',
             }
         };
     },
@@ -105,24 +123,43 @@ new Vue({
                     axios.post('/signin',formData,config)
                         .then(function (response) {
                             if (response.data==null){
-                                $("#signinresult").html("</labe><span style=\"color: blue;margin: auto; \">"
-                                    + "注册成功"+
-                                    "</span></labe>");
-                                setTimeout(refresh(), 1000);
+                                successmessage("注册成功");
+                                setTimeout(refresh, 2000);
                             }else {
-                                $("#signinresult").html("</labe><span style=\"color: #ff0000;margin: auto; \">"
-                                    + response.data +
-                                    "</span></labe>");
+                                errormessage(response.data);
                             }
                         })
                         .catch(function (error) {
-                            console.log(error);
+                            errormessage("注册失败,请检查");
                         });
-                } else {
-                    console.log('error submit!!');
-                    return false;
                 }
             });
         },
+        loginsubmit(){
+            let formData = new FormData();
+            formData.append('username', this.loginForm.username);
+            formData.append('password', this.loginForm.password);
+            formData.append('type', this.loginForm.radio);
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            axios.post('/login',formData,config)
+                .then(function (response) {
+                    if (response.data.indexOf('.jsp')!=-1){
+                        successmessage("登录成功");
+                        setTimeout(vue.linkto(response.data), 2000);
+                    }else {
+                        errormessage(response.data);
+                    }
+                })
+                .catch(function (error) {
+                    errormessage("登录失败,请检查");
+                });
+        },
+        linkto(location){
+            window.location.href=location;
+        }
     }
 })

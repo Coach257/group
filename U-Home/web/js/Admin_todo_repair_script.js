@@ -97,15 +97,18 @@ let vue=new Vue({
                 console.log(vue.showFix);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
         axios.post('/AllWorker',new FormData,config)
             .then(function (response) {
                 vue.allWorkers= response.data;
                 vue.showWorkers = vue.allWorkers;
+                console.log(vue.allWorkers);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
     },
 })

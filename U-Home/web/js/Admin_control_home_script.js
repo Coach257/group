@@ -1,3 +1,20 @@
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
+}
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='Admin_control_home.jsp';
+}
 let vue = new Vue({
     el: '#app',
     data(){
@@ -57,7 +74,9 @@ let vue = new Vue({
                 Rname:'',
                 Capacity: '',
                 CostPerDay: '',
-                File:'',
+                file:'',
+                fileList:[],
+                limitNum:1
             },
             rules: {
                 Rname: [
@@ -119,8 +138,10 @@ let vue = new Vue({
             };
             axios.post('/ModifyRoomCanUse',formData,config)
                 .then(function (response) {
+                    successmessage("修改成功");
                 })
                 .catch(function (error) {
+                    errormessage("修改失败，请检查");
                     console.log(error);
                 });
         },
@@ -137,7 +158,7 @@ let vue = new Vue({
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     let formData = new FormData();
-                    formData.append('File',this.addForm.File);
+                    formData.append('File',this.addForm.file);
                     formData.append('Rname',this.addForm.Rname);
                     formData.append('Place',this.addForm.Place);
                     formData.append('Capacity',this.addForm.Capacity);
@@ -149,28 +170,39 @@ let vue = new Vue({
                     };
                     axios.post('/NewRoom',formData,config)
                         .then(function (response) {
-                            alert('添加成功');
-                            window.location.href='Admin_control_home.jsp';
+                            successmessage("添加成功");
+                            setTimeout(refresh,2000);
                         })
                         .catch(function (error) {
-                            alert('信息不合法')
+                            errormessage("添加失败，请检查");
                             console.log(error);
                         });
-                    this.dialogVisible=false;
-                } else {
-                    console.log('error submit!!');
-                    return false;
                 }
             });
         },
         closeForm(formName){
+            if (this.$refs[formName]!==undefined) {
+                this.$refs[formName].resetFields();
+            }
+            this.$refs.upload.clearFiles()
             this.dialogVisible=false;
         },
         handleClose(done){
             this.closeForm('addForm');
         },
-        FileChange(file){
-          this.addForm.File=file.raw;
+        FileChange(file, fileList) {
+            this.$notify({
+                title: '成功',
+                message: '图片添加成功',
+                type: 'success'
+            });
+            this.addForm.file = file.raw
+        },
+        exceedFile(files, fileList) {
+            this.$notify.warning({
+                title: '警告',
+                message: `只能上传一张图片`
+            });
         },
         linkto(location){
             window.location.href=location;
@@ -186,9 +218,11 @@ let vue = new Vue({
             .then(function (response) {
                 vue.allRooms= response.data;
                 vue.showRooms = vue.allRooms;
+                console.log(vue.allRooms);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
     },
 })

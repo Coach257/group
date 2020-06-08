@@ -18,7 +18,7 @@
     String loginerrMsg=(String)request.getAttribute("loginerrMsg");
     if (loginerrMsg==null)loginerrMsg="";
     else {
-        loginerrMsg="<label><span style=\"color: red; \">"+loginerrMsg+"</span></label>";
+        out.println("<script>errormessage('loginerrMsg')</script>");
     }
 %>
 <script type="text/javascript">
@@ -36,27 +36,31 @@
     }
 </script>
 <%@include file="Nav.jsp"%>
-  <div class="content">
-      <form action="/login" method="post">
+  <div class="content" id="formsignin">
+      <el-form :model="loginForm" >
         <div class="form sign-in">
             <h2>欢迎回来</h2>
             <labe>
                 <span>用户名</span>
-                <input class="input" type="email" name="name" />
+                <input v-model="loginForm.username" class="input" type="email" />
             </labe>
             <labe>
                 <span>密码</span>
-                <input class="input" type="password" name="password"/>
+                <input v-model="loginForm.password" class="input" type="password"/>
             </labe>
             <labe>
-                <input type="radio" name="type" value="lodger" checked>我是租客
-                <input type="radio" name="type" value="worker">我是师傅
-                <input type="radio" name="type" value="admin">我是客服
+                <template>
+                <el-radio-group v-model="loginForm.radio">
+                    <el-radio label="customer">租客</el-radio>
+                    <el-radio label="worker">师傅</el-radio>
+                    <el-radio label="admin">客服</el-radio>
+                </el-radio-group>
+                </template>
             </labe>
-            <%=loginerrMsg%>
-            <button type="button" class="submit" onclick="this.form.submit()">登 录</button>
+
+            <button type="button" class="submit" @click="loginsubmit">登 录</button>
         </div>
-      </form>
+      </el-form>
         <div class="sub-cont">
             <div class="img">
                 <div class="img__text m--up">
@@ -72,7 +76,7 @@
                     <span class="m--in">登 录</span>
                 </div>
             </div>
-            <div class="form sign-up" id="formsignin">
+            <div class="form sign-up" >
                 <h2>立即注册</h2>
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" style="margin-top: 5px;" label-width="100px" class="demo-ruleForm">
                     <el-form-item label="用户名" prop="username">
@@ -90,7 +94,6 @@
                     <el-form-item label="手机号" prop="phone">
                         <el-input type="text" v-model="ruleForm.phone" autocomplete="off"></el-input>
                     </el-form-item>
-                    <div id="signinresult"></div>
                 <button type="button" class="submit" @click="submitForm('ruleForm')">注 册</button>
                 </el-form>
             </div>

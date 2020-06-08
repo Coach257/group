@@ -1,3 +1,20 @@
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
+}
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='Admin_todo_apply.jsp';
+}
 let vue = new Vue({
     el: '#app',
     data(){
@@ -79,9 +96,11 @@ let vue = new Vue({
             formDate.append('data',JSON.stringify(order))
             axios.post('/ModifyOrder',formDate,{headers: {'Content-Type': 'multipart/form-data'}})
                 .then(function (response) {
-                    window.location.href='Admin_todo_apply.jsp';
+                    successmessage("处理成功");
+                    setTimeout(refresh,2000);
                 })
                 .catch(function (error) {
+                    errormessage("处理失败,请检查");
                     console.log(error);
                 });
         }
@@ -99,21 +118,26 @@ let vue = new Vue({
                 vue.showOrders = vue.allOrders.filter((o)=>(o.Mode == 2))//2是未审核
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
         axios.post('/AllRoom',new FormData,config)
             .then(function (response) {
                 vue.allRooms= response.data;
+                console.log(vue.allRooms);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
         axios.post('/AllCustomer',new FormData,config)
             .then(function (response) {
                 vue.allCustomers = response.data;
+                console.log(vue.allCustomers);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
 
     },

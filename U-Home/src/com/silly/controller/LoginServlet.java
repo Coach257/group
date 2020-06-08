@@ -12,40 +12,45 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private SignLoginServiceImpl signLoginService=new SignLoginServiceImpl();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String password =req.getParameter("password");
-        String type = req.getParameter("type");
+        Map impfileMap = GetFilePath.get(req);
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        String name = impfileMap.get("username").toString();
+        String password =impfileMap.get("password").toString();
+        String type = impfileMap.get("type").toString();
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
         Object res=signLoginService.login(name,password,type);
         if(res==null){
             String result;
             result="账号或者密码错误";
-            req.setAttribute("loginerrMsg",result);
-            req.getRequestDispatcher("login.jsp").forward(req,resp);
+            resp.getWriter().print(result);
         }
         else {
+            System.out.println("ok");
             HttpSession session=req.getSession();
             switch (type){
                 case "lodger":
                     Customer customer=(Customer)res;
                     session.setAttribute("customer",customer);
-                    req.getRequestDispatcher("index.jsp").forward(req,resp);
+                    resp.getWriter().print("index.jsp");
                     break;
                 case "worker":
                     Worker worker=(Worker)res;
                     session.setAttribute("worker",worker);
-                    resp.sendRedirect("repair_order.jsp");
+                    resp.getWriter().print("repair_order.jsp");
                     break;
                 case "admin":
                     Admin admin=(Admin)res;
                     session.setAttribute("admin",admin);
-                    resp.sendRedirect("Admin_control_customer.jsp");
+                    resp.getWriter().print("Admin_control_customer.jsp");
                     break;
             }
         }

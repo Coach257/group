@@ -64,11 +64,6 @@
                             <el-button type="primary" @click="handleModify(scope.row)">修改</el-button>
                         </template>
                     </el-table-column>
-                    <el-table-column>
-                        <template slot-scope="scope">
-                            <el-button type="primary" @click="handleDelete(scope.row)">删除</el-button>
-                        </template>
-                    </el-table-column>
                 </el-table>
 
                 <el-dialog title="修改信息" :visible.sync="modifyDialogVisible" :before-close="handleClose">

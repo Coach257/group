@@ -107,7 +107,8 @@ let vue=new Vue({
                 console.log(vue.showComplaint);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
     },
 })

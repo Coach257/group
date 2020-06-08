@@ -71,9 +71,12 @@
 
                     <el-table-column>
                         <template slot-scope="scope" >
-                            <div v-if="scope.row.EmptyOrNot">
+                            <div v-if="!scope.row.EmptyOrNot">
                                 <el-button type="primary" v-if="scope.row.CanUse" @click="changestate(scope.row)">暂停出租</el-button>
                                 <el-button type="primary" v-else @click="changestate(scope.row)">恢复出租</el-button>
+                            </div>
+                            <div v-else>
+                                <el-button type="primary" :disabled="true">已出租</el-button>
                             </div>
                         </template>
 
@@ -84,11 +87,16 @@
                         <el-form :model="addForm" :rules="rules" ref="addForm" :inline="true"  class="center" >
                             <el-form-item label="房间图片" prop="Url">
                                 <el-upload
+                                        ref="upload"
                                         class="upload-demo"
                                         action="https://jsonplaceholder.typicode.com/posts/"
                                         :on-preview="handlePreview"
                                         :on-remove="handleRemove"
                                         :on-change="FileChange"
+                                        :file-list="addForm.fileList"
+                                        :limit=addForm.limitNum
+                                        :auto-upload="false"
+                                        :on-exceed="exceedFile"
                                         list-type="picture">
                                     <el-button size="small" type="primary">点击上传</el-button>
                                     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>

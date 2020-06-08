@@ -126,16 +126,20 @@ let vue = new Vue({
         axios.post('/AllCustomer',new FormData,config)
             .then(function (response) {
                 vue.allCustomers = response.data;
+                console.log(vue.allCustomers);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
         axios.post('/AllRoom',new FormData,config)
             .then(function (response) {
                 vue.allRooms= response.data;
+                console.log(vue.allRooms);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
 
     },

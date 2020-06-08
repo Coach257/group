@@ -1,3 +1,20 @@
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
+}
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='Admin_control_customer.jsp';
+}
 let vue = new Vue({
     el: '#app',
     data() {
@@ -81,51 +98,23 @@ let vue = new Vue({
         axios.post('/AllCustomer',new FormData,config)
             .then(function (response) {
                 vue.allCustomers = response.data;
-                vue.showCustomers = vue.allCustomers
-                console.log(vue.allCustomers)
+                vue.showCustomers = vue.allCustomers;
+                console.log(vue.allCustomers);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
 
     },
     methods: {
-        handleDelete(row){//只传Cnum
-            let formData = new FormData();
-            formData.append('Cnum',row.Cnum);
-            let config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            };
-            axios.post('/DeleteCustomer',formData,config)
-                .then(function (response) {
-                    console.log(response)
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-            //更新页面
-            for(let i in this.allCustomers){
-                let c = this.allCustomers[i];
-                if(c.Cnum == row.Cnum){
-                    this.allCustomers.splice(i,1);
-                    break;
-                }
-            }
-            for(let i in this.showCustomers){
-                let c = this.showCustomers[i];
-                if(c.Cnum == row.Cnum){
-                    this.showCustomers.splice(i,1);
-                    break;
-                }
-            }
-
-        },
         handleModify(row){
             this.modifyDialogVisible = true;
-            this.addForm = row;
+            this.addForm.Name=row.Name;
+            this.addForm.Email=row.Email;
+            this.addForm.Cnum=row.Cnum;
+            this.addForm.Phone=row.Phone;
+            this.addForm.Code=row.Code;
         },
         handleClose(done){
             this.closeForm('addForm');
@@ -157,26 +146,20 @@ let vue = new Vue({
                     console.log("JSON",JSON.stringify(this.addForm))
                     axios.post('/ModifyCustomer',formData,config)
                         .then(function (response) {
-                            vue.modifyDialogVisible = false;
+                            successmessage("修改成功");
+                            setTimeout(refresh,2000);
                         })
                         .catch(function (error) {
-                            console.log(error);
+                            errormessage("修改错误，请检查");
                         });
-                } else {
-                    console.log('error submit!!');
-                    return false;
                 }
             });
         },
         closeForm(formName){
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    this.modifyDialogVisible=false;
-                } else {
-                    console.log('error submit!!');
-                    return false;
-                }
-            });
+            if (this.$refs[formName]!==undefined) {
+                this.$refs[formName].resetFields();
+            }
+            this.modifyDialogVisible=false;
         },
         linkto(location){
             window.location.href=location;

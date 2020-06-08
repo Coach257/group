@@ -67,7 +67,7 @@
                     </el-table-column>
                     <el-table-column prop="DealTime" label="处理报修次数">
                     </el-table-column>
-                    <el-table-column  label="评分">
+                    <el-table-column label="评分">
                         <template slot-scope="scope">
                         <el-rate
                                 v-model="scope.row.Score"

@@ -1,3 +1,20 @@
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
+}
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='Admin_control_contract.jsp';
+}
 let vue = new Vue({
     el: '#app',
     data(){
@@ -78,26 +95,31 @@ let vue = new Vue({
         axios.post('/AllOrder',new FormData,config)
             .then(function (response) {
                 vue.allOrders= response.data;
-                console.log(vue.allOrders)
-                vue.showOrders = vue.allOrders.filter((o)=>(o.Mode === 4 && o.Time===true))
-                console.log(vue.showOrders)
+                console.log(vue.allOrders);
+                vue.showOrders = vue.allOrders.filter((o)=>(o.Mode === 4 && o.Time===true));
+                console.log(vue.showOrders);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
         axios.post('/AllRoom',new FormData,config)
             .then(function (response) {
                 vue.allRooms= response.data;
+                console.log(vue.allRooms);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
         axios.post('/AllCustomer',new FormData,config)
             .then(function (response) {
                 vue.allCustomers = response.data;
+                console.log(vue.allCustomers);
             })
             .catch(function (error) {
-                console.log(error);
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
 
     },
