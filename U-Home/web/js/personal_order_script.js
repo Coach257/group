@@ -1,7 +1,31 @@
+
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
+}
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='personal_order_script.jsp';
+}
 let vue = new Vue({
     el: '#app',
     data() {
         return{
+            renewMonth:0,
+            payOrder:{},
+            renewOrder: {},
+            MoneyNeeded:0,
+            RenewDialogVisible:false,
+            PayDialogVisible:false,
             allOrders:{},
             allRooms:{},
             formInline: {
@@ -10,9 +34,41 @@ let vue = new Vue({
         }
     },
     methods: {
-        pay(order){
-            console.log(order)
+        download(){
 
+        },
+        renew(){
+            let renewMonth = this.renewMonth
+            let order = this.renewOrder
+
+            let formDate = new FormData()
+            formDate.append('data',JSON.stringify(order))
+            formDate.append('month',this.renewMonth)
+
+            console.log(JSON.stringify(order))
+
+            axios.post('/RenewOrder',formDate,{headers: {'Content-Type': 'multipart/form-data'}})
+                .then(function (response) {
+                    successmessage("处理成功");
+                    setTimeout(refresh,2000);
+                })
+                .catch(function (error) {
+                    errormessage("处理失败,请检查");
+                    console.log(error);
+                });
+        },
+        showRenew(order){
+            this.renewOrder = order;
+            this.RenewDialogVisible = true;
+            this.renewMonth = 0;
+        },
+        showPay(order){
+            this.payOrder = order;
+            this.PayDialogVisible = true;
+            this.MoneyNeeded = order.MoneyNeeded
+        },
+        pay(){
+            let order = this.payOrder
             let config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -23,16 +79,18 @@ let vue = new Vue({
 
             axios.post('/PayOrder',formData,config)
                 .then(function (response) {
-                    let data = response.data;
-                    vue.allRooms= data.resultRoom;
-                    vue.allOrders = data.resultOrder;
-                    console.log(response.data)
-                    console.log(vue.allRooms)
+                    window.location.href='personal_order.jsp';
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
 
+        },
+        PayClose(){
+            this.PayDialogVisible = false
+        },
+        Renewclose(){
+            this.RenewDialogVisible = false;
         },
         CapacityToString(Capacity) {
             switch(Capacity){

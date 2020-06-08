@@ -51,7 +51,7 @@
             <labe>
                 <template>
                 <el-radio-group v-model="loginForm.radio">
-                    <el-radio label="customer">租客</el-radio>
+                    <el-radio label="lodger">租客</el-radio>
                     <el-radio label="worker">师傅</el-radio>
                     <el-radio label="admin">客服</el-radio>
                 </el-radio-group>

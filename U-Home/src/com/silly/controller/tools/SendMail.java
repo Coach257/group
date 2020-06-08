@@ -35,22 +35,23 @@ public class SendMail implements ServletContextListener {
             sendDate = defaultdate;
         }
 
-//        /**
-//         * ----------------每刻任务 ----------------
-//         * 启动服务器后，若此时时间没过8点，等待。到了8点自动执行一次，15分钟后再执行一次，周而复始
-//         * 启动服务器后，若此时时间超过8点，会立刻执行一次，等到15分钟后再次执行一次，周而复始 到了第二天，不会再判断是否是8点，这个开始时间，只会判断一次而已
-//         */
-//        Timer qTimer = new Timer();
-//        qTimer.schedule(new TimerTask() {
-//
-//            @Override
-//            public void run() {
-//                System.out.println("每刻任务已执行");
-//                // TODO 写你的逻辑
-//            }
-//        }, defaultdate, 1 * 30 * 1000);// 定时每15分钟
-//        System.out.println("每刻定时发送Xml信息监听--已启动！");
-//
+        /**
+         * ----------------每刻任务 ----------------
+         * 启动服务器后，若此时时间没过8点，等待。到了8点自动执行一次，15分钟后再执行一次，周而复始
+         * 启动服务器后，若此时时间超过8点，会立刻执行一次，等到15分钟后再次执行一次，周而复始 到了第二天，不会再判断是否是8点，这个开始时间，只会判断一次而已
+         */
+        Timer qTimer = new Timer();
+        qTimer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                System.out.println("每刻任务已执行");
+                RefreshRoomEmpty.fresh();
+                // TODO 写你的逻辑
+            }
+        }, defaultdate, 1 * 30 * 1000);// 定时每30秒
+        System.out.println("每刻定时发送Xml信息监听--已启动！");
+
 //        /**
 //         * ----------------每日任务 ----------------
 //         * 启动服务器后，若此时时间没过8点，等待。到了8点自动执行一次，24小时后（第二天8点）再执行一次，周而复始

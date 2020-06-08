@@ -54,38 +54,70 @@
                 </el-menu>
             </el-aside>
             <el-main height="700">
-                    <el-col :span="8" v-for="(room, index) in allRooms" :offset="index > 0 ? 2 : 0">
-                        <el-card :body-style="{ padding: '0px' }">
-                            <el-form label-width="100px" size="mini">
-                                <el-form-item label="房屋地址：">
-                                    {{room.Place}}
-                                </el-form-item>
-                                <el-form-item label="房屋类型：">
-                                    {{CapacityToString(room.Capacity)}}
-                                </el-form-item>
-                                <el-form-item label="租住方式：">
-                                    {{room.Time?"长租":"短租"}}
-                                </el-form-item>
-                                <el-form-item label="入住时间：">
-                                    {{allOrders[index].BeginDate}}
-                                </el-form-item>
-                                <el-form-item label="搬出时间：">
-                                    {{allOrders[index].EndDate}}
-                                </el-form-item>
-                                <el-form-item label="审核状态：">
-                                    {{(allOrders[index].Mode==2)?"等待审核":"已审核"}}
-                                </el-form-item>
-                                <el-form-item v-if="allOrders[index].Mode==3" label="付款情况：">
-                                    未付款
-                                    <el-button type="primary" @click="pay(allOrders[index])">付款</el-button>
-                                </el-form-item>
-                                <el-form-item v-if="allOrders[index].Mode==4" label="付款情况：">
-                                    已付款
-                                </el-form-item>
-                            </el-form>
-                            <img :src="'RoomPic/'+room.Rnum+'.jpg'" class="image">
-                        </el-card>
-                    </el-col>
+                <el-col :span="8" v-for="(room, index) in allRooms" :offset="index > 0 ? 2 : 0">
+                    <el-card :body-style="{ padding: '0px' }">
+                        <el-form label-width="100px" size="mini">
+                            <el-form-item label="房屋地址：">
+                                {{room.Place}}
+                            </el-form-item>
+                            <el-form-item label="房屋类型：">
+                                {{CapacityToString(room.Capacity)}}
+                            </el-form-item>
+                            <el-form-item label="租住方式：">
+                                {{allOrders[index].Time?"长租":"短租"}}
+                            </el-form-item>
+                            <el-form-item label="入住时间：">
+                                {{allOrders[index].BeginDate}}
+                            </el-form-item>
+                            <el-form-item label="搬出时间：">
+                                {{allOrders[index].EndDate}}
+                            </el-form-item>
+                            <el-form-item v-if="allOrders[index].Time" label="续约：">
+                                <el-button type="primary" @click="showRenew(allOrders[index])">续 约</el-button>
+                            </el-form-item>
+                            <el-form-item label="审核状态：">
+                                {{(allOrders[index].Mode==2)?"等待审核":"已审核"}}
+                            </el-form-item>
+                            <el-form-item v-if="allOrders[index].Mode==3" label="付款情况：">
+                                未付款
+                                <el-button type="primary" @click="showPay(allOrders[index])">付 款</el-button>
+                            </el-form-item>
+                            <el-form-item v-if="allOrders[index].Mode==4" label="付款情况：">
+                                已付款
+                            </el-form-item>
+
+                            <el-form-item v-if="allOrders[index].Time" label="下载合同：">
+                                <a :href="'/ModifyOrder?name='+allOrders[index].Onum">下载合同</a>
+                            </el-form-item>
+                        </el-form>
+                        <img :src="'RoomPic/'+room.Rnum+'.jpg'" class="image">
+                    </el-card>
+                </el-col>
+
+                <%--弹窗--%>
+                <el-dialog title="付款" :visible.sync="PayDialogVisible" :before-close="PayClose">
+                    <div style="width:100%;text-align:center">
+                        <el-form ref="form"  label-width="80px">
+                            <el-form-item label="付款金额">
+                                <el-input v-model="MoneyNeeded"></el-input>
+                            </el-form-item>
+                            <el-button type="primary" @click="pay">付 款</el-button>
+                        </el-form>
+                    </div>
+                </el-dialog>
+
+                <%--弹窗--%>
+                <el-dialog title="续租" :visible.sync="RenewDialogVisible" :before-close="Renewclose">
+                    <div style="width:100%;text-align:center">
+                        <el-form ref="form"  label-width="80px">
+                            <el-form-item label="续约时间">
+                                <el-input v-model="renewMonth"></el-input>
+                            </el-form-item>
+                            <el-button type="primary" @click="renew">续 约</el-button>
+                        </el-form>
+                    </div>
+                </el-dialog>
+
             </el-main>
         </el-container>
     </el-container>

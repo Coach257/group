@@ -94,6 +94,7 @@ let vue = new Vue({
         ModifyOrder(order){
             let formDate = new FormData()
             formDate.append('data',JSON.stringify(order))
+            console.log(JSON.stringify(order))
             axios.post('/ModifyOrder',formDate,{headers: {'Content-Type': 'multipart/form-data'}})
                 .then(function (response) {
                     successmessage("处理成功");

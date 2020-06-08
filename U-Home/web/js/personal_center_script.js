@@ -1,3 +1,20 @@
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
+}
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='personal_center.jsp';
+}
 let vue = new Vue({
     el: '#app',
     data() {
@@ -10,12 +27,11 @@ let vue = new Vue({
                     if(!reg.test(value)){
                         callback(new Error('邮箱不合法'));
                     }
-                    /*
                     for(let customer of vue.allCustomers){
                         if(customer.Cnum != vue.sizeForm.Cnum && customer.Email == vue.sizeForm.Email){
                             callback(new Error('邮箱已被使用'))
                         }
-                    }*/
+                    }
                 }
                 callback();
             }
@@ -29,12 +45,12 @@ let vue = new Vue({
                     if(!reg.test(value)){
                         callback(new Error('手机号不合法'));
                     }
-                    /*
+
                     for(let customer of vue.allCustomers){
                         if(customer.Cnum != vue.sizeForm.Cnum && customer.Phone == vue.sizeForm.Phone){
                             callback(new Error('手机号已被使用'))
                         }
-                    }*/
+                    }
                 }
                 callback();
             }
@@ -43,12 +59,20 @@ let vue = new Vue({
             if (value === '') {
                 callback(new Error('请输入用户名'));
             } else {
+                if (value !== '') {
+                    for(let customer of vue.allCustomers){
+                        if(customer.Cnum != vue.sizeForm.Cnum && customer.Name == vue.sizeForm.Name){
+                            callback(new Error('名字已被使用'))
+                        }
+                    }
+                }
                 callback();
             }
         };
         return{
             size:64,
             CurrentCustomer:{},
+            allCustomers:{},
             sizeForm: {
                 Cnum:'',
                 Name:'',
@@ -164,6 +188,15 @@ let vue = new Vue({
             })
             .catch(function (error) {
                 console.log(error);
+            });
+        axios.post('/AllCustomer',new FormData,{headers: {'Content-Type': 'multipart/form-data'}})
+            .then(function (response) {
+                vue.allCustomers = response.data;
+                console.log(vue.allCustomers);
+            })
+            .catch(function (error) {
+                errormessage("连接数据库失败，自动刷新");
+                setTimeout(refresh,2000);
             });
     }
 })
