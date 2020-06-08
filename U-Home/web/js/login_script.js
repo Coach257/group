@@ -18,6 +18,9 @@ function successmessage(data){
 function refresh(){
     window.location.href='login.jsp';
 }
+function linkto(){
+    window.location.href=vue.link;
+}
 let vue=new Vue({
     el:"#formsignin",
     data() {
@@ -99,11 +102,7 @@ let vue=new Vue({
                 ]
 
             },
-            loginForm:{
-                username:'',
-                radio:'customer',
-                password:'',
-            }
+
         };
     },
     methods: {
@@ -135,6 +134,23 @@ let vue=new Vue({
                 }
             });
         },
+
+
+    }
+})
+let vue2=new Vue({
+    el:"#formlogin",
+    data(){
+        return{
+            loginForm:{
+                username:'',
+                radio:'customer',
+                password:'',
+            },
+            link:''
+        }
+    },
+    methods:{
         loginsubmit(){
             let formData = new FormData();
             formData.append('username', this.loginForm.username);
@@ -149,7 +165,8 @@ let vue=new Vue({
                 .then(function (response) {
                     if (response.data.indexOf('.jsp')!=-1){
                         successmessage("登录成功");
-                        setTimeout(vue.linkto(response.data), 2000);
+                        vue.link=response.data;
+                        setTimeout(linkto, 2000);
                     }else {
                         errormessage(response.data);
                     }
@@ -158,8 +175,5 @@ let vue=new Vue({
                     errormessage("登录失败,请检查");
                 });
         },
-        linkto(location){
-            window.location.href=location;
-        }
     }
 })

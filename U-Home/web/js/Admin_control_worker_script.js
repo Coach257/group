@@ -115,10 +115,10 @@ let vue =new Vue({
         axios.post('/AllWorker',new FormData,config)
             .then(function (response) {
                 vue.allWorkers= response.data;
-                vue.showWorkers = vue.allWorkers;
                 for(let worker of vue.allWorkers){
                     worker.Score=parseFloat(worker.Score);
                 }
+                vue.showWorkers = vue.allWorkers;
                 console.log(vue.allWorkers);
                 console.log(vue.showWorkers);
             })
