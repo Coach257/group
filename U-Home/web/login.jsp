@@ -36,9 +36,9 @@
     }
 </script>
 <%@include file="Nav.jsp"%>
-  <div class="content" id="formsignin">
+  <div class="content">
       <el-form :model="loginForm" >
-        <div class="form sign-in">
+        <div class="form sign-in" id="formlogin">
             <h2>欢迎回来</h2>
             <labe>
                 <span>用户名</span>
@@ -76,7 +76,7 @@
                     <span class="m--in">登 录</span>
                 </div>
             </div>
-            <div class="form sign-up" >
+            <div class="form sign-up" id="formsignin">
                 <h2>立即注册</h2>
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" style="margin-top: 5px;" label-width="100px" class="demo-ruleForm">
                     <el-form-item label="用户名" prop="username">

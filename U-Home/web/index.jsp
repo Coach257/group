@@ -18,7 +18,6 @@
 
   <form class="Search_box" action="search.jsp" method="post">
     <div class="Search_main">
-      <input type="text" class="Search_input" placeholder="请输入小区/商圈/地铁站等..." />
       <input id="Search_submit" type="submit" :class="over==false? 'Search_submit_out':'Search_submit_over'"
              @mouseover="funover($event)" @mouseout="funout($event)"
              value="开始找房">
@@ -34,15 +33,10 @@
         <span class="icon-cont">
             <img src="images/p1.jpg" width="100%">
         </span>
-        <h3>合租·方恒东景2居室</h3>
+        <h3>合租·方恒东景1居室</h3>
         <ul>
-            <li>11.1㎡ | 5/29层</li>
             <li>海淀，距离地铁站100m</li>
-            <li style="color: orange;font-size: 30px">3390 ￥/月</li>
-            <li style="margin-top:50px; text-align:center;width:100%;">
-              <a href="#">我要长租</a>
-              <a href="#">我要短租</a>
-            </li>
+            <li style="color: orange;font-size: 30px">3390 /月</li>
         </ul>
     </div>
     <div class="box">
@@ -52,13 +46,8 @@
         <h3>合租·方恒东景2居室</h3>
         <br><br>
         <ul>
-            <li>11.1㎡ | 5/29层</li>
             <li>海淀，距离地铁站100m</li>
-            <li style="color: orange;font-size: 30px">3390 ￥/月</li>
-            <li style="margin-top:50px; text-align:center;width:100%;">
-              <a href="#">我要长租</a>
-              <a href="#">我要短租</a>
-            </li>
+            <li style="color: orange;font-size: 30px">4490 /月</li>
         </ul>
         <br><br>
     </div>
@@ -66,16 +55,11 @@
         <span class="icon-cont">
             <img src="images/p3.jpg" width="100%">
         </span>
-        <h3>合租·方恒东景2居室</h3>
+        <h3>合租·方恒东景3居室</h3>
         <br><br>
         <ul>
-            <li>11.1㎡ | 5/29层</li>
             <li>海淀，距离地铁站100m</li>
-            <li style="color: orange;font-size: 30px">3390 ￥/月</li>
-            <li style="margin-top:50px; text-align:center;width:100%;">
-              <a href="#">我要长租</a>
-              <a href="#">我要短租</a>
-            </li>
+            <li style="color: orange;font-size: 30px">5750 ￥/月</li>
         </ul>
         <br><br>
     </div>
