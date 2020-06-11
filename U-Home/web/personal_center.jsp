@@ -62,7 +62,8 @@
             <el-main>
                 <el-form ref="CurrentCustomer" :model="CurrentCustomer" label-width="80px" size="mini">
                     <el-form-item label="头像：">
-                        <el-avatar shape="square" :size="size" :src="avatarPath"></el-avatar>
+                        <el-avatar shape="square" :size="size" :src="avatarPath"
+                                   :preview-src-list="[avatarPath]"></el-avatar>
                     </el-form-item>
                     <el-form-item label="用户名：">
                         {{CurrentCustomer.Name}}
@@ -76,10 +77,16 @@
                     <el-form-item size="large">
                         <el-button type="primary" @click="ModifyCustomer">修改资料</el-button>
                     </el-form-item>
-                    <el-dialog title="修改资料" :visible.sync="centerDialogVisible" width="30%" center>
+                    <el-form-item size="large">
+                        <el-button type="primary" @click="ModifyCode">修改密码</el-button>
+                    </el-form-item>
+                </el-form>
+
+                    <el-dialog title="修改资料" :visible.sync="centerDialogVisible" width="30%" center :before-close="handleClose">
                         <el-form ref="sizeForm" :model="sizeForm" :rules="rules" label-width="80px" size="mini">
                             <el-form-item label="头像：">
-                                <el-avatar shape="square" :size="size" :src="squareUrl"></el-avatar>
+                                <el-avatar shape="square" :size="size" :src="avatarPath"
+                                           :preview-src-list="[avatarPath]"></el-avatar>
                             </el-form-item>
                                 <el-upload
                                         class="upload-demo"
@@ -103,12 +110,28 @@
                             </el-form-item>
                         </el-form>
                         <span slot="footer" class="dialog-footer">
-                        <el-button @click="centerDialogVisible = false">取 消</el-button>
+                        <el-button @click="handleClose">取 消</el-button>
                         <el-button type="submit" @click="submitForm('sizeForm')">保 存</el-button>
                       </span>
                     </el-dialog>
+                <el-dialog title="修改密码" :visible.sync="codeDialogVisible" width="40%" center :before-close="handlecodeClose">
+                    <el-form ref="codeForm" :model="codeForm" :rules="rules2" label-width="80px" size="mini">
+                        <el-form-item label="原密码" prop="ocode" >
+                            <el-input type="password" v-model="codeForm.ocode"></el-input>
+                        </el-form-item>
+                        <el-form-item label="新密码" prop="code" show-password>
+                            <el-input type="password" v-model="codeForm.code"></el-input>
+                        </el-form-item>
+                        <el-form-item label="确认" prop="checkcode" show-password>
+                            <el-input type="password" v-model="codeForm.checkcode"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="handlecodeClose">取 消</el-button>
+                        <el-button type="submit" @click="submitcodeForm('codeForm')">保 存</el-button>
+                      </span>
+                </el-dialog>
 
-                </el-form>
             </el-main>
         </el-container>
     </el-container>

@@ -69,6 +69,34 @@ let vue = new Vue({
                 callback();
             }
         };
+        var validatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入密码'));
+            } else {
+                if (this.codeForm.code !== '') {
+                    this.$refs.codeForm.validateField('checkPass');
+                }
+                callback();
+            }
+        };
+        var validatePass2 = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请再次输入密码'));
+            } else if (value !== this.codeForm.code) {
+                callback(new Error('两次输入密码不一致!'));
+            } else {
+                callback();
+            }
+        };
+        var validatePass3 = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入原密码'));
+            } else if (value !== this.CurrentCustomer.Code) {
+                callback(new Error('密码错误!'));
+            } else {
+                callback();
+            }
+        };
         return{
             size:64,
             CurrentCustomer:{},
@@ -80,6 +108,11 @@ let vue = new Vue({
                 Phone:'',
                 Code:'',
             },
+            codeForm:{
+                code: '',
+                checkcode:'',
+                ocode:''
+            },
             avatarPath:"",
             addForm:{
                 File:"",
@@ -89,6 +122,7 @@ let vue = new Vue({
             },
             squareUrl: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
             centerDialogVisible: false,
+            codeDialogVisible:false,
             rules: {
                 Name: [
                     { validator: validateUserName,trigger: 'blur' }
@@ -98,21 +132,45 @@ let vue = new Vue({
                 ],
                 Phone: [
                     {validator:validateMobilePhone,trigger:'blur'}
+                ],
+            },
+            rules2:{
+                code:[
+                    {validator:validatePass,trigger:'blur'}
+                ],
+                checkcode:[
+                    {validator:validatePass2,trigger:'blur'}
+                ],
+                ocode:[
+                    {validator:validatePass3,trigger:'blur'}
                 ]
-            }
+            },
         }
     },
     methods: {
         ModifyCustomer(){
-            this.centerDialogVisible = true
-            this.sizeForm = this.CurrentCustomer;
+            this.centerDialogVisible = true;
+            this.sizeForm.Code = this.CurrentCustomer.Code;
+            this.sizeForm.Phone=this.CurrentCustomer.Phone;
+            this.sizeForm.Email=this.CurrentCustomer.Email;
+            this.sizeForm.Cnum=this.CurrentCustomer.Cnum;
+            this.sizeForm.Name=this.CurrentCustomer.Name;
         },
-        test(){
-            console.log("test");
-            console.log(this.CurrentCustomer)
+        ModifyCode(){
+            this.codeDialogVisible=true;
         },
-        onSubmit() {
-            console.log('submit!');
+        closeForm(forname){
+            if (this.$refs[forname]!==undefined) {
+                this.$refs[forname].resetFields();
+            }
+        },
+        handleClose(){
+            this.closeForm('sizeForm');
+            this.centerDialogVisible=false;
+        },
+        handlecodeClose(){
+            this.closeForm('codeForm');
+            this.codeDialogVisible=false;
         },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
@@ -120,42 +178,65 @@ let vue = new Vue({
                     //修改基本信息
                     let formData = new FormData();
                     console.log(this.sizeForm)
-                    formData.append('data',JSON.stringify(this.sizeForm))
+                    formData.append('data', JSON.stringify(this.sizeForm))
                     let config = {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     };
-                    axios.post('/ModifyCustomer',formData,config)
+                    axios.post('/ModifyCustomer', formData, config)
                         .then(function (response) {
-                            vue.modifyDialogVisible = false;
+                            successmessage("修改成功");
                             console.log(response)
                             this.CurrentCustomer = this.sizeForm
+                            vue.centerDialogVisible = false;
                         })
                         .catch(function (error) {
-                            console.log(error);
+                            errormessage("修改失败，请检查");
                         });
                     //上传头像
-                    if(this.addForm.File) {
+                    if (this.addForm.File) {
                         formData = new FormData();
                         formData.append('File', this.addForm.File);
                         axios.post('/ModifyAvator', formData, config)
                             .then(function (response) {
-                                vue.modifyDialogVisible = false;
+                                successmessage("头像上传成功");
                                 console.log(response)
-                                vue.CurrentCustomer = vue.sizeForm
+                                setTimeout(refresh,5000);
                             })
                             .catch(function (error) {
-                                console.log(error);
+                                errormessage("头像上传失败，请检查");
                             });
                     }
-                } else {
-                    console.log('error submit!!');
-                    return false;
                 }
-            });
-            this.centerDialogVisible = false;
-            console.log(formName);
+            })
+        },
+        submitcodeForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    let formData = new FormData();
+                    this.sizeForm.Code=this.codeForm.code;
+                    this.sizeForm.Phone=this.CurrentCustomer.Phone;
+                    this.sizeForm.Email=this.CurrentCustomer.Email;
+                    this.sizeForm.Cnum=this.CurrentCustomer.Cnum;
+                    this.sizeForm.Name=this.CurrentCustomer.Name;
+                    console.log(this.sizeForm);
+                    formData.append('data', JSON.stringify(this.sizeForm))
+                    let config = {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    };
+                    axios.post('/ModifyCustomer', formData, config)
+                        .then(function (response) {
+                            successmessage("修改成功");
+                            setTimeout(refresh,2000);
+                        })
+                        .catch(function (error) {
+                            errormessage("修改失败，请检查");
+                        });
+                }
+            })
         },
         quit(){
             axios.post('/logout', {
