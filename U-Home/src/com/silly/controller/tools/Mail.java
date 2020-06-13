@@ -1,19 +1,35 @@
 package com.silly.controller.tools;
 
+import com.silly.entity.Customer;
+import com.silly.service.impl.AdminServiceImpl;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Properties;
 
 public class Mail extends Thread {
 
 
+    public static void sendMial() {
+        List<Customer> list = new AdminServiceImpl().AllCustomer();
+        for(Customer c : list){
+            String msg = "尊敬的用户，您好：<br/>" +
+                    "这里是优家，有你就有家青年租房管理系统，系统监测到您有订单本月需要支付租金，请您尽快点击下方链接进行支付<br/>" +
+                    "<a href=\"http://39.101.200.9:8080/\">点击跳转</a><br/>" +
+                    "感谢您的配合<br/>" +
+                    "（系统邮件，不需要回复）<br/>";
+            String sub = "优家，有你就有家";
+            sendMail(c.getEmail(),msg,sub);
+        }
+    }
 
     /**
      * 示例：sendMail("shizhelun20000820@126.com","友情提醒：您的各种大作业要写不完了","U-home");
      * sendMail("1029247665@qq.com","皇家赌场邀请您","U-home");
      */
-    public static boolean sendMail(String to, String emailMsg,String subject) {
+    private static boolean sendMail(String to, String emailMsg,String subject) {
         try {
 
             String emailUser = "1029247665@qq.com";

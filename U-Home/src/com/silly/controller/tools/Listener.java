@@ -9,7 +9,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 
-public class SendMail implements ServletContextListener {
+public class Listener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
@@ -39,30 +39,25 @@ public class SendMail implements ServletContextListener {
 
             @Override
             public void run() {
-                System.out.println("每刻任务已执行");
-                RefreshRoomEmpty.fresh();
-            }
-        }, defaultdate, 1 * 30 * 1000);// 定时每30秒
-        System.out.println("每刻定时发送Xml信息监听--已启动！");
-        Timer mTimer = new Timer();
-        mTimer.schedule(new TimerTask() {
 
-            @Override
-            public void run() {
+                RefreshRoomEmpty.fresh();//刷新房间信息
+
                 Calendar c = Calendar.getInstance();
                 int day = c.get(Calendar.DAY_OF_MONTH);
-                System.out.println("月任务 判断中");
+
+                day += 17;
+
                 if (day == c.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-                    // 每天执行，若为每月1号才执行
                     System.out.println("月任务执行已执行");
+                    Mail.sendMial();
                 }
 
+
             }
-        }, sendDate, 24 * 60 * 60 * 1000);// 每天执行一次检查
+        }, defaultdate, 24 * 60 * 60 * 1000);// 每天执行一次检查
 
-
-        System.out.println("每月定时发送Xml信息监听--已启动！");
 
     }
+
 
 }
