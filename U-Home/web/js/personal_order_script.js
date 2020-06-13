@@ -14,7 +14,7 @@ function successmessage(data){
     });
 }
 function refresh(){
-    window.location.href='personal_order_script.jsp';
+    window.location.href='personal_order.jsp';
 }
 let vue = new Vue({
     el: '#app',
@@ -41,11 +41,18 @@ let vue = new Vue({
             let renewMonth = this.renewMonth
             let order = this.renewOrder
 
+            var reg=/^[1-9]\d*$/;
+            if(!reg.test(renewMonth)){
+                errormessage("请输入一个正整数");
+                return
+            }
+
             let formDate = new FormData()
             formDate.append('data',JSON.stringify(order))
             formDate.append('month',this.renewMonth)
 
             console.log(JSON.stringify(order))
+
 
             axios.post('/RenewOrder',formDate,{headers: {'Content-Type': 'multipart/form-data'}})
                 .then(function (response) {
