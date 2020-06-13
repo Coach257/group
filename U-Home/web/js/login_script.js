@@ -144,7 +144,7 @@ let vue2=new Vue({
         return{
             loginForm:{
                 username:'',
-                radio:'customer',
+                radio:'lodger',
                 password:'',
             },
             link:''

@@ -88,7 +88,7 @@
                 </el-table-column>
             </el-table>
 
-            <el-dialog title="x租" :visible.sync="RentVisible">
+            <el-dialog title="选择时间" :visible.sync="RentVisible">
                 <div style="width:100%;text-align:center">
                     <el-form :model="form" ref="form" :inline="true"  class="center" >
                         <el-form-item label="开始时间" prop="startTime" >

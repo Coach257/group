@@ -15,14 +15,8 @@
     <span class="bigtitle">青年租房选优家</span><br>
     <span class="smalltitle">百万中国青年租房第一选择</span>
   </div>
+    <%=search%>
 
-  <form class="Search_box" action="search.jsp" method="post">
-    <div class="Search_main">
-      <input id="Search_submit" type="submit" :class="over==false? 'Search_submit_out':'Search_submit_over'"
-             @mouseover="funover($event)" @mouseout="funout($event)"
-             value="开始找房">
-    </div>
-  </form>
 
 </header>
 <section id="main_body">

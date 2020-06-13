@@ -14,7 +14,6 @@ public class JDBCtools {
     static {
         dataSource = new ComboPooledDataSource("testc3p0");
     }
-
     public static Connection getConnection(){
         Connection connection = null;
         try {
@@ -24,7 +23,6 @@ public class JDBCtools {
         }
         return connection;
     }
-
     public static void release(Connection connection, Statement statement, ResultSet resultSet){
         try {
             if(connection != null){
