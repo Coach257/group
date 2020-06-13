@@ -72,22 +72,27 @@
                             <el-form-item label="搬出时间：">
                                 {{allOrders[index].EndDate}}
                             </el-form-item>
-                            <el-form-item v-if="allOrders[index].Time" label="续约：">
-                                <el-button type="primary" @click="showRenew(allOrders[index])">续 约</el-button>
-                            </el-form-item>
-                            <el-form-item label="审核状态：">
-                                {{(allOrders[index].Mode==2)?"等待审核":"已审核"}}
-                            </el-form-item>
-                            <el-form-item v-if="allOrders[index].Mode==3" label="付款情况：">
-                                未付款
-                                <el-button type="primary" @click="showPay(allOrders[index])">付 款</el-button>
-                            </el-form-item>
-                            <el-form-item v-if="allOrders[index].Mode==4" label="付款情况：">
-                                已付款
-                            </el-form-item>
+                            <div v-if="allOrders[index].Time != 7">
+                                <el-form-item v-if="allOrders[index].Time" label="续约：">
+                                    <el-button type="primary" @click="showRenew(allOrders[index])">续 约</el-button>
+                                </el-form-item>
+                                <el-form-item label="审核状态：">
+                                    {{(allOrders[index].Mode==2)?"等待审核":"已审核"}}
+                                </el-form-item>
+                                <el-form-item v-if="allOrders[index].Mode==3" label="付款情况：">
+                                    未付款
+                                    <el-button type="primary" @click="showPay(allOrders[index])">付 款</el-button>
+                                </el-form-item>
+                                <el-form-item v-if="allOrders[index].Mode==4" label="付款情况：">
+                                    已付款
+                                </el-form-item>
 
-                            <el-form-item v-if="allOrders[index].Time" label="下载合同：">
-                                <a :href="'/ModifyOrder?name='+allOrders[index].Onum">下载合同</a>
+                                <el-form-item v-if="allOrders[index].Time" label="下载合同：">
+                                    <a :href="'/ModifyOrder?name='+allOrders[index].Onum">下载合同</a>
+                                </el-form-item>
+                            </div>
+                            <el-form-item v-if="allOrders[index].Time == 7" label="订单状态">
+                                已结束
                             </el-form-item>
                         </el-form>
                         <img :src="'RoomPic/'+room.Rnum+'.jpg'" class="image">
