@@ -165,4 +165,14 @@ public class AdminServiceImpl implements AdminService {
     public Fix GetFixByFnum(int Fnum) {
         return adminRepository.getfixbyfnum(Fnum);
     }
+
+    @Override
+    public void SetOrderEnd(Order a) {
+        rentRepository.DeleteOrder(a);
+    }
+
+    @Override
+    public List<Order> GetAllToPay() {
+        return rentRepository.GetAllToPay();
+    }
 }

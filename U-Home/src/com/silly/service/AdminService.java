@@ -34,5 +34,6 @@ public interface AdminService {
     public List<Customer> InformList();
     public List<Fix> WorkerFix(Worker worker);
     public Fix GetFixByFnum(int Fnum);
-
+    public void SetOrderEnd(Order a);
+    public List<Order> GetAllToPay();
 }

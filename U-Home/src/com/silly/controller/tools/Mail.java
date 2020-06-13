@@ -1,7 +1,12 @@
 package com.silly.controller.tools;
 
+import com.silly.entity.Admin;
 import com.silly.entity.Customer;
+import com.silly.entity.Order;
+import com.silly.service.AdminService;
+import com.silly.service.SignLoginService;
 import com.silly.service.impl.AdminServiceImpl;
+import com.silly.service.impl.SignLoginServiceImpl;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -13,8 +18,11 @@ public class Mail extends Thread {
 
 
     public static void sendMial() {
-        List<Customer> list = new AdminServiceImpl().AllCustomer();
-        for(Customer c : list){
+        AdminService adminService=new AdminServiceImpl();
+        List<Order> list = adminService.GetAllToPay();
+        Customer c;
+        for(Order o : list){
+            c=adminService.FindByCnum(o.getCnum());
             String msg = "尊敬的用户，您好：<br/>" +
                     "这里是优家，有你就有家青年租房管理系统，系统监测到您有订单本月需要支付租金，请您尽快点击下方链接进行支付<br/>" +
                     "<a href=\"http://39.101.200.9:8080/\">点击跳转</a><br/>" +
@@ -22,6 +30,8 @@ public class Mail extends Thread {
                     "（系统邮件，不需要回复）<br/>";
             String sub = "优家，有你就有家";
             sendMail(c.getEmail(),msg,sub);
+            o.setMode(3);
+            adminService.ChangeOrder(o);
         }
     }
 
