@@ -29,7 +29,11 @@ public class PayOrder extends HttpServlet {
         Customer customer= (Customer) session.getAttribute("customer");
 
         Order order = JSON.parseObject(impfileMap.get("Order").toString(),Order.class);
-        order.setMode(4);
+        if(order.isTime()){
+            order.setMode(6);
+        }else {
+            order.setMode(4);
+        }
 
         AdminService adminService = new AdminServiceImpl();
         adminService.ChangeOrder(order);

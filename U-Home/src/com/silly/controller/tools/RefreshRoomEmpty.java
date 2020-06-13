@@ -18,6 +18,12 @@ public class RefreshRoomEmpty {
         System.out.println("更新房源信息");
         Date d = new Date();
         System.out.println(d);
+        for(Order order : orders){
+            if(order.getEndDate().compareTo(d) < 0){
+                order.setMode(7);
+                adminService.ChangeOrder(order);
+            }
+        }
 
         for(Room room : rooms){
             int EmptyOrNot = 0;
@@ -29,6 +35,7 @@ public class RefreshRoomEmpty {
                 }
             }
             room.setEmptyOrNot(EmptyOrNot);
+            adminService.ChangeRoom(room);
         }
     }
 }
