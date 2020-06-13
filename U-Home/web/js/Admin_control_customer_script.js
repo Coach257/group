@@ -58,6 +58,11 @@ let vue = new Vue({
             if (value === '') {
                 callback(new Error('请输入用户名'));
             } else {
+                for(let customer of vue.allCustomers){
+                    if(customer.Cnum != vue.addForm.Cnum && customer.Name == vue.addForm.Name){
+                        callback(new Error('用户名已被使用'))
+                    }
+                }
                 callback();
             }
         };
