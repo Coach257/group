@@ -57,6 +57,9 @@
                 <el-col :span="8" v-for="(room, index) in allRooms" :offset="index > 0 ? 2 : 0">
                     <el-card :body-style="{ padding: '0px' }">
                         <el-form label-width="100px" size="mini">
+                            <el-form-item label="房屋名称：">
+                                {{room.RName}}
+                            </el-form-item>
                             <el-form-item label="房屋地址：">
                                 {{room.Place}}
                             </el-form-item>
