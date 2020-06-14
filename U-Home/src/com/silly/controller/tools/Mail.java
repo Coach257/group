@@ -7,10 +7,12 @@ import com.silly.service.AdminService;
 import com.silly.service.SignLoginService;
 import com.silly.service.impl.AdminServiceImpl;
 import com.silly.service.impl.SignLoginServiceImpl;
+import com.sun.mail.util.MailSSLSocketFactory;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Properties;
 
@@ -47,10 +49,15 @@ public class Mail extends Thread {
             String emailHost = "smtp.qq.com";
             String emailAuth = "true";
             String emailProtocol = "smtp";
-            int emailPort = 25;
+            int emailPort = 465;
 
             //获取系统环境信息
             Properties props = System.getProperties();
+            //开启SSL加密
+            MailSSLSocketFactory sf = new MailSSLSocketFactory();
+            sf.setTrustAllHosts(true);
+            props.put("mail.smtp.ssl.enable", "true");
+            props.put("mail.smtp.ssl.socketFactory", sf);
             //设置邮件服务器
             props.setProperty("mail.smtp.host", emailHost);
             //设置密码认证
@@ -83,7 +90,7 @@ public class Mail extends Thread {
             transport.close();
             return true;
         }
-        catch (MessagingException e) {
+        catch (MessagingException | GeneralSecurityException e) {
             e.printStackTrace();
             return false;
         }

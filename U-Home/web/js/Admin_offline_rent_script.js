@@ -1,3 +1,20 @@
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
+}
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='Admin_offline_rent.jsp';
+}
 let vue = new Vue({
     el: '#app',
     data(){
@@ -41,12 +58,12 @@ let vue = new Vue({
 
             axios.post('/NewOrder',formData,config)
                 .then(function (response) {
-                    alert('提交成功');
-                    window.location.href='Admin_offline_rent.jsp';
+                    successmessage("租房成功");
+                    setTimeout(refresh,2000);
                 })
                 .catch(function (error) {
-                    alert('未知错误')
-                    console.log(error);
+                    errormessage("连接断开，自动刷新");
+                    setTimeout(refresh,2000);
                 });
 
         },

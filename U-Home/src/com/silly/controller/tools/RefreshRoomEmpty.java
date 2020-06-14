@@ -29,7 +29,6 @@ public class RefreshRoomEmpty {
             int EmptyOrNot = 0;
             for(Order order : orders){
                 if(order.getRnum() == room.getRnum()
-                    && order.getBeginDate().compareTo(d) < 0
                     && order.getEndDate().compareTo(d) > 0){
                         EmptyOrNot++;
                 }

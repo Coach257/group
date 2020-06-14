@@ -52,7 +52,7 @@ public class Listener implements ServletContextListener {
                 if (day == 1) {//月初
                     refreshOrder();
                 }
-                day += 17;
+                day += 7;
 
                 if (day >= c.getActualMaximum(Calendar.DAY_OF_MONTH)) {//月末
                     System.out.println("月任务执行已执行");

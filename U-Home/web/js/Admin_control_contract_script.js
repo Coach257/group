@@ -96,7 +96,7 @@ let vue = new Vue({
             .then(function (response) {
                 vue.allOrders= response.data;
                 console.log(vue.allOrders);
-                vue.showOrders = vue.allOrders.filter((o)=>(o.Mode === 4 && o.Time===true));
+                vue.showOrders = vue.allOrders.filter((o)=>(o.Time===true));
                 console.log(vue.showOrders);
             })
             .catch(function (error) {

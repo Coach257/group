@@ -53,12 +53,12 @@
                     </el-menu-item>
                 </el-menu>
             </el-aside>
-            <el-main height="700">
+            <el-main height="100%">
                 <el-col :span="8" v-for="(room, index) in allRooms" :offset="index > 0 ? 2 : 0">
                     <el-card :body-style="{ padding: '0px' }">
                         <el-form label-width="100px" size="mini">
                             <el-form-item label="房屋名称：">
-                                {{room.RName}}
+                                {{room.Rname}}
                             </el-form-item>
                             <el-form-item label="房屋地址：">
                                 {{room.Place}}
@@ -76,7 +76,7 @@
                                 {{allOrders[index].EndDate}}
                             </el-form-item>
                             <div v-if="allOrders[index].Time != 7">
-                                <el-form-item v-if="allOrders[index].Time" label="续约：">
+                                <el-form-item v-if="allOrders[index].Time&&(allOrders[index].Mode!=2)" label="续约：">
                                     <el-button type="primary" @click="showRenew(allOrders[index])">续 约</el-button>
                                 </el-form-item>
                                 <el-form-item label="审核状态：">
@@ -90,7 +90,7 @@
                                     已付款
                                 </el-form-item>
 
-                                <el-form-item v-if="allOrders[index].Time" label="下载合同：">
+                                <el-form-item v-if="allOrders[index].Time&&(allOrders[index].Mode!=2)" label="下载合同：">
                                     <a :href="'/ModifyOrder?name='+allOrders[index].Onum">下载合同</a>
                                 </el-form-item>
                             </div>
@@ -118,7 +118,7 @@
                 <el-dialog title="续租" :visible.sync="RenewDialogVisible" :before-close="Renewclose">
                     <div style="width:100%;text-align:center">
                         <el-form ref="form"  label-width="80px">
-                            <el-form-item label="续约时间">
+                            <el-form-item label="续约月数">
                                 <el-input v-model="renewMonth"></el-input>
                             </el-form-item>
                             <el-button type="primary" @click="renew">续 约</el-button>

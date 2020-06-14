@@ -1,3 +1,21 @@
+
+function errormessage(data){
+    vue.$notify({
+        title: '错误',
+        message: data,
+        type:'error'
+    });
+}
+function successmessage(data){
+    vue.$notify({
+        title: '成功',
+        message: data,
+        type: 'success'
+    });
+}
+function refresh(){
+    window.location.href='search.jsp';
+}
 let vue = new Vue({
     el: '#app',
     data() {
@@ -78,9 +96,12 @@ let vue = new Vue({
 
             axios.post('/RentRoom',formData,config)
                 .then(function (response) {
+                    successmessage("租房成功");
+                    setTimeout(refresh,2000);
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    errormessage("操作超时，将自动刷新");
+                    setTimeout(refresh,2000);
                 });
         },
         beginDate(){
