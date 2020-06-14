@@ -54,7 +54,7 @@ public class Listener implements ServletContextListener {
                 }
                 day += 17;
 
-                if (day == c.getActualMaximum(Calendar.DAY_OF_MONTH)) {//月末
+                if (day >= c.getActualMaximum(Calendar.DAY_OF_MONTH)) {//月末
                     System.out.println("月任务执行已执行");
                     Mail.sendMial();
                 }
